@@ -1,0 +1,46 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.page-header p {
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.primary-btn {
+  background: #065f46;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;     /* remove underline */
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;     /* prevent size jump */
+  align-items: center;
+  justify-content: center;
+  line-height: 1;           /* remove anchor line-height weirdness */
+  border: none;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background: #047857;
+  text-decoration: none;   /* keep underline away on hover */
+}
+
+.primary-btn:visited {
+  color: white;            /* prevent purple visited link */
+}
+
+.primary-btn:active {
+  transform: scale(0.98);  /* nice click effect */
+}

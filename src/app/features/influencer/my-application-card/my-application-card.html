@@ -1,0 +1,27 @@
+<div class="app-card">
+
+  <div class="app-header">
+    <h3>{{ title }}</h3>
+
+    <span
+      class="status-badge"
+      [ngClass]="{
+        pending: status === 'Pending',
+        accepted: status === 'Accepted',
+        rejected: status === 'Rejected'
+      }"
+    >
+      {{ status }}
+    </span>
+  </div>
+
+  <p class="brand">Brand: {{ brand }}</p>
+
+  <div class="message-block">
+    <p class="label">Your Message</p>
+    <p class="message">{{ message }}</p>
+  </div>
+
+  <p class="date">Applied on: {{ date }}</p>
+
+</div>

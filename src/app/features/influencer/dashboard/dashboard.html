@@ -1,0 +1,38 @@
+<div class="dashboard-header">
+  <h1>Dashboard</h1>
+  <p>Track your campaign applications</p>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+  <app-stat-card label="Total Applications" [value]="1"></app-stat-card>
+  <app-stat-card label="Pending" [value]="0"></app-stat-card>
+  <app-stat-card label="Accepted" [value]="1"></app-stat-card>
+  <app-stat-card label="Rejected" [value]="0"></app-stat-card>
+</div>
+
+<!-- Accepted Campaigns -->
+<div class="section">
+  <h2>Accepted Campaigns</h2>
+
+  <ng-container *ngIf="acceptedCampaigns.length > 0; else noAccepted">
+    <div class="campaign-list">
+      <app-campaign-card
+        *ngFor="let c of acceptedCampaigns"
+        [title]="c.title"
+        [brand]="c.brand"
+        [niche]="c.niche"
+        [budget]="c.budget"
+        status="Accepted">
+      </app-campaign-card>
+    </div>
+  </ng-container>
+
+  <ng-template #noAccepted>
+    <app-empty-state
+      title="No accepted campaigns yet"
+      description="Keep applying to campaigns to build partnerships">
+    </app-empty-state>
+  </ng-template>
+</div>
+

@@ -1,0 +1,59 @@
+<div style="width: 360px">
+
+  <h2>Welcome Back</h2>
+  <p style="color: gray; margin-bottom: 24px">
+    Login to your account
+  </p>
+
+  <form #loginForm="ngForm" (ngSubmit)="login()">
+
+    <!-- Email -->
+    <div style="margin-bottom: 16px">
+      <label>Email</label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        required
+        email
+        #emailRef="ngModel"
+      />
+
+      <small style="color: red" *ngIf="emailRef.touched && emailRef.invalid">
+        Enter a valid email address
+      </small>
+    </div>
+
+    <!-- Password -->
+    <div style="margin-bottom: 24px">
+      <label>Password</label>
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        required
+        #passwordRef="ngModel"
+      />
+
+      <small style="color: red" *ngIf="passwordRef.touched && passwordRef.invalid">
+        Password is required
+      </small>
+    </div>
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      [disabled]="loginForm.invalid"
+      style="width: 100%; padding: 10px; background: #0f5132; color: white"
+    >
+      Login
+    </button>
+
+  </form>
+
+  <p style="margin-top: 16px; text-align: center">
+    Don’t have an account?
+    <a routerLink="/auth/register">Sign up</a>
+  </p>
+
+</div>

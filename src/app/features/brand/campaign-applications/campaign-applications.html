@@ -1,0 +1,59 @@
+<h1>Campaign Applications</h1>
+<p style="color: gray">
+  Review influencer applications for this campaign
+</p>
+
+<div style="margin-top: 24px">
+
+  <div class="applications-wrapper">
+
+  <ng-container *ngIf="filteredApplications.length > 0; else noApplications">
+
+    <div *ngFor="let app of filteredApplications" class="application-card">
+
+      <div class="app-header">
+        <h3>{{ app.name }}</h3>
+
+        <span
+          class="status-badge"
+          [ngClass]="{
+            pending: app.status === 'PENDING',
+            accepted: app.status === 'ACCEPTED',
+            rejected: app.status === 'REJECTED'
+          }"
+        >
+          {{ app.status }}
+        </span>
+      </div>
+
+      <p class="meta">Niche: {{ app.niche }}</p>
+      <p class="meta">Platform: {{ app.platform }}</p>
+
+      <div class="actions" *ngIf="app.status === 'PENDING'">
+        <button class="accept" (click)="accept(app)">Accept</button>
+        <button class="reject" (click)="reject(app)">Reject</button>
+      </div>
+
+    </div>
+
+  </ng-container>
+
+  <ng-template #noApplications>
+    <app-empty-state
+      title="No Applications Yet"
+      description="Influencers have not applied to this campaign yet">
+    </app-empty-state>
+  </ng-template>
+
+</div>
+
+
+<ng-template #noApplications>
+  <app-empty-state
+    title="No Applications Yet"
+    description="Influencers have not applied to this campaign yet">
+  </app-empty-state>
+</ng-template>
+
+
+</div>

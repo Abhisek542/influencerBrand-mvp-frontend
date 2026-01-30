@@ -1,0 +1,49 @@
+<div class="dashboard-container">
+
+  <!-- Header -->
+  <div class="dashboard-header">
+    <h1>Dashboard</h1>
+    <p>Manage your campaigns and track applications</p>
+  </div>
+
+  <!-- Stats grid -->
+  <div class="stats-grid">
+
+    <app-stat-card
+      label="Total Campaigns"
+      [value]="0"
+      icon="📦">
+    </app-stat-card>
+
+    <app-stat-card
+      label="Active Campaigns"
+      [value]="0"
+      icon="⏱">
+    </app-stat-card>
+
+    <app-stat-card
+      label="Total Budget"
+      value="$0"
+      icon="💰">
+    </app-stat-card>
+
+    <app-stat-card
+      label="Total Applications"
+      [value]="0"
+      icon="📄">
+    </app-stat-card>
+
+  </div>
+
+  <!-- Applications section -->
+  <div class="applications-section">
+    <h2>Applications</h2>
+
+    <app-empty-state
+      title="No Applications Yet"
+      description="Applications from influencers will appear here">
+    </app-empty-state>
+
+  </div>
+
+</div>

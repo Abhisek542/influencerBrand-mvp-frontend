@@ -1,0 +1,74 @@
+.page {
+  max-width: 700px;
+  padding: 40px;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.form-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 16px;
+  display: block;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.row > div {
+  flex: 1;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.primary {
+  background: #065f46;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.primary:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.secondary {
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}

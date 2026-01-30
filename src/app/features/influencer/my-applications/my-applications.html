@@ -1,0 +1,26 @@
+<h1>My Applications</h1>
+<p class="subtitle">Track the status of your campaign applications</p>
+
+<ng-container *ngIf="applications.length > 0; else noApplications">
+
+  <div class="campaign-grid">
+
+    <app-my-application-card
+      *ngFor="let app of applications"
+      [title]="app.title"
+      [brand]="app.brand"
+      [status]="app.status"
+      [message]="'Working'"
+      [date]="'01/01/2026'">
+    </app-my-application-card>
+
+  </div>
+
+</ng-container>
+
+<ng-template #noApplications>
+  <app-empty-state
+    title="No Applications"
+    description="You haven’t applied to any campaigns yet">
+  </app-empty-state>
+</ng-template>

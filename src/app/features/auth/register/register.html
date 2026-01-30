@@ -1,0 +1,96 @@
+<div style="width: 360px">
+
+  <h2>Create Account</h2>
+  <p style="color: gray; margin-bottom: 24px">
+    Join the marketplace today
+  </p>
+
+  <form #registerForm="ngForm" (ngSubmit)="submit()">
+
+    <!-- Username -->
+    <div style="margin-bottom: 16px">
+      <label>Username</label>
+      <input
+        type="text"
+        name="username"
+        [(ngModel)]="username"
+        required
+        minlength="3"
+        #usernameRef="ngModel"
+      />
+
+      <small style="color: red" *ngIf="usernameRef.touched && usernameRef.invalid">
+        Username must be at least 3 characters
+      </small>
+    </div>
+
+    <!-- Email -->
+    <div style="margin-bottom: 16px">
+      <label>Email</label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        required
+        email
+        #emailRef="ngModel"
+      />
+
+      <small style="color: red" *ngIf="emailRef.touched && emailRef.invalid">
+        Enter a valid email address
+      </small>
+    </div>
+
+    <!-- Password -->
+    <div style="margin-bottom: 16px">
+      <label>Password</label>
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        required
+        minlength="6"
+        #passwordRef="ngModel"
+      />
+
+      <small style="color: red" *ngIf="passwordRef.touched && passwordRef.invalid">
+        Password must be at least 6 characters
+      </small>
+    </div>
+
+    <!-- Role -->
+    <div style="margin-bottom: 24px">
+      <label>I am a</label>
+      <select
+        name="role"
+        [(ngModel)]="role"
+        required
+        #roleRef="ngModel"
+      >
+        <option value="">Select role</option>
+        <option value="INFLUENCER">Influencer</option>
+        <option value="BRAND">Brand</option>
+      </select>
+
+      <small style="color: red" *ngIf="roleRef.touched && roleRef.invalid">
+        Please select a role
+      </small>
+    </div>
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      [disabled]="registerForm.invalid"
+      style="width: 100%; padding: 10px; background: #0f5132; color: white"
+    >
+      Create Account
+    </button>
+
+  </form>
+
+  <p style="margin-top: 16px; text-align: center">
+    Already have an account?
+    <a routerLink="/auth/login">Login</a>
+  </p>
+
+</div>

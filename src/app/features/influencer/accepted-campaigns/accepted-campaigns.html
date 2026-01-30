@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h1>Accepted Campaigns</h1>
+  <p>Your confirmed partnerships and active campaigns</p>
+</div>
+
+<ng-container *ngIf="acceptedCampaigns.length > 0; else noAccepted">
+  <div class="campaign-list">
+    <app-campaign-card
+      *ngFor="let campaign of acceptedCampaigns"
+      [title]="campaign.title"
+      [brand]="campaign.brand"
+      [niche]="campaign.niche"
+      [budget]="campaign.budget"
+      status="Accepted">
+    </app-campaign-card>
+  </div>
+</ng-container>
+
+<ng-template #noAccepted>
+  <app-empty-state
+    title="No Accepted Campaigns"
+    description="Once a brand accepts your application, it will appear here">
+  </app-empty-state>
+</ng-template>

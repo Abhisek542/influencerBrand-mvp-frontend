@@ -1,0 +1,80 @@
+<div class="page">
+
+  <h1>Create Campaign</h1>
+  <p class="subtitle">
+    Launch a new influencer marketing campaign
+  </p>
+
+  <form
+    class="form-card"
+    (ngSubmit)="createCampaign()"
+    #campaignForm="ngForm"
+  >
+
+    <label>Campaign Title *</label>
+    <input
+      type="text"
+      name="title"
+      [(ngModel)]="campaign.title"
+      placeholder="e.g. Summer Fashion Collection Launch"
+      required
+    />
+
+    <label>Description *</label>
+    <textarea
+      name="description"
+      [(ngModel)]="campaign.description"
+      placeholder="Describe your campaign goals, deliverables, and expectations..."
+      required
+    ></textarea>
+
+    <div class="row">
+      <div>
+        <label>Budget *</label>
+        <input
+          type="number"
+          name="budget"
+          [(ngModel)]="campaign.budget"
+          placeholder="5000"
+          required
+        />
+      </div>
+
+      <div>
+        <label>Niche *</label>
+        <input
+          type="text"
+          name="niche"
+          [(ngModel)]="campaign.niche"
+          required
+        />
+      </div>
+    </div>
+
+    <label>Platform *</label>
+    <select
+      name="platform"
+      [(ngModel)]="campaign.platform"
+      required
+    >
+      <option value="">Select</option>
+      <option>Instagram</option>
+      <option>YouTube</option>
+    </select>
+
+    <div class="actions">
+      <button
+        class="primary"
+        type="submit"
+        [disabled]="campaignForm.invalid"
+      >
+        Create Campaign
+      </button>
+
+      <button type="button" class="secondary">
+        Cancel
+      </button>
+    </div>
+
+  </form>
+</div>

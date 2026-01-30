@@ -1,0 +1,31 @@
+<div class="campaign-card">
+
+  <div class="top-row">
+    <div>
+      <h3>{{ title }}</h3>
+      <p class="brand">{{ brand }}</p>
+    </div>
+
+    <span *ngIf="status || showAppications" class="status-pill">
+      {{ status || 'active' }}
+    </span>
+  </div>
+
+  <p class="meta">Niche: {{ niche }}</p>
+  <p class="meta">Budget: {{ budget }}</p>
+
+ <div class="actions">
+  <button
+    *ngIf="showAppications"
+    class="secondary"
+    [routerLink]="['/brand/campaigns', campaignId, 'applications']"
+  >
+    View Applications
+  </button>
+
+  <button class="danger">
+    🗑
+  </button>
+</div>
+
+</div>

@@ -1,0 +1,37 @@
+<div class="page-header">
+  <div>
+    <h1>My Campaigns</h1>
+    <p>Manage your campaign listings</p>
+  </div>
+
+  <a
+  routerLink="/brand/campaigns/create"
+  class="primary-btn"
+>
+  Create New Campaign
+</a>
+</div>
+
+<div class="campaigns-list">
+  <ng-container *ngIf="campaigns.length > 0; else noCampaigns">
+
+    <app-campaign-card
+      *ngFor="let campaign of campaigns"
+      [title]="campaign.title"
+      [brand]="campaign.brand"
+      [niche]="campaign.niche"
+      [budget]="campaign.budget"
+      [status]="campaign.status"
+      [showAppications]="true"
+      [campaignId]="campaign.id">
+    </app-campaign-card>
+
+  </ng-container>
+
+  <ng-template #noCampaigns>
+    <app-empty-state
+      title="No campaigns yet"
+      description="Create your first campaign to start finding influencers">
+    </app-empty-state>
+  </ng-template>
+</div>

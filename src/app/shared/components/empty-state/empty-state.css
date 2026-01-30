@@ -1,0 +1,7 @@
+.empty {
+  background: white;
+  border: 1px dashed #e5e7eb;
+  border-radius: 12px;
+  padding: 48px;
+  text-align: center;
+}
