@@ -34,11 +34,9 @@ export const routes: Routes = [
 
     {
       path: '',
-      redirectTo: 'brand',
+      redirectTo: 'influencer',
       pathMatch: 'full',
     },
 
-    {
-
-    }
+    
 ];

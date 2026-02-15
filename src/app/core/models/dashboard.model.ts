@@ -12,12 +12,17 @@ export interface InfluencerDashboard{
 
 export interface BrandDashboard{
  
-    totalCampaigns: number;
-    activeCampaigns: number;
-    expiredCampaigns: number;
-    totalApplications: number;
-    totalbudget: number;
-    pendingApplications: number;
-    acceptedApplications: number;
+ totalCampaigns: number;
+  activeCampaigns: number;
+  expiredCampaigns: number;
+  totalBudget: number;
+  totalApplications: number;
+  pendingApplications: number;
+  acceptedApplications: number;
+    // totalApplications: number; @TODO: to be implemented in future
+    // pendingApplications: number; @TODO: to be implemented in future
+    // acceptedApplications: number; @TODO: to be implemented in future
+  
+   
 
 }

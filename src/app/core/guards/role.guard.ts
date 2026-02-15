@@ -1,4 +1,4 @@
-import { ActivatedRoute, ActivatedRouteSnapshot, ActivatedRouteSnapshot, CanActivateFn, Router } from "@angular/router";
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivateFn, Router } from "@angular/router";
 import { AuthStateService, userRole } from "../services/auth-state.service";
 import { inject } from "@angular/core/primitives/di";
 

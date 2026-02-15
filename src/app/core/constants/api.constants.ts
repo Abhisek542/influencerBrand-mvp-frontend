@@ -1,5 +1,5 @@
 
- export const API_BASE_URL = 'https://localhost:8080/api';
+ export const API_BASE_URL = 'http://localhost:8080/api';
 
  export const API_ENDPOINTS = {
  
@@ -18,12 +18,10 @@
     },
     BRAND:{
 
-        DASHBOARD: `${API_BASE_URL}/brand/dashboard`,
-        CAMPAIGNS: `${API_BASE_URL}/brand/campaigns`,
-        CAMPAIGN_BY_ID:(id : number)=> `${API_BASE_URL}/brand/campaigns/${id}`,
-        CAMPAIGN_APPLICATIONS:(CampaignId : number)=> `${API_BASE_URL}/brand/campaigns/${CampaignId}/applications`,
-        ACCEPT_APPLICATION:(applicationId : number)=> `${API_BASE_URL}/brand/applications/${applicationId}/accept`,
-        REJECT_APPLICATION:(applicationId : number)=> `${API_BASE_URL}/brand/applications/${applicationId}/reject`,
+        BRAND_DASHBOARD: `${API_BASE_URL}/dashboard/brand`,
+        BRAND_CAMPAIGNS: `${API_BASE_URL}/brand/campaigns`,
+        BRAND_APPLICATIONS: `${API_BASE_URL}/brand/applications`,
+        
 
     },
     INFLUENCER:{
