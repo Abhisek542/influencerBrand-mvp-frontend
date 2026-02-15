@@ -6,36 +6,48 @@
     <p>Manage your campaigns and track applications</p>
   </div>
 
-  <!-- Stats grid -->
-  <div class="stats-grid">
+  <!-- Loader -->
+  <p *ngIf="loading" class="loading-text">
+    Loading dashboard...
+  </p>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid" *ngIf="dashboard">
 
     <app-stat-card
       label="Total Campaigns"
-      [value]="0"
+      [value]="dashboard.totalCampaigns"
       icon="📦">
     </app-stat-card>
 
     <app-stat-card
       label="Active Campaigns"
-      [value]="0"
+      [value]="dashboard.activeCampaigns"
       icon="⏱">
     </app-stat-card>
 
     <app-stat-card
-      label="Total Budget"
-      value="$0"
-      icon="💰">
+      label="Expired Campaigns"
+      [value]="dashboard.expiredCampaigns"
+      icon="⌛">
     </app-stat-card>
 
     <app-stat-card
-      label="Total Applications"
-      [value]="0"
-      icon="📄">
+      label="Total Budget"
+      [value]="dashboard.totalBudget"
+      icon="💰">
     </app-stat-card>
 
   </div>
 
-  <!-- Applications section -->
+  <!-- Error State -->
+  <app-empty-state
+    *ngIf="!loading && error"
+    title="Error"
+    [message]="error">
+  </app-empty-state>
+
+  <!-- Applications Section -->
   <div class="applications-section">
     <h2>Applications</h2>
 
@@ -43,7 +55,6 @@
       title="No Applications Yet"
       description="Applications from influencers will appear here">
     </app-empty-state>
-
   </div>
 
 </div>
