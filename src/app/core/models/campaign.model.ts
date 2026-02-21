@@ -5,6 +5,5 @@ export interface Campaign {
     niche: string;
     budget: string;
     deadline: string;
-    brandName?: string;
-    status?: 'ACTIVE' |'EXPIRED';
+    brandName: string
 }

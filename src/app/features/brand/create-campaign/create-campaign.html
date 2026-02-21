@@ -11,6 +11,7 @@
     #campaignForm="ngForm"
   >
 
+    <!-- Title -->
     <label>Campaign Title *</label>
     <input
       type="text"
@@ -20,6 +21,7 @@
       required
     />
 
+    <!-- Description -->
     <label>Description *</label>
     <textarea
       name="description"
@@ -28,7 +30,19 @@
       required
     ></textarea>
 
+    <!-- Brand Name (REQUIRED BY BACKEND) -->
+    <label>Brand Name *</label>
+    <input
+      type="text"
+      name="brandName"
+      [(ngModel)]="campaign.brandName"
+      placeholder="e.g. Nike, Boat, Zomato"
+      required
+    />
+
+    <!-- Row -->
     <div class="row">
+
       <div>
         <label>Budget *</label>
         <input
@@ -46,22 +60,23 @@
           type="text"
           name="niche"
           [(ngModel)]="campaign.niche"
+          placeholder="e.g. Tech, Fitness, Fashion"
           required
         />
       </div>
+
     </div>
 
-    <label>Platform *</label>
-    <select
-      name="platform"
-      [(ngModel)]="campaign.platform"
+    <!-- Deadline (REQUIRED BY BACKEND) -->
+    <label>Deadline *</label>
+    <input
+      type="date"
+      name="deadline"
+      [(ngModel)]="campaign.deadline"
       required
-    >
-      <option value="">Select</option>
-      <option>Instagram</option>
-      <option>YouTube</option>
-    </select>
+    />
 
+    <!-- Actions -->
     <div class="actions">
       <button
         class="primary"

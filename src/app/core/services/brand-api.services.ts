@@ -15,5 +15,8 @@ export class BrandApiService {
     getBrandDashboard() {
         return this.http.get<BrandDashboard>(API_ENDPOINTS.BRAND.BRAND_DASHBOARD);
     }
+    createCampaign(payload: any) { 
+        return this.http.post(API_ENDPOINTS.CAMPAIGN.CREATE, payload);
+    }
     
 }

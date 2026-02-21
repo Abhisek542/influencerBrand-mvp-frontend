@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrandApiService } from '../../../core/services/brand-api.services';
 
 @Component({
   selector: 'app-create-campaign',
@@ -8,23 +9,44 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './create-campaign.css',
 })
 export class CreateCampaign {
- campaign = {
-    title: '',
-    platform: '',
-    niche: '',
-    budget: null,
-    description: '',
- };
- createCampaign() {
-    console.log('Campaign created:', this.campaign);
 
-    // MVP behavior: reset form
-    this.campaign = {
-      title: '',
-      platform: '',
-      niche: '',
-      budget: null,
-      description: '',
-    };
-  }
+  campaign = {
+    title: '',
+    description: '',
+    brandName: '',
+    niche: '',
+    budget: '',
+    deadline: '',
+  };
+
+constructor(private brandApi: BrandApiService) {}
+ createCampaign() {
+
+  console.log('Sending campaign:', this.campaign);
+
+  this.brandApi.createCampaign(this.campaign).subscribe({
+
+    next: (res) => {
+      console.log('Campaign created:', res);
+
+      alert('Campaign created successfully ✅');
+
+      // Reset form (MVP behaviour)
+      this.campaign = {
+        title: '',
+        description: '',
+        brandName: '',
+        budget: '',
+        niche: '',
+        deadline: '',
+      };
+    },
+
+    error: (err) => {
+      console.error(err);
+      alert('Failed to create campaign ❌');
+    }
+
+  });
+}
 }

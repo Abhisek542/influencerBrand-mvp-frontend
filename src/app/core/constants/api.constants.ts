@@ -1,3 +1,5 @@
+import { By, Title } from "@angular/platform-browser";
+import { MyCampaigns } from "../../features/brand/my-campaigns/my-campaigns";
 
  export const API_BASE_URL = 'http://localhost:8080/api';
 
@@ -31,6 +33,18 @@
         MY_APPLICATIONS: `${API_BASE_URL}/applications/me`,
         ACCEPTED_CAMPAIGNS: `${API_BASE_URL}/applications/accepted`,
     },
+    CAMPAIGN:{
+
+        CREATE: `${API_BASE_URL}/campaign/create`,
+        ALL: `${API_BASE_URL}/campaign/all`,
+        By_ID: (id: number) => `${API_BASE_URL}/campaign/${id}`,
+        MY_CAMPAIGNS: `${API_BASE_URL}/campaign/my-campaigns`,
+        DELETE_CAMPAIGN: (id: number) => `${API_BASE_URL}/campaign/delete/${id}`,
+        UPDATE_CAMPAIGN: (id: number) => `${API_BASE_URL}/campaign/update/${id}`,
+         FILTER_CAMPAIGNS: (params?: any) =>
+          `${API_BASE_URL}/campaign/filtr`,
+
+    }
     
 
 
