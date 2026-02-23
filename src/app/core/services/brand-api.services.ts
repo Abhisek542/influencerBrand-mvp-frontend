@@ -16,4 +16,7 @@ export class BrandApiService {
         return this.http.get<BrandDashboard>(API_ENDPOINTS.BRAND.BRAND_DASHBOARD);
     }
     
-}// Additional methods for campaign management, profile updates, etc. can be added here as needed.
+    createCampaign(campaignData: any) {
+        return this.http.post(API_ENDPOINTS.CAMPAIGN.CREATE, campaignData);
+    }
+}

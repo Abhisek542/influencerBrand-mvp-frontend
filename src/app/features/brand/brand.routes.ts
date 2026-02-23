@@ -18,7 +18,7 @@ export const BRAND_ROUTES: Routes = [
         component: Dashboard,
       },
       {
-        path: 'create',
+        path: 'campaigns/create',
         component: CreateCampaign,
       },
       {
