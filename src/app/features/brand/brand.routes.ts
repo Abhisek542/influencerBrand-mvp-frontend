@@ -26,7 +26,7 @@ export const BRAND_ROUTES: Routes = [
         component: MyCampaigns,
       },
       {
-        path: 'campaigns/:id/applications',
+        path: 'applications/:id',
         component: CampaignApplications,
       },
       {

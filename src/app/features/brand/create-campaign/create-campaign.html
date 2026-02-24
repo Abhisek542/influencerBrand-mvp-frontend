@@ -46,7 +46,7 @@
       <div>
         <label>Budget *</label>
         <input
-          type="number"
+          type="text"
           name="budget"
           [(ngModel)]="campaign.budget"
           placeholder="5000"
@@ -73,6 +73,7 @@
       type="date"
       name="deadline"
       [(ngModel)]="campaign.deadline"
+      placeholder="e.g. 2024-12-31"
       required
     />
 

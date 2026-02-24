@@ -4,21 +4,30 @@
     <p>Manage your campaign listings</p>
   </div>
 
-  <a
-  routerLink="/brand/campaigns/create"
-  class="primary-btn"
->
-  Create New Campaign
-</a>
+  <a routerLink="/brand/campaigns/create" class="primary-btn">
+    Create New Campaign
+  </a>
 </div>
 
-<div class="campaigns-list">
+<!-- ✅ Loader -->
+<p *ngIf="loading">Loading campaigns...</p>
+
+<!-- ✅ Error -->
+<app-empty-state
+  *ngIf="!loading && error"
+  title="Error"
+  [message]="error">
+</app-empty-state>
+
+<!-- ✅ Campaign List -->
+<div class="campaigns-list" *ngIf="!loading && !error">
+
   <ng-container *ngIf="campaigns.length > 0; else noCampaigns">
 
     <app-campaign-card
       *ngFor="let campaign of campaigns"
       [title]="campaign.title"
-      [brand]="campaign.brand"
+      [brand]="campaign.brandName"
       [niche]="campaign.niche"
       [budget]="campaign.budget"
       [status]="campaign.status"
@@ -34,4 +43,20 @@
       description="Create your first campaign to start finding influencers">
     </app-empty-state>
   </ng-template>
+
+  <!-- ✅ Pagination Controls -->
+  <div class="pagination" *ngIf="campaigns.length > 0">
+
+    <button (click)="prevPage()" [disabled]="page === 0">
+      Prev
+    </button>
+
+    <span>Page {{ page + 1 }} / {{ totalPages }}</span>
+
+    <button (click)="nextPage()" [disabled]="page + 1 >= totalPages">
+      Next
+    </button>
+
+  </div>
+
 </div>

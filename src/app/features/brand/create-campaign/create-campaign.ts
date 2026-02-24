@@ -43,8 +43,9 @@ constructor(private brandApi: BrandApiService) {}
     },
 
     error: (err) => {
-      console.error(err);
-      alert('Failed to create campaign ❌');
+     console.error('Create Campaign Error:', err);
+   console.error('Backend says:', err.error);   // ⭐ ADD THIS
+  alert('Failed to create campaign ❌');
     }
 
   });

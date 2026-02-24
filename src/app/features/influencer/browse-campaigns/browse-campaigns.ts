@@ -3,7 +3,7 @@ import { CampaignCard } from '../../../shared/components/campaign-card/campaign-
 
 @Component({
   selector: 'app-browse-campaigns',
-  imports: [CampaignCard],
+  imports: [],
   templateUrl: './browse-campaigns.html',
   styleUrl: './browse-campaigns.css',
 })

@@ -1,18 +1,18 @@
 <h1>Campaign Applications</h1>
-<p style="color: gray">
+<p class="subtitle">
   Review influencer applications for this campaign
 </p>
 
-<div style="margin-top: 24px">
+<p *ngIf="loading">Loading applications...</p>
 
-  <div class="applications-wrapper">
+<div class="applications-wrapper" *ngIf="!loading">
 
   <ng-container *ngIf="filteredApplications.length > 0; else noApplications">
 
     <div *ngFor="let app of filteredApplications" class="application-card">
 
       <div class="app-header">
-        <h3>{{ app.name }}</h3>
+        <h3>{{ app.influencerName }}</h3>
 
         <span
           class="status-badge"
@@ -44,16 +44,5 @@
       description="Influencers have not applied to this campaign yet">
     </app-empty-state>
   </ng-template>
-
-</div>
-
-
-<ng-template #noApplications>
-  <app-empty-state
-    title="No Applications Yet"
-    description="Influencers have not applied to this campaign yet">
-  </app-empty-state>
-</ng-template>
-
 
 </div>

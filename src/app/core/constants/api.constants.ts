@@ -23,6 +23,7 @@ import { MyCampaigns } from "../../features/brand/my-campaigns/my-campaigns";
         BRAND_DASHBOARD: `${API_BASE_URL}/dashboard/brand`,
         BRAND_CAMPAIGNS: `${API_BASE_URL}/brand/campaigns`,
         BRAND_APPLICATIONS: `${API_BASE_URL}/brand/applications`,
+        VIEW_CAMPAIGN_APPLICATIONS: (campaignId: number) => `${API_BASE_URL}/brand/applications/${campaignId}`,
         
 
     },
