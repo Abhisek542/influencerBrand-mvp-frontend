@@ -37,5 +37,8 @@ export class BrandApiService {
     { responseType: 'text' }
   );
 }
+ deleteCampaignApplication(applicationId: number) {
+    return this.http.delete(API_ENDPOINTS.BRAND.DELETE_APPLICATION(applicationId),{responseType:'text'});
+ }
 }
 

@@ -29,10 +29,24 @@
       <p class="meta">Niche: {{ app.niche }}</p>
       <p class="meta">Platform: {{ app.platform }}</p>
 
-      <div class="actions" *ngIf="app.status === 'PENDING'">
-        <button class="accept" (click)="accept(app)">Accept</button>
-        <button class="reject" (click)="reject(app)">Reject</button>
-      </div>
+      <div class="actions">
+
+  <!-- Accept / Reject only if pending -->
+  <ng-container *ngIf="app.status === 'PENDING'">
+    <button class="accept" (click)="accept(app)">Accept</button>
+    <button class="reject" (click)="reject(app)">Reject</button>
+  </ng-container>
+
+  <!-- Show Delete only if rejected -->
+  <button
+    *ngIf="app.status === 'REJECTED'"
+    class="danger"
+    (click)="delete(app)"
+  >
+    Delete
+  </button>
+
+</div>
 
     </div>
 
