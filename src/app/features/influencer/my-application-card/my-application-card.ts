@@ -12,6 +12,6 @@ export class MyApplicationCard {
   @Input() brand = '';
   @Input() message = '';
   @Input() date = '';
-  @Input() status: 'Pending' | 'Accepted' | 'Rejected' = 'Pending';
+  @Input() status: 'PENDING' | 'ACCEPTED' | 'REJECTED' = 'PENDING';
 
 }

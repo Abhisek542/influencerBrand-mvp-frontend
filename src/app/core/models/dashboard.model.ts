@@ -3,10 +3,10 @@ import { Campaign } from "./campaign.model";
 export interface InfluencerDashboard{
 
     totalApplications: number;
-    pending: number;
-    accepted: number;
-    rejected: number;
-    acceptedCampaigns: Campaign[];
+    pendingApplications: number;
+    acceptedApplications: number;
+    rejectedApplications: number;
+    //acceptedApplications: Campaign[];
 
 }
 

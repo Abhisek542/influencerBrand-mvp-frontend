@@ -4,15 +4,15 @@
     <h3>{{ title }}</h3>
 
     <span
-      class="status-badge"
-      [ngClass]="{
-        pending: status === 'Pending',
-        accepted: status === 'Accepted',
-        rejected: status === 'Rejected'
-      }"
-    >
-      {{ status }}
-    </span>
+  class="status-badge"
+  [ngClass]="{
+    pending: status === 'PENDING',
+    accepted: status === 'ACCEPTED',
+    rejected: status === 'REJECTED'
+  }"
+>
+  {{ status | titlecase }}
+</span>
   </div>
 
   <p class="brand">Brand: {{ brand }}</p>

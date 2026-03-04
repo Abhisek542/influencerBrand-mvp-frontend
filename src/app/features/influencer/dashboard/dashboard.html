@@ -5,22 +5,42 @@
 
 <!-- Stats -->
 <div class="stats-grid">
-  <app-stat-card label="Total Applications" [value]="1"></app-stat-card>
-  <app-stat-card label="Pending" [value]="0"></app-stat-card>
-  <app-stat-card label="Accepted" [value]="1"></app-stat-card>
-  <app-stat-card label="Rejected" [value]="0"></app-stat-card>
+  <app-stat-card
+  label="Total Applications"
+  [value]="dashboardStats?.totalApplications || 0">
+</app-stat-card>
+
+<app-stat-card
+  label="Pending"
+  [value]="dashboardStats?.pendingApplications || 0">
+</app-stat-card>
+
+<app-stat-card
+  label="Accepted"
+  [value]="dashboardStats?.acceptedApplications || 0">
+</app-stat-card>
+
+<app-stat-card
+  label="Rejected"
+  [value]="dashboardStats?.rejectedApplications || 0">
+</app-stat-card>
 </div>
 
-<!-- Accepted Campaigns -->
 <div class="section">
   <h2>Accepted Campaigns</h2>
 
-  <ng-container *ngIf="acceptedCampaigns.length > 0; else noAccepted">
+  <!-- Loading State -->
+  <div *ngIf="loading">
+    <p>Loading campaigns...</p>
+  </div>
+
+  <!-- Data State -->
+  <ng-container *ngIf="!loading && acceptedCampaigns.length > 0">
     <div class="campaign-list">
       <app-campaign-card
         *ngFor="let c of acceptedCampaigns"
         [title]="c.title"
-        [brand]="c.brand"
+        [brand]="c.brandName"
         [niche]="c.niche"
         [budget]="c.budget"
         status="Accepted">
@@ -28,11 +48,11 @@
     </div>
   </ng-container>
 
-  <ng-template #noAccepted>
+  <!-- Empty State -->
+  <ng-container *ngIf="!loading && acceptedCampaigns.length === 0">
     <app-empty-state
       title="No accepted campaigns yet"
       description="Keep applying to campaigns to build partnerships">
     </app-empty-state>
-  </ng-template>
+  </ng-container>
 </div>
-

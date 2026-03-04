@@ -19,35 +19,28 @@
   </select>
 </div>
 
-<!-- Campaign Grid -->
-<div class="campaign-grid">
-  <div class="campaign-card">
-    <span class="badge">Fitness</span>
-
-    <h3>Instagram Reel Promotion</h3>
-    <p class="description">A test campaign for fitness influencers</p>
-
-    <div class="meta">
-      <p>💰 Budget: ₹5,000</p>
-      <p>📅 Deadline: 2026-01-30</p>
-      <p>🏷 Brand: Nike</p>
-    </div>
-
-    <button class="primary">Apply Now</button>
-  </div>
-
-  <div class="campaign-card">
-    <span class="badge">Tech</span>
-
-    <h3>YouTube Review Video</h3>
-    <p class="description">Product review for tech creators</p>
-
-    <div class="meta">
-      <p>💰 Budget: ₹10,000</p>
-      <p>📅 Deadline: 2026-01-30</p>
-      <p>🏷 Brand: Boat</p>
-    </div>
-
-    <button class="primary">Apply Now</button>
-  </div>
+<!-- Loading -->
+<div *ngIf="loading">
+  <p>Loading campaigns...</p>
 </div>
+
+<!-- Campaign Grid -->
+<div class="campaign-grid" *ngIf="!loading && campaigns.length > 0">
+
+  <app-campaign-card
+    *ngFor="let c of campaigns"
+    [title]="c.title"
+    [brand]="c.brandName"
+    [niche]="c.niche"
+    [budget]="c.budget"
+    status="Open">
+  </app-campaign-card>
+
+</div>
+
+<!-- Empty State -->
+<app-empty-state
+  *ngIf="!loading && campaigns.length === 0"
+  title="No campaigns available"
+  description="Check back later for new campaigns">
+</app-empty-state>
