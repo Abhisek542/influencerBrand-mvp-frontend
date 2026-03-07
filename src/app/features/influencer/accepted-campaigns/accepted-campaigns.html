@@ -1,24 +1,42 @@
 <div class="page-header">
   <h1>Accepted Campaigns</h1>
   <p>Your confirmed partnerships and active campaigns</p>
+ <!-- Loading State -->
+  <div *ngIf="loading">
+    <p>Loading campaigns...</p>
+  </div>
+
+  <!-- Data State -->
+  <ng-container *ngIf="!loading && acceptedCampaigns.length > 0">
+    <div class="campaign-list">
+      <app-campaign-card
+        *ngFor="let c of acceptedCampaigns"
+        [title]="c.title"
+        [brand]="c.brandName"
+        [niche]="c.niche"
+        [budget]="c.budget"
+        status="Accepted">
+      </app-campaign-card>
+    </div>
+  </ng-container>
+
+  <!-- Empty State -->
+  <ng-container *ngIf="!loading && acceptedCampaigns.length === 0">
+    <app-empty-state
+      title="No accepted campaigns yet"
+      description="Keep applying to campaigns to build partnerships">
+    </app-empty-state>
+  </ng-container>
+  
+
+
+
+
+
+
+
+
 </div>
 
-<ng-container *ngIf="acceptedCampaigns.length > 0; else noAccepted">
-  <div class="campaign-list">
-    <app-campaign-card
-      *ngFor="let campaign of acceptedCampaigns"
-      [title]="campaign.title"
-      [brand]="campaign.brand"
-      [niche]="campaign.niche"
-      [budget]="campaign.budget"
-      status="Accepted">
-    </app-campaign-card>
-  </div>
-</ng-container>
 
-<ng-template #noAccepted>
-  <app-empty-state
-    title="No Accepted Campaigns"
-    description="Once a brand accepts your application, it will appear here">
-  </app-empty-state>
-</ng-template>
+
