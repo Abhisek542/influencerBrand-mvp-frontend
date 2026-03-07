@@ -27,8 +27,18 @@ getAcceptedCampaigns() {
 getMyApplications(){
     return this.http.get<InfluencerApplication[]>(`${this.baseUrl}/my-applications`);
 }
-getCampaigns():Observable<PageResponse<Campaign>> {
-    return this.http.get<PageResponse<Campaign>>(`${API_BASE_URL}/campaign/filtr`);
+getCampaigns(params?: any): Observable<PageResponse<Campaign>> {
+  return this.http.get<PageResponse<Campaign>>(
+    `${API_BASE_URL}/campaign/filtr`,
+    { params }
+  );
+}
+applyToCampaign(campaignId: number, application: any) {
+
+  return this.http.post(
+    `${API_BASE_URL}/influencer/apply/${campaignId}`,
+    application, { responseType: 'text' }
+  );
 
 }
 

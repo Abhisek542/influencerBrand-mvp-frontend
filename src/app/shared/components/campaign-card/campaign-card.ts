@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {  RouterLink } from '@angular/router';
 
 @Component({
@@ -19,4 +19,6 @@ export class CampaignCard {
 
     @Input() showAppications = false;
     @Input() campaignId?:number;
+      @Input() showApplyButton = false;
+    @Output() applyClicked = new EventEmitter<number>();
   }

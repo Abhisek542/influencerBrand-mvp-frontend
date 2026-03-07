@@ -5,18 +5,26 @@
 
 <!-- Search + Filter -->
 <div class="toolbar">
+
   <input
     type="text"
     placeholder="Search campaigns..."
     class="search-input"
+    [(ngModel)]="searchTitle"
+    (input)="loadCampaigns()"
   />
 
-  <select class="filter">
-    <option>All Niches</option>
-    <option>Tech</option>
-    <option>Fitness</option>
-    <option>Fashion</option>
+  <select
+    class="filter"
+    [(ngModel)]="selectedNiche"
+    (change)="loadCampaigns()"
+  >
+    <option value="">All Niches</option>
+    <option value="Tech">Tech</option>
+    <option value="Fitness">Fitness</option>
+    <option value="Fashion">Fashion</option>
   </select>
+
 </div>
 
 <!-- Loading -->
@@ -28,15 +36,65 @@
 <div class="campaign-grid" *ngIf="!loading && campaigns.length > 0">
 
   <app-campaign-card
-    *ngFor="let c of campaigns"
-    [title]="c.title"
-    [brand]="c.brandName"
-    [niche]="c.niche"
-    [budget]="c.budget"
-    status="Open">
-  </app-campaign-card>
+  *ngFor="let c of campaigns"
+  [title]="c.title"
+  [brand]="c.brandName"
+  [niche]="c.niche"
+  [budget]="c.budget"
+  status="Open"
+   [showApplyButton]="true"
+  (applyClicked)="openApplyModal(c.id)">
+</app-campaign-card>
+
+ </div>
+
+ <!-- APPLY MODAL -->
+<div class="modal-overlay" *ngIf="showApplyModal">
+
+  <div class="modal">
+
+    <h2>Apply to Campaign</h2>
+
+    <input
+      type="text"
+      placeholder="Influencer Name"
+      [(ngModel)]="applicationForm.influencerName"
+    />
+
+    <input
+      type="text"
+      placeholder="Platform"
+      [(ngModel)]="applicationForm.platform"
+    />
+
+    <input
+      type="text"
+      placeholder="Niche"
+      [(ngModel)]="applicationForm.niche"
+    />
+
+    <textarea
+      placeholder="Message"
+      [(ngModel)]="applicationForm.message">
+    </textarea>
+
+    <div class="modal-actions">
+
+      <button (click)="closeApplyModal()">
+        Cancel
+      </button>
+
+      <button (click)="submitApplication()">
+        Submit Application
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
+ 
+
 
 <!-- Empty State -->
 <app-empty-state
