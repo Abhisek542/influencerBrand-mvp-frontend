@@ -12,6 +12,8 @@ export const roleGuard: CanActivateFn = (
   const allowedRoles = route.data['roles'] as userRole[];
 
   const userRole = authState.getRole();
+   console.log('Allowed roles:', allowedRoles);
+  console.log('Current user role:', userRole);
 
   // ❌ Not logged in or role mismatch
   if (!userRole || !allowedRoles.includes(userRole)) {

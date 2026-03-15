@@ -1,4 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { map } from "rxjs/internal/operators/map";
 
 
 export type userRole= 'BRAND' | 'INFLUENCER';
@@ -8,28 +10,68 @@ export type userRole= 'BRAND' | 'INFLUENCER';
 })
 export class AuthStateService {
 
-    private readonly TOKEN_KEY = 'token';
-    private readonly ROLE_KEY = 'role';
+ private tokenSubject = new BehaviorSubject<string | null>(localStorage.getItem('token'));
+  private roleSubject = new BehaviorSubject<userRole | null>(localStorage.getItem('role') as userRole | null);
+  private emailSubject = new BehaviorSubject<string | null>(localStorage.getItem('email'));
 
-    isLoggedIn(): boolean {
-        return !!localStorage.getItem(this.TOKEN_KEY);
-    }
-    getRole(): userRole | null {
-        return localStorage.getItem(this.ROLE_KEY) as userRole | null;
+  token$ = this.tokenSubject.asObservable();
+  role$ = this.roleSubject.asObservable();
+  email$ = this.emailSubject.asObservable();
+
+  isLoggedIn$ = this.token$.pipe(map(token => !!token));
+  isBrand$ = this.role$.pipe(map(role => role === 'BRAND'));
+  isInfluencer$ = this.role$.pipe(map(role => role === 'INFLUENCER'));
+
+  initializeAuthState(): void {
+    this.tokenSubject.next(localStorage.getItem('token'));
+    this.roleSubject.next(localStorage.getItem('role') as userRole | null);
+    this.emailSubject.next(localStorage.getItem('email'));
+  }
+
+  setAuthState(token: string, role: userRole, email?: string): void {
+    localStorage.setItem('token', token);
+    localStorage.setItem('role', role);
+
+    if (email) {
+      localStorage.setItem('email', email);
+      this.emailSubject.next(email);
     }
 
-    setAuth(token: string , role: userRole): void {
-        localStorage.setItem(this.TOKEN_KEY, token);
-        localStorage.setItem(this.ROLE_KEY, role);
-    }
-    clearAuth(): void {
-        localStorage.removeItem(this.TOKEN_KEY);
-        localStorage.removeItem(this.ROLE_KEY);
-    }
-    isBrand(): boolean {
-        return this.getRole() === 'BRAND';
-    }
-    isInfluencer(): boolean {   
-        return this.getRole() === 'INFLUENCER';
-    }
+    this.tokenSubject.next(token);
+    this.roleSubject.next(role);
+  }
+
+  clearAuthState(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('email');
+
+    this.tokenSubject.next(null);
+    this.roleSubject.next(null);
+    this.emailSubject.next(null);
+  }
+
+  getToken(): string | null {
+    return this.tokenSubject.value;
+  }
+
+  getRole(): userRole | null {
+    return this.roleSubject.value;
+  }
+
+  getEmail(): string | null {
+    return this.emailSubject.value;
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.tokenSubject.value;
+  }
+
+  isBrand(): boolean {
+    return this.roleSubject.value === 'BRAND';
+  }
+
+  isInfluencer(): boolean {
+    return this.roleSubject.value === 'INFLUENCER';
+  }
 }

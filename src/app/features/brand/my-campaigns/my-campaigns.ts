@@ -4,6 +4,7 @@ import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { CommonModule } from '@angular/common';
 import {  RouterLink } from '@angular/router';
 import { BrandApiService } from '../../../core/services/brand-api.services';
+import { ErrorHandlerService } from '../../../core/services/error-handler.service';
 
 @Component({
   selector: 'app-my-campaigns',
@@ -16,65 +17,61 @@ import { BrandApiService } from '../../../core/services/brand-api.services';
 
 export class MyCampaigns implements OnInit {
  
-  campaigns: any[] = []; // This will hold the list of campaigns. Replace 'any' with your actual campaign type.
- 
-  page=0;
-  size=5;
-  totalPages=0;;
-  loading = true;
-  error = '';
+  campaigns: any[] = [];
 
-  constructor(private brandApi: BrandApiService,  private cdr: ChangeDetectorRef) {}
+  page = 0;
+  size = 5;
+  totalPages = 0;
+  loading = false;
+  errorMessage = '';
+
+  constructor(
+    private brandApi: BrandApiService,
+    private cdr: ChangeDetectorRef,
+    private errorHandler: ErrorHandlerService
+  ) {}
 
   ngOnInit(): void {
     this.loadCampaigns();
   }
-  
+
   loadCampaigns(): void {
+    this.loading = true;
+    this.errorMessage = '';
 
-    this.loading= true;
-    this.error = '';
+    this.brandApi.getMyCampaigns(this.page, this.size).subscribe({
+      next: (res) => {
+        console.log('My Campaigns response:', res);
 
-    this.brandApi.getMyCampaigns(this.page,this.size).subscribe({
-    
-      next:(res)=>{
-
-      console.log('My Campaigns response:', res);
-
-      this.campaigns = res.content; // Assuming the API returns a paginated response with a 'content' field
-      this.totalPages = res.totalPages; // Assuming the API returns total pages for pagination
-      this.loading = false;
-      this.cdr.detectChanges(); 
-      
-    },
-    error:(err)=>{
-      console.error('Error loading campaigns:', err);
-      this.error = 'Failed to load campaigns';
-      this.loading = false;
-    }
-
-
-
+        this.campaigns = res.content;
+        this.totalPages = res.totalPages;
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error loading campaigns:', err);
+        this.campaigns = [];
+        this.totalPages = 0;
+        this.errorMessage = this.errorHandler.getErrorMessage(err);
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
     });
   }
 
-  nextPage():  void{
-    if(this.page+1 <this.totalPages){
-    this.page++;
-    this.loadCampaigns();
-
+  nextPage(): void {
+    if (this.page + 1 < this.totalPages) {
+      this.page++;
+      this.loadCampaigns();
     }
   }
 
-  prevPage(): void{  
-
-    if(this.page>0){
-
-    this.page--;
-    this.loadCampaigns();
+  prevPage(): void {
+    if (this.page > 0) {
+      this.page--;
+      this.loadCampaigns();
     }
   }
-   
 
   }
 

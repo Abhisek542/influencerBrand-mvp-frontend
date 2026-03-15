@@ -73,10 +73,10 @@
 
 .logout {
   margin-top: 12px;
-  width: 100%;
+  width: 70%;
   padding: 8px;
-  border: 1px solid #eee;
-  background: white;
+  border: 1px solid #37881c7e;
+  background: rgb(30, 123, 4);
   border-radius: 8px;
   cursor: pointer;
 }

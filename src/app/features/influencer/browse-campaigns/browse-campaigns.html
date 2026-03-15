@@ -11,13 +11,13 @@
     placeholder="Search campaigns..."
     class="search-input"
     [(ngModel)]="searchTitle"
-    (input)="loadCampaigns()"
+    (input)="onSearchChange()"
   />
 
   <select
     class="filter"
     [(ngModel)]="selectedNiche"
-    (change)="loadCampaigns()"
+    (change)="onFilterChange()"
   >
     <option value="">All Niches</option>
     <option value="Tech">Tech</option>
@@ -32,23 +32,55 @@
   <p>Loading campaigns...</p>
 </div>
 
+<div class="error-message" *ngIf="!loading && errorMessage">
+  <div class="error-icon">!</div>
+  <div class="error-content">
+    <p class="error-title">Unable to load campaigns</p>
+    <p class="error-text">{{ errorMessage }}</p>
+  </div>
+</div>
 <!-- Campaign Grid -->
 <div class="campaign-grid" *ngIf="!loading && campaigns.length > 0">
 
   <app-campaign-card
-  *ngFor="let c of campaigns"
-  [title]="c.title"
-  [brand]="c.brandName"
-  [niche]="c.niche"
-  [budget]="c.budget"
-  status="Open"
-   [showApplyButton]="true"
-  (applyClicked)="openApplyModal(c.id)">
-</app-campaign-card>
+    *ngFor="let c of campaigns"
+    [campaignId]="c.id"
+    [title]="c.title"
+    [brand]="c.brandName"
+    [niche]="c.niche"
+    [budget]="c.budget"
+    [applied]="c.applied"
+    status="Open"
+    [showApplyButton]="true"
+    (applyClicked)="openApplyModal($event)">
+  </app-campaign-card>
 
- </div>
+</div>
 
- <!-- APPLY MODAL -->
+
+<!-- Pagination -->
+<div class="pagination" *ngIf="totalPages > 1">
+
+  <button (click)="prevPage()" [disabled]="page === 0">
+    ← Prev
+  </button>
+
+  <button
+    *ngFor="let p of pages"
+    (click)="goToPage(p)"
+    [class.active]="page === p"
+  >
+    {{ p + 1 }}
+  </button>
+
+  <button (click)="nextPage()" [disabled]="page === totalPages - 1">
+    Next →
+  </button>
+
+</div>
+
+
+<!-- APPLY MODAL -->
 <div class="modal-overlay" *ngIf="showApplyModal">
 
   <div class="modal">
@@ -93,12 +125,12 @@
   </div>
 
 </div>
- 
 
 
 <!-- Empty State -->
 <app-empty-state
-  *ngIf="!loading && campaigns.length === 0"
+  *ngIf="!loading && campaigns.length === 0 && !errorMessage"
   title="No campaigns available"
   description="Check back later for new campaigns">
 </app-empty-state>
+

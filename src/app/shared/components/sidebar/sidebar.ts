@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthStateService } from '../../../core/services/auth-state.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,9 +11,19 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class Sidebar {
  
+
+   constructor(private router: Router, private authState: AuthStateService) {}
+
+
+
   @Input() menu: { label: string; route: string; icon: string }[] = [];
 
   @Input() portal = 'Portal';
   @Input() username = 'User';
   @Input() email = '';
+
+  logout() {
+    this.authState.clearAuthState();
+    this.router.navigate(['/auth/login']);
+  }
 }

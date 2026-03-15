@@ -1,11 +1,25 @@
+/* Campaign Card */
 .campaign-card {
   background: #ffffff;
   border-radius: 12px;
   padding: 20px;
   border: 1px solid #e5e7eb;
+
   box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+
+  transition: transform 0.2s ease,
+              box-shadow 0.2s ease,
+              border-color 0.2s ease;
 }
 
+/* Hover effect (premium SaaS feel) */
+.campaign-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  border-color: #d1d5db;
+}
+
+/* Header row */
 .top-row {
   display: flex;
   justify-content: space-between;
@@ -18,17 +32,20 @@
   font-weight: 600;
 }
 
+/* Brand name */
 .brand {
   font-size: 14px;
   color: #6b7280;
 }
 
+/* Campaign meta */
 .meta {
   font-size: 14px;
   color: #374151;
   margin: 6px 0;
 }
 
+/* Status badge (Open / Active etc) */
 .status-pill {
   background: #dcfce7;
   color: #166534;
@@ -38,6 +55,7 @@
   font-weight: 500;
 }
 
+/* Button section */
 .actions {
   margin-top: 16px;
   display: flex;
@@ -45,7 +63,7 @@
   align-items: center;
 }
 
-/* Primary (Apply etc if used later) */
+/* General button style */
 .actions button {
   border-radius: 8px;
   padding: 8px 14px;
@@ -54,19 +72,19 @@
   font-weight: 500;
 }
 
-/* View Applications */
+/* View Applications button (Brand side) */
 .actions .secondary {
   background: #f3f4f6;
   color: #111827;
   border: 1px solid #e5e7eb;
-  transition: 0.2s;
+  transition: background 0.2s ease;
 }
 
 .actions .secondary:hover {
   background: #e5e7eb;
 }
 
-/* Delete button */
+/* Delete button (Brand side) */
 .actions .danger {
   background: white;
   border: 1px solid #ef4444;
@@ -78,4 +96,37 @@
 
 .actions .danger:hover {
   background: #fee2e2;
+}
+
+/* Apply button */
+.apply-btn {
+  background-color: #1f7a63;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+
+  transition: transform 0.15s ease,
+              background-color 0.15s ease;
+}
+
+/* Hover animation */
+.apply-btn:hover {
+  background-color: #17634f;
+  transform: scale(1.05);
+}
+
+/* Applied state */
+.apply-btn.applied {
+  background-color: #dcfce7;
+  color: #166534;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Disabled button */
+.apply-btn:disabled {
+  cursor: not-allowed;
 }

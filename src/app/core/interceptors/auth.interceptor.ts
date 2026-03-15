@@ -7,6 +7,7 @@ import { catchError, Observable, throwError } from "rxjs";
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
+ 
   constructor(
     private authState: AuthStateService,
     private router: Router
@@ -17,25 +18,27 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
 
+    const isAuthRequest =
+      req.url.includes('/api/auth/login') ||
+      req.url.includes('/api/auth/register');
+
     let authReq = req;
 
-    // 🔐 Attach token if logged in
-    if (this.authState.isLoggedIn()) {
-      const token = localStorage.getItem('token');
+    const token = this.authState.getToken();
 
+    if (token && !isAuthRequest) {
       authReq = req.clone({
         setHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       });
     }
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
 
-        // 🚨 Handle Unauthorized globally
         if (error.status === 401) {
-          this.authState.clearAuth();
+          this.authState.clearAuthState();
           this.router.navigate(['/auth/login']);
         }
 

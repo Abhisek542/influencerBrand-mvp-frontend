@@ -1,42 +1,40 @@
 <div class="page-header">
   <h1>Accepted Campaigns</h1>
   <p>Your confirmed partnerships and active campaigns</p>
- <!-- Loading State -->
-  <div *ngIf="loading">
-    <p>Loading campaigns...</p>
-  </div>
-
-  <!-- Data State -->
-  <ng-container *ngIf="!loading && acceptedCampaigns.length > 0">
-    <div class="campaign-list">
-      <app-campaign-card
-        *ngFor="let c of acceptedCampaigns"
-        [title]="c.title"
-        [brand]="c.brandName"
-        [niche]="c.niche"
-        [budget]="c.budget"
-        status="Accepted">
-      </app-campaign-card>
-    </div>
-  </ng-container>
-
-  <!-- Empty State -->
-  <ng-container *ngIf="!loading && acceptedCampaigns.length === 0">
-    <app-empty-state
-      title="No accepted campaigns yet"
-      description="Keep applying to campaigns to build partnerships">
-    </app-empty-state>
-  </ng-container>
-  
-
-
-
-
-
-
-
-
 </div>
 
+<!-- Loading State -->
+<div *ngIf="loading">
+  <p>Loading campaigns...</p>
+</div>
 
+<!-- Error State -->
+<div class="error-message" *ngIf="!loading && errorMessage">
+  <div class="error-icon">!</div>
+  <div class="error-content">
+    <p class="error-title">Unable to load campaigns</p>
+    <p class="error-text">{{ errorMessage }}</p>
+  </div>
+</div>
 
+<!-- Data State -->
+<ng-container *ngIf="!loading && acceptedCampaigns.length > 0">
+  <div class="campaign-list">
+    <app-campaign-card
+      *ngFor="let c of acceptedCampaigns"
+      [title]="c.title"
+      [brand]="c.brandName"
+      [niche]="c.niche"
+      [budget]="c.budget"
+      status="Accepted">
+    </app-campaign-card>
+  </div>
+</ng-container>
+
+<!-- Empty State -->
+<ng-container *ngIf="!loading && acceptedCampaigns.length === 0 && !errorMessage">
+  <app-empty-state
+    title="No accepted campaigns yet"
+    description="Keep applying to campaigns to build partnerships">
+  </app-empty-state>
+</ng-container>

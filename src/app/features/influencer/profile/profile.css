@@ -1,0 +1,180 @@
+/* ── Page Header ── */
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+h1 + p {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+/* ── Cards ── */
+.card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 28px;
+  margin-bottom: 24px;
+  max-width: 680px;
+}
+
+.card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+/* ── Profile Image Section ── */
+.profile-img-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.upload-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.upload-controls input[type="file"] {
+   font-size: 13px;
+  color: #374151;
+  flex: 1;
+}
+
+/* ── Profile Details Form ── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.form-group textarea,
+.form-group input[type="text"],
+.form-group input:not([type="file"]) {
+  padding: 10px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #111827;
+  background: #fafafa;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #1f7a63;
+  box-shadow: 0 0 0 3px rgba(31, 122, 99, 0.1);
+  background: white;
+}
+
+/* ── Save Button row ── */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+/* ── Buttons (keeping your existing green theme) ── */
+button {
+  background: #1f7a63;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #165a49;
+}
+.error-message {
+  display: flex;
+  align-items: stretch;
+  background: #fff5f5;
+  border: 0.5px solid #fecaca;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.error-stripe {
+  width: 3px;
+  flex-shrink: 0;
+  background: #991b1b;
+}
+
+.error-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding: 14px 0 14px 14px;
+  margin-top: 1px;
+  color: #991b1b;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.error-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 13px 16px 13px 10px;
+}
+
+.error-title {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #7f1d1d;
+  letter-spacing: 0.1px;
+}
+
+.error-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #9f2525;
+  opacity: 0.75;
+}

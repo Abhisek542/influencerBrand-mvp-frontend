@@ -28,13 +28,15 @@
   <!-- Influencer Side -->
   <button
     *ngIf="showApplyButton"
-    class="primary"
+    class="apply-btn"
+    [ngClass]="{ applied: applied }"
+    [disabled]="applied"
     (click)="applyClicked.emit(campaignId)"
   >
-    Apply
+   {{ applied ? 'Applied' : 'Apply' }}
   </button>
 
-  <button class="danger">
+  <button  *ngIf="showDeleteButton" class="danger">
     🗑
   </button>
 

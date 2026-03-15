@@ -24,9 +24,17 @@
 
 </ng-container>
 
+<div class="error-message" *ngIf="!loading && errorMessage">
+  <div class="error-icon">!</div>
+  <div class="error-content">
+    <p class="error-title">Unable to load campaigns</p>
+    <p class="error-text">{{ errorMessage }}</p>
+  </div>
+</div>
+
 <!-- Empty State -->
 <app-empty-state
-  *ngIf="!loading && applications.length === 0"
+  *ngIf="!loading && applications.length === 0 && !errorMessage"
   title="No Applications"
   description="You haven’t applied to any campaigns yet">
 </app-empty-state>

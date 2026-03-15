@@ -19,6 +19,8 @@ export class CampaignCard {
 
     @Input() showAppications = false;
     @Input() campaignId?:number;
-      @Input() showApplyButton = false;
+    @Input() showApplyButton = false;
+    @Input() applied = false; // Indicates if the influencer has already applied to this campaign
+    @Input() showDeleteButton = false; 
     @Output() applyClicked = new EventEmitter<number>();
   }

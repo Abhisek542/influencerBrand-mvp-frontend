@@ -6,4 +6,6 @@ export interface Campaign {
     budget: string;
     deadline: string;
     brandName: string
+
+    applied: boolean; // Indicates if the influencer has applied to this campaign
 }

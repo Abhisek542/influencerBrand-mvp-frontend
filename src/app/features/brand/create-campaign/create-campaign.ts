@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrandApiService } from '../../../core/services/brand-api.services';
+import { ErrorHandlerService } from '../../../core/services/error-handler.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-campaign',
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule],
   templateUrl: './create-campaign.html',
   styleUrl: './create-campaign.css',
 })
@@ -19,35 +21,43 @@ export class CreateCampaign {
     deadline: '',
   };
 
-constructor(private brandApi: BrandApiService) {}
- createCampaign() {
+  errorMessage = '';
 
-  console.log('Sending campaign:', this.campaign);
+  constructor(
+    private brandApi: BrandApiService,
+    private errorHandler: ErrorHandlerService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-  this.brandApi.createCampaign(this.campaign).subscribe({
+  createCampaign() {
+    this.errorMessage = '';
 
-    next: (res) => {
-      console.log('Campaign created:', res);
+    console.log('Sending campaign:', this.campaign);
 
-      alert('Campaign created successfully ✅');
+    this.brandApi.createCampaign(this.campaign).subscribe({
+      next: (res) => {
+        console.log('Campaign created:', res);
 
-      // Reset form (MVP behaviour)
-      this.campaign = {
-        title: '',
-        description: '',
-        brandName: '',
-        budget: '',
-        niche: '',
-        deadline: '',
-      };
-    },
+        alert('Campaign created successfully ✅');
 
-    error: (err) => {
-     console.error('Create Campaign Error:', err);
-   console.error('Backend says:', err.error);   // ⭐ ADD THIS
-  alert('Failed to create campaign ❌');
-    }
+        this.campaign = {
+          title: '',
+          description: '',
+          brandName: '',
+          budget: '',
+          niche: '',
+          deadline: '',
+        };
 
-  });
-}
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Create Campaign Error:', err);
+        console.error('Backend says:', err.error);
+
+        this.errorMessage = this.errorHandler.getErrorMessage(err);
+        this.cdr.detectChanges();
+      }
+    });
+  }
 }

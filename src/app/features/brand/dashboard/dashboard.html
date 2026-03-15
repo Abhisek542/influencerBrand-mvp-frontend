@@ -9,14 +9,16 @@
     <p class="loading-text">Loading dashboard...</p>
   </div>
 
-  <app-empty-state
-    *ngIf="!loading && error"
-    title="Error"
-    [message]="error">
-    <button (click)="loadDashboard()" class="retry-btn">Retry</button>
-  </app-empty-state>
+  <div class="error-message" *ngIf="!loading && errorMessage">
+    <div class="error-icon">!</div>
+    <div class="error-content">
+      <p class="error-title">Unable to load dashboard</p>
+      <p class="error-text">{{ errorMessage }}</p>
+      <button (click)="loadDashboard()" class="retry-btn">Retry</button>
+    </div>
+  </div>
 
-  <ng-container *ngIf="!loading && !error">
+  <ng-container *ngIf="!loading && !errorMessage">
     
     <div class="stats-grid" *ngIf="dashboard">
       <app-stat-card
@@ -51,7 +53,3 @@
         title="No Applications Yet"
         description="Applications from influencers will appear here">
       </app-empty-state>
-    </section>
-
-  </ng-container>
-</div>

@@ -3,27 +3,36 @@
   <p>Track your campaign applications</p>
 </div>
 
+<!-- Dashboard Stats Error -->
+<div class="error-message" *ngIf="dashboardError">
+  <div class="error-icon">!</div>
+  <div class="error-content">
+    <p class="error-title">Unable to load dashboard data</p>
+    <p class="error-text">{{ dashboardError }}</p>
+  </div>
+</div>
+
 <!-- Stats -->
-<div class="stats-grid">
+<div class="stats-grid" *ngIf="!dashboardError">
   <app-stat-card
-  label="Total Applications"
-  [value]="dashboardStats?.totalApplications || 0">
-</app-stat-card>
+    label="Total Applications"
+    [value]="dashboardStats?.totalApplications || 0">
+  </app-stat-card>
 
-<app-stat-card
-  label="Pending"
-  [value]="dashboardStats?.pendingApplications || 0">
-</app-stat-card>
+  <app-stat-card
+    label="Pending"
+    [value]="dashboardStats?.pendingApplications || 0">
+  </app-stat-card>
 
-<app-stat-card
-  label="Accepted"
-  [value]="dashboardStats?.acceptedApplications || 0">
-</app-stat-card>
+  <app-stat-card
+    label="Accepted"
+    [value]="dashboardStats?.acceptedApplications || 0">
+  </app-stat-card>
 
-<app-stat-card
-  label="Rejected"
-  [value]="dashboardStats?.rejectedApplications || 0">
-</app-stat-card>
+  <app-stat-card
+    label="Rejected"
+    [value]="dashboardStats?.rejectedApplications || 0">
+  </app-stat-card>
 </div>
 
 <div class="section">
@@ -32,6 +41,15 @@
   <!-- Loading State -->
   <div *ngIf="loading">
     <p>Loading campaigns...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-message" *ngIf="!loading && acceptedCampaignsError">
+    <div class="error-icon">!</div>
+    <div class="error-content">
+      <p class="error-title">Unable to load campaigns</p>
+      <p class="error-text">{{ acceptedCampaignsError }}</p>
+    </div>
   </div>
 
   <!-- Data State -->
@@ -49,7 +67,7 @@
   </ng-container>
 
   <!-- Empty State -->
-  <ng-container *ngIf="!loading && acceptedCampaigns.length === 0">
+  <ng-container *ngIf="!loading && acceptedCampaigns.length === 0 && !acceptedCampaignsError">
     <app-empty-state
       title="No accepted campaigns yet"
       description="Keep applying to campaigns to build partnerships">

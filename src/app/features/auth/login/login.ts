@@ -30,15 +30,17 @@ login(){
 
  next: (res) => {
 
-   this.authState.setAuth(res.token, res.role);
-
-   if(res.role === 'BRAND'){
-     this.router.navigate(['/brand/dashboard']);
-   } else{
-
-     this.router.navigate(['/influencer/dashboard']);
-   }
+   this.authState.setAuthState(res.token, res.role);
    this.loading = false;
+
+        if (res.role === 'BRAND') {
+          this.router.navigate(['/brand/dashboard']);
+        } else if (res.role === 'INFLUENCER') {
+          this.router.navigate(['/influencer/dashboard']);
+        } else {
+          this.error = 'Invalid user role';
+        }
+   
   },
 
  error: (err) => {

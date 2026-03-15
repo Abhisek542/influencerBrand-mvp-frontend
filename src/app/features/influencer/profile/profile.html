@@ -1,1 +1,90 @@
-<p>profile works!</p>
+<div class="page-header">
+  <h1>Profile</h1>
+  <p>Manage your profile information</p>
+</div>
+
+<!-- Loading -->
+<div *ngIf="loading">
+  <p>Loading profile...</p>
+</div>
+
+<!-- Load Error -->
+<div class="error-message" *ngIf="!loading && loadError">
+  <div class="error-icon">!</div>
+  <div class="error-content">
+    <p class="error-title">Unable to load profile</p>
+    <p class="error-text">{{ loadError }}</p>
+  </div>
+</div>
+
+<!-- Main Profile Content -->
+<div *ngIf="!loading && !loadError">
+
+  <!-- Profile Image Section -->
+  <div class="profile-card">
+    <h2>Profile Image</h2>
+
+    <div class="profile-image-section">
+      <img
+        *ngIf="profile?.profilePicture"
+        [src]="'http://localhost:8080/uploads/' + profile.profilePicture"
+        alt="Profile Image"
+        class="profile-image"
+      />
+
+      <div
+        *ngIf="!profile?.profilePicture"
+        class="profile-image placeholder">
+        No Image
+      </div>
+
+      <div class="upload-box">
+        <input type="file" (change)="onFileSelected($event)" />
+        <button type="button" (click)="uploadProfileImage()">Upload</button>
+      </div>
+    </div>
+
+    <!-- Upload Error -->
+    <div class="error-message" *ngIf="uploadError">
+      <div class="error-icon">!</div>
+      <div class="error-content">
+        <p class="error-title">Unable to upload image</p>
+        <p class="error-text">{{ uploadError }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Details Section -->
+  <div class="profile-card">
+    <h2>Profile Details</h2>
+
+    <!-- Save Error -->
+    <div class="error-message" *ngIf="saveError">
+      <div class="error-icon">!</div>
+      <div class="error-content">
+        <p class="error-title">Unable to save profile</p>
+        <p class="error-text">{{ saveError }}</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Bio</label>
+      <textarea [(ngModel)]="profile.bio"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Location</label>
+      <input type="text" [(ngModel)]="profile.location" />
+    </div>
+
+    <div class="form-group">
+      <label>Social Links</label>
+      <input type="text" [(ngModel)]="profile.socialLinks" />
+    </div>
+
+    <div class="actions">
+      <button type="button" (click)="saveProfile()">Save Profile</button>
+    </div>
+  </div>
+
+</div>

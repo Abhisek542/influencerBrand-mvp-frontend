@@ -1,17 +1,23 @@
 <div class="page">
-
   <h1>Create Campaign</h1>
   <p class="subtitle">
     Launch a new influencer marketing campaign
   </p>
+
+  <div class="error-message" *ngIf="errorMessage">
+    <div class="error-stripe"></div>
+    <div class="error-icon">!</div>
+    <div class="error-content">
+      <p class="error-title">Unable to create campaign</p>
+      <p class="error-text">{{ errorMessage }}</p>
+    </div>
+  </div>
 
   <form
     class="form-card"
     (ngSubmit)="createCampaign()"
     #campaignForm="ngForm"
   >
-
-    <!-- Title -->
     <label>Campaign Title *</label>
     <input
       type="text"
@@ -21,7 +27,6 @@
       required
     />
 
-    <!-- Description -->
     <label>Description *</label>
     <textarea
       name="description"
@@ -30,7 +35,6 @@
       required
     ></textarea>
 
-    <!-- Brand Name (REQUIRED BY BACKEND) -->
     <label>Brand Name *</label>
     <input
       type="text"
@@ -40,9 +44,7 @@
       required
     />
 
-    <!-- Row -->
     <div class="row">
-
       <div>
         <label>Budget *</label>
         <input
@@ -64,20 +66,16 @@
           required
         />
       </div>
-
     </div>
 
-    <!-- Deadline (REQUIRED BY BACKEND) -->
     <label>Deadline *</label>
     <input
       type="date"
       name="deadline"
       [(ngModel)]="campaign.deadline"
-      placeholder="e.g. 2024-12-31"
       required
     />
 
-    <!-- Actions -->
     <div class="actions">
       <button
         class="primary"
@@ -91,6 +89,5 @@
         Cancel
       </button>
     </div>
-
   </form>
 </div>

@@ -7,3 +7,11 @@ export interface USerProfile{
     role: 'BRAND' | 'INFLUENCER';
     profileImageUrl?: string;
 }
+
+export interface InfluencerProfile{
+
+    bio: string;
+    location: string;
+    socialLinks: string;
+    profilePicture: string;
+}
