@@ -40,15 +40,24 @@
     </app-empty-state>
   </ng-template>
 
-  <div class="pagination" *ngIf="campaigns.length > 0">
-    <button (click)="prevPage()" [disabled]="page === 0">
-      Prev
-    </button>
+  <!-- Pagination -->
+<div class="pagination" >
 
-    <span>Page {{ page + 1 }} / {{ totalPages }}</span>
+  <button (click)="prevPage()" [disabled]="page === 0">
+    ← Prev
+  </button>
 
-    <button (click)="nextPage()" [disabled]="page + 1 >= totalPages">
-      Next
-    </button>
-  </div>
+  <button
+    *ngFor="let p of pages"
+    (click)="goToPage(p)"
+    [class.active]="page === p"
+  >
+    {{ p + 1 }}
+  </button>
+
+  <button (click)="nextPage()" [disabled]="page === totalPages - 1">
+    Next →
+  </button>
+
+</div>
 </div>

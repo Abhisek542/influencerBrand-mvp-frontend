@@ -22,6 +22,7 @@ export class MyCampaigns implements OnInit {
   page = 0;
   size = 5;
   totalPages = 0;
+  pages: number[] = [];
   loading = false;
   errorMessage = '';
 
@@ -45,6 +46,7 @@ export class MyCampaigns implements OnInit {
 
         this.campaigns = res.content;
         this.totalPages = res.totalPages;
+        this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -52,6 +54,7 @@ export class MyCampaigns implements OnInit {
         console.error('Error loading campaigns:', err);
         this.campaigns = [];
         this.totalPages = 0;
+        this.pages = [];
         this.errorMessage = this.errorHandler.getErrorMessage(err);
         this.loading = false;
         this.cdr.detectChanges();
@@ -59,19 +62,34 @@ export class MyCampaigns implements OnInit {
     });
   }
 
-  nextPage(): void {
-    if (this.page + 1 < this.totalPages) {
+  nextPage() {
+
+    if (this.page < this.totalPages - 1) {
       this.page++;
       this.loadCampaigns();
+      this.cdr.detectChanges();
     }
+
   }
 
-  prevPage(): void {
+  prevPage() {
+
     if (this.page > 0) {
       this.page--;
       this.loadCampaigns();
+       this.cdr.detectChanges();
     }
+
   }
+
+  goToPage(p: number) {
+
+    this.page = p;
+    this.loadCampaigns();
+     this.cdr.detectChanges();
+
+  }
+
 
   }
 

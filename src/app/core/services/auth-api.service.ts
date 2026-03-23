@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { LoginRequest, LoginResponse, RegisterResponse } from "../models/auth.model";
+import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from "../models/auth.model";
 import { Observable } from "rxjs";
 import { API_ENDPOINTS } from "../constants/api.constants";
 
@@ -17,10 +17,8 @@ export class AuthApiService {
 
     }
 
-    register(payload: RegisterResponse): Observable<RegisterResponse>{
-
-        return this.http.post<RegisterResponse>(API_ENDPOINTS.AUTH.REGISTER, payload);
-
-    }
+   register(payload: RegisterRequest): Observable<RegisterResponse> {
+  return this.http.post<RegisterResponse>(API_ENDPOINTS.AUTH.REGISTER, payload);
+  }
     
 }

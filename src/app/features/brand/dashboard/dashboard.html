@@ -5,21 +5,25 @@
     <p>Manage your campaigns and track applications</p>
   </header>
 
+  <!-- Global Loading -->
   <div *ngIf="loading" class="loading-wrapper">
     <p class="loading-text">Loading dashboard...</p>
   </div>
 
+  <!-- Global Error -->
   <div class="error-message" *ngIf="!loading && errorMessage">
     <div class="error-icon">!</div>
     <div class="error-content">
       <p class="error-title">Unable to load dashboard</p>
       <p class="error-text">{{ errorMessage }}</p>
-      <button (click)="loadDashboard()" class="retry-btn">Retry</button>
+      
     </div>
   </div>
 
+  <!-- Main Content -->
   <ng-container *ngIf="!loading && !errorMessage">
-    
+
+    <!-- Stats Grid -->
     <div class="stats-grid" *ngIf="dashboard">
       <app-stat-card
         label="Total Campaigns"
@@ -46,10 +50,36 @@
       </app-stat-card>
     </div>
 
-    <section class="applications-section">
-      <h2>Applications</h2>
-      <app-empty-state
-        *ngIf="!dashboard?.totalApplications"
-        title="No Applications Yet"
-        description="Applications from influencers will appear here">
-      </app-empty-state>
+    <!-- Campaigns Section -->
+    <section class="campaigns-section">
+      <h2>Campaigns</h2>
+
+      <div class="campaigns-list">
+        <ng-container *ngIf="campaigns.length > 0; else noCampaigns">
+          <app-campaign-card
+            *ngFor="let campaign of campaigns"
+            [title]="campaign.title"
+            [brand]="campaign.brandName"
+            [niche]="campaign.niche"
+            [budget]="campaign.budget"
+            [status]="campaign.status"
+            [showAppications]="true"
+            [campaignId]="campaign.id">
+          </app-campaign-card>
+        </ng-container>
+
+        <ng-template #noCampaigns>
+          <app-empty-state
+            title="No campaigns yet"
+            description="Create your first campaign to start finding influencers">
+          </app-empty-state>
+        </ng-template>
+
+        
+      </div>
+
+    </section>
+
+  </ng-container>
+
+</div>

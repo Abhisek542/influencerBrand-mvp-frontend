@@ -1,0 +1,11 @@
+<div 
+  class="modal-overlay" 
+  [style.display]="visible ? 'flex' : 'none'" 
+  (click)="onOverlayClick($event)">
+  <div class="modal-box">
+    <div class="modal-icon">✓</div>
+    <h2 class="modal-title">{{ title }}</h2>
+    <p class="modal-message">{{ message }}</p>
+    <button class="modal-btn" (click)="onConfirm()">OK</button>
+  </div>
+</div>

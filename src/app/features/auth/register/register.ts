@@ -1,25 +1,84 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthApiService } from '../../../core/services/auth-api.service';
+import { AuthStateService } from '../../../core/services/auth-state.service';
+import { ErrorHandlerService } from '../../../core/services/error-handler.service';
+import { RegisterRequest, RegisterResponse } from '../../../core/models/auth.model';
+import { SuccessModal } from '../../../shared/components/success-modal/success-modal';
 
 @Component({
   selector: 'app-register',
-  imports: [CommonModule,FormsModule,RouterLink],
+  imports: [CommonModule,FormsModule,RouterLink, SuccessModal],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
 export class Register {
 
-  username: string = '';
-  email: string = ''; 
-  password: string = '';
+   username = '';
+  email = '';
+  password = '';
+  role: 'BRAND' | 'INFLUENCER' | '' = '';
 
-  role:'influencer' | 'brand' = 'influencer';
+  loading = false;
+  errorMessage = '';
+  showSuccessModal = false;
+
+  constructor(
+    private authApi: AuthApiService,
+    private authState: AuthStateService,
+    private errorHandler: ErrorHandlerService,
+    private router: Router,
+    private ngZone: NgZone
+  ) {}
 
   submit() {
-    // UI-only for now
-    console.log('Register form submitted');
+    this.loading = true;
+    this.errorMessage = '';
+    console.log('Submit called');
+    const payload: RegisterRequest = {
+      name: this.username,
+      email: this.email,
+      password: this.password,
+      role: this.role as 'BRAND' | 'INFLUENCER'
+    };
+     console.log('Payload:', payload)
+    this.authApi.register(payload).subscribe({
+
+      next: (res: RegisterResponse) => {
+         setTimeout(() => {
+    this.loading = false;
+    if (!res.success) {
+      this.errorMessage = res.message;
+      return;
+    }
+    // skip modal, just redirect
+    this.router.navigate(['/auth/login'], {
+      queryParams: { registered: 'true' }
+    });
+  }, 0);
+      },
+
+      error: (err) => {
+         console.error('Got error:', err);
+         this.loading = false;
+          try {
+            this.errorMessage = this.errorHandler.getErrorMessage(err);
+          } catch (e) {
+            this.errorMessage = 'Something went wrong. Please try again.';
+            console.error('ErrorHandler crashed:', e);
+          }
+        
+      }
+
+    });
   }
+
+  onModalConfirm() {
+    this.showSuccessModal = false;
+    this.router.navigate(['/auth/login']);
+  }
+
 
 }

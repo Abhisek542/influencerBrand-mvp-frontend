@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthApiService } from '../../../core/services/auth-api.service';
 import { AuthStateService } from '../../../core/services/auth-state.service';
 
@@ -13,25 +13,31 @@ import { AuthStateService } from '../../../core/services/auth-state.service';
 })
 export class Login {
 
-email: string = '';
-password: string = '';
+  email: string = '';
+  password: string = '';
 
-loading = false;
-error='';
+  loading = false;
+  error = '';
+  justRegistered = false;
 
-constructor(private router: Router, private authApi: AuthApiService, private authState: AuthStateService) { }
+  constructor(
+    private router: Router,
+    private authApi: AuthApiService,
+    private authState: AuthStateService,
+    private route: ActivatedRoute  // ✅ added
+  ) {
+    this.justRegistered = this.route.snapshot.queryParamMap.get('registered') === 'true'; // ✅ added
+  }
 
-login(){
+  login() {
+    this.loading = true;
+    this.error = '';
 
-  this.loading = true;
-  this.error='';
+    this.authApi.login({ email: this.email, password: this.password }).subscribe({
 
-  this.authApi.login({email: this.email, password: this.password}).subscribe({
-
- next: (res) => {
-
-   this.authState.setAuthState(res.token, res.role);
-   this.loading = false;
+      next: (res) => {
+        this.authState.setAuthState(res.token, res.role);
+        this.loading = false;
 
         if (res.role === 'BRAND') {
           this.router.navigate(['/brand/dashboard']);
@@ -40,15 +46,14 @@ login(){
         } else {
           this.error = 'Invalid user role';
         }
-   
-  },
+      },
 
- error: (err) => {
-   this.error ='Invalid email or password';
-   this.loading = false;
-  },
-});
-}
+      error: (err) => {
+        this.error = 'Invalid email or password';
+        this.loading = false;
+      },
 
+    });
+  }
 
 }
