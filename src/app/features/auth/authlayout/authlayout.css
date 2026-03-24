@@ -1,106 +1,134 @@
-/* ============================================
-   InfluencerHub — Auth Layout Styles
-   Theme: #0f5132 (Deep Forest Green)
-   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Outfit:wght@300;400;500&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+:host { display: block; }
 
-/* ── Reset ────────────────────────────────── */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.auth-wrap {
+  display: flex;
+  min-height: 100vh;
 }
 
-html, body {
-  height: 100%;
-  overflow: hidden;
-}
-
-/* ── Outer wrapper (the top-level div) ─────── */
-:host {
-  display: block;
-}
-
-/* ── Left Panel ───────────────────────────── */
-div[style*="background: #f3f9ef"],
-div[style*="background:#f3f9ef"] {
+/* ── Left Panel ── */
+.auth-left {
+  flex: 1;
+  background: #0a1628;
+  padding: 64px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle dot-grid texture on left panel */
-div[style*="background: #f3f9ef"]::before,
-div[style*="background:#f3f9ef"]::before {
+/* subtle grid texture */
+.auth-left::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(15, 81, 50, 0.07) 1px, transparent 1px);
-  background-size: 26px 26px;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px);
   pointer-events: none;
 }
 
-/* ── Left Panel — Heading ─────────────────── */
-div[style*="background: #f3f9ef"] h1,
-div[style*="background:#f3f9ef"] h1 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(32px, 3.5vw, 48px) !important;
-  font-weight: 800;
-  color: #0d1f17;
-  line-height: 1.15;
-  margin-bottom: 20px !important;
-  letter-spacing: -0.5px;
-  position: relative;
+/* green glow orb */
+.auth-left::after {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,221,155,0.12) 0%, transparent 70%);
+  pointer-events: none;
 }
 
-/* ── Left Panel — Paragraph ───────────────── */
-div[style*="background: #f3f9ef"] p,
-div[style*="background:#f3f9ef"] p {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
-  color: #5a7060 !important;
-  line-height: 1.75 !important;
+.auth-brand { position: relative; }
+.auth-brand-name {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
   font-weight: 300;
-  position: relative;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+.auth-brand-name span { color: #63dd9b; }
+.auth-brand-tag {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 4px;
 }
 
-/* ── Right Panel — THE KEY FIX ────────────── */
-/*
-  router-outlet is a comment node — it renders nothing itself.
-  The actual component is injected as its next sibling in the DOM.
-  We use the adjacent sibling selector to grab it and make it
-  a flex child that fills + centers within the right panel.
-*/
-div[style*="background: #fff"] router-outlet + *,
-div[style*="background: #fff"] > *:not(router-outlet) {
-  display: flex !important;
-  justify-content: center;
+.auth-hero { position: relative; }
+.auth-hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(32px, 3vw, 44px);
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 18px;
+}
+.auth-hero h1 em {
+  font-style: italic;
+  color: #63dd9b;
+}
+.auth-hero p {
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 340px;
+}
+
+.auth-stats {
+  display: flex;
+  gap: 36px;
+  position: relative;
+}
+.stat { display: flex; flex-direction: column; gap: 3px; }
+.stat-val {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #fff;
+}
+.stat-lbl {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.5px;
+}
+
+/* ── Right Panel ── */
+.auth-right {
+  flex: 1;
+  background: #fff;
+  display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+/* inject the routed component as a flex child */
+.auth-right router-outlet + *,
+.auth-right > *:not(router-outlet) {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   height: 100%;
   min-height: 100vh;
 }
 
-/* ── Responsive ───────────────────────────── */
+/* ── Responsive ── */
 @media (max-width: 768px) {
-  div[style*="display: flex; min-height: 100vh"] {
-    flex-direction: column;
-  }
-
-  div[style*="background: #f3f9ef"],
-  div[style*="background:#f3f9ef"] {
-    padding: 48px 32px !important;
-    flex: none !important;
-  }
-
-  div[style*="background: #fff"] {
-    flex: none !important;
-    min-height: auto;
-    padding: 40px 24px;
-  }
-
-  div[style*="background: #fff"] router-outlet + *,
-  div[style*="background: #fff"] > *:not(router-outlet) {
-    min-height: auto;
-  }
+  .auth-wrap { flex-direction: column; }
+  .auth-left { padding: 48px 32px; flex: none; }
+  .auth-right { flex: none; min-height: 60vh; }
+  .auth-right router-outlet + *,
+  .auth-right > *:not(router-outlet) { min-height: auto; }
 }

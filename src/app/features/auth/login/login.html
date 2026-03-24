@@ -1,26 +1,32 @@
-<div style="width: 360px">
-    <!-- ✅ Success banner after registration -->
-  <div *ngIf="justRegistered" style="
-    background: #d1fae5;
-    border: 1px solid #6ee7b7;
-    color: #065f46;
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-size: 14px;
-  ">
-    ✅ Account created successfully! Please sign in.
+<div class="login-box">
+
+  <!-- Success banner -->
+  <div class="success-banner" *ngIf="justRegistered">
+    <span>✓</span> Account created successfully! Please sign in.
   </div>
-  <h2>Welcome Back</h2>
-  <p style="color: gray; margin-bottom: 24px">
-    Login to your account
-  </p>
+
+  <!-- Pill -->
+  <div class="login-pill">
+    <div class="login-pill-dot"></div>
+    <span class="login-pill-text">Welcome back</span>
+  </div>
+
+  <!-- Heading -->
+  <div class="login-eyebrow">Sign in</div>
+  <h2 class="login-title">Good to see you</h2>
+  <p class="login-sub">Enter your credentials to continue</p>
+
+  <!-- Error alert -->
+  <div class="login-error" *ngIf="error">
+    <div class="login-error-stripe"></div>
+    <div class="login-error-body">{{ error }}</div>
+  </div>
 
   <form #loginForm="ngForm" (ngSubmit)="login()">
 
     <!-- Email -->
-    <div style="margin-bottom: 16px">
-      <label>Email</label>
+    <div class="form-group">
+      <label>Email address</label>
       <input
         type="email"
         name="email"
@@ -28,15 +34,15 @@
         required
         email
         #emailRef="ngModel"
+        placeholder="you@example.com"
       />
-
-      <small style="color: red" *ngIf="emailRef.touched && emailRef.invalid">
+      <span class="field-error" *ngIf="emailRef.touched && emailRef.invalid">
         Enter a valid email address
-      </small>
+      </span>
     </div>
 
     <!-- Password -->
-    <div style="margin-bottom: 24px">
+    <div class="form-group" style="margin-bottom: 24px">
       <label>Password</label>
       <input
         type="password"
@@ -44,27 +50,27 @@
         [(ngModel)]="password"
         required
         #passwordRef="ngModel"
+        placeholder="••••••••"
       />
-
-      <small style="color: red" *ngIf="passwordRef.touched && passwordRef.invalid">
+      <span class="field-error" *ngIf="passwordRef.touched && passwordRef.invalid">
         Password is required
-      </small>
+      </span>
     </div>
 
     <!-- Submit -->
     <button
       type="submit"
-      [disabled]="loginForm.invalid"
-      style="width: 100%; padding: 10px; background: #0f5132; color: white"
+      class="login-btn"
+      [disabled]="loginForm.invalid || loading"
     >
-      Login
+      {{ loading ? 'Signing in...' : 'Sign in →' }}
     </button>
 
   </form>
 
-  <p style="margin-top: 16px; text-align: center">
-    Don’t have an account?
-    <a routerLink="/auth/register">Sign up</a>
+  <p class="login-footer">
+    Don't have an account?
+    <a routerLink="/auth/register">Create one</a>
   </p>
 
 </div>

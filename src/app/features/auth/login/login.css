@@ -1,11 +1,6 @@
-/* ============================================
-   InfluencerHub — Login Component Styles
-   Theme: #0f5132 (Deep Forest Green)
-   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@300;400;500&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@300;400;500;600&display=swap');
-
-/* ── Host: fill the right panel fully ──────── */
+/* ── Host ── */
 :host {
   display: flex;
   justify-content: center;
@@ -13,184 +8,220 @@
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Outfit', sans-serif;
+  background: #fff;
 }
 
-/* ── Card Wrapper ─────────────────────────── */
-div[style*="width: 360px"],
-.login-wrapper {
+/* ── Form wrapper ── */
+.login-box {
   width: 360px;
-  background: #ffffff;
+  padding: 8px 0;
+}
+
+/* ── Success banner ── */
+.success-banner {
+  background: rgba(99, 221, 155, 0.1);
+  border: 0.5px solid rgba(99, 221, 155, 0.4);
+  color: #0a6640;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  font-family: 'Outfit', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Pill ── */
+.login-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(99, 221, 155, 0.1);
+  border: 0.5px solid rgba(99, 221, 155, 0.3);
   border-radius: 20px;
-  padding: 48px 40px;
-  box-shadow:
-    0 4px 6px rgba(15, 81, 50, 0.06),
-    0 20px 60px rgba(15, 81, 50, 0.12);
-  position: relative;
-  overflow: hidden;
+  padding: 4px 12px;
+  margin-bottom: 24px;
 }
 
-/* Decorative top accent bar */
-div[style*="width: 360px"]::before,
-.login-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #0f5132 0%, #1a7a4a 50%, #22a262 100%);
+.login-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #63dd9b;
+  flex-shrink: 0;
 }
 
-/* ── Typography ───────────────────────────── */
-h2 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 26px;
-  font-weight: 600;
-  color: #0f5132;
+.login-pill-text {
+  font-size: 11px;
+  color: #0a6640;
+  letter-spacing: 0.5px;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* ── Heading ── */
+.login-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: #9ca3af;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.login-title {
+  font-family: 'Fraunces', serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: #0a1628;
   margin: 0 0 6px 0;
-  letter-spacing: -0.3px;
   line-height: 1.2;
+  letter-spacing: -0.3px;
 }
 
-p[style*="color: gray"] {
-  font-size: 14px !important;
-  color: #7a8c84 !important;
-  margin-bottom: 32px !important;
+.login-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 32px;
   font-weight: 300;
-  letter-spacing: 0.2px;
 }
 
-/* ── Form Fields ──────────────────────────── */
-form div[style*="margin-bottom"] {
+/* ── Form fields ── */
+.form-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  margin-bottom: 18px;
 }
 
-label {
+.form-group label {
+  font-family: 'Outfit', sans-serif;
   font-size: 12px;
-  font-weight: 600;
-  color: #3d5247;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
+  font-weight: 500;
+  color: #374151;
+  letter-spacing: 0.3px;
 }
 
-input[type="email"],
-input[type="password"] {
+.form-group input[type="email"],
+.form-group input[type="password"] {
   width: 100%;
-  padding: 12px 16px;
-  font-family: 'DM Sans', sans-serif;
+  padding: 11px 14px;
+  font-family: 'Outfit', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #1a2e24;
-  background: #f7faf8;
-  border: 1.5px solid #d4e4da;
-  border-radius: 10px;
+  color: #0a1628;
+  background: #f8fafc;
+  border: 0.5px solid #e2e8f0;
+  border-radius: 8px;
   outline: none;
-  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
   box-sizing: border-box;
-  -webkit-appearance: none;
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-  border-color: #0f5132;
-  background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(15, 81, 50, 0.10);
+.form-group input:focus {
+  border-color: #0a6640;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(99, 221, 155, 0.15);
 }
 
-input[type="email"].ng-invalid.ng-touched,
-input[type="password"].ng-invalid.ng-touched {
-  border-color: #c0392b;
+.form-group input.ng-invalid.ng-touched {
+  border-color: #ef4444;
   background: #fff9f9;
-  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.08);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
 }
 
 input::placeholder {
-  color: #b0bfb8;
+  color: #c4cdd6;
 }
 
-/* ── Validation Messages ──────────────────── */
-small[style*="color: red"] {
-  color: #c0392b !important;
-  font-size: 11.5px !important;
-  font-weight: 500;
-  margin-top: 2px;
+/* ── Validation ── */
+.field-error {
+  font-size: 12px;
+  color: #dc2626;
+  font-family: 'Outfit', sans-serif;
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-small[style*="color: red"]::before {
-  content: '⚠';
-  font-size: 11px;
-}
-
-/* ── Submit Button ────────────────────────── */
-button[type="submit"] {
-  width: 100% !important;
-  padding: 13px !important;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.6px;
-  color: #ffffff !important;
-  background: #0f5132 !important;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
-  box-shadow: 0 4px 14px rgba(15, 81, 50, 0.30);
-  position: relative;
+/* ── Error alert ── */
+.login-error {
+  display: flex;
+  align-items: stretch;
+  background: #fff5f5;
+  border: 0.5px solid #fecaca;
+  border-radius: 8px;
   overflow: hidden;
+  margin-bottom: 20px;
 }
 
-button[type="submit"]::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
-  pointer-events: none;
+.login-error-stripe {
+  width: 3px;
+  flex-shrink: 0;
+  background: #dc2626;
 }
 
-button[type="submit"]:hover:not(:disabled) {
-  background: #0d4228 !important;
+.login-error-body {
+  padding: 11px 14px;
+  font-size: 13px;
+  color: #991b1b;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* ── Submit button ── */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: #63dd9b;
+  background: #0a1628;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 4px;
+}
+
+.login-btn:hover:not(:disabled) {
+  background: #0f2040;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(15, 81, 50, 0.38);
 }
 
-button[type="submit"]:active:not(:disabled) {
+.login-btn:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(15, 81, 50, 0.25);
 }
 
-button[type="submit"]:disabled {
-  background: #b5ccbf !important;
-  color: #f0f5f2 !important;
+.login-btn:disabled {
+  background: #e2e8f0;
+  color: #9ca3af;
   cursor: not-allowed;
-  box-shadow: none;
   transform: none;
 }
 
-/* ── Footer Link ──────────────────────────── */
-p[style*="margin-top: 16px"] {
-  font-size: 13.5px !important;
-  color: #7a8c84;
+/* ── Footer link ── */
+.login-footer {
+  font-size: 13px;
+  color: #6b7280;
   text-align: center;
-  margin-top: 24px !important;
+  margin-top: 24px;
+  font-family: 'Outfit', sans-serif;
 }
 
-p[style*="margin-top: 16px"] a {
-  color: #0f5132;
-  font-weight: 600;
+.login-footer a {
+  color: #0a6640;
+  font-weight: 500;
   text-decoration: none;
-  border-bottom: 1.5px solid transparent;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
   padding-bottom: 1px;
 }
 
-p[style*="margin-top: 16px"] a:hover {
-  color: #0d4228;
-  border-bottom-color: #0f5132;
+.login-footer a:hover {
+  border-bottom-color: #0a6640;
 }

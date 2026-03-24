@@ -36,16 +36,16 @@ export class Login {
     this.authApi.login({ email: this.email, password: this.password }).subscribe({
 
       next: (res) => {
-        this.authState.setAuthState(res.token, res.role);
-        this.loading = false;
+       this.authState.setAuthState(res.token, res.role, this.email); // ✅ pass email
+  this.loading = false;
 
-        if (res.role === 'BRAND') {
-          this.router.navigate(['/brand/dashboard']);
-        } else if (res.role === 'INFLUENCER') {
-          this.router.navigate(['/influencer/dashboard']);
-        } else {
-          this.error = 'Invalid user role';
-        }
+  if (res.role === 'BRAND') {
+    this.router.navigate(['/brand/dashboard']);
+  } else if (res.role === 'INFLUENCER') {
+    this.router.navigate(['/influencer/dashboard']);
+  } else {
+    this.error = 'Invalid user role';
+  }
       },
 
       error: (err) => {

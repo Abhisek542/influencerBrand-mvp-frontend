@@ -1,37 +1,21 @@
-<div style="display: flex; min-height: 100vh">
-
-  <!-- LEFT SECTION -->
-  <div
-    style="
-      flex: 1;
-      background: #f3f9ef;
-      padding: 80px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    "
-  >
-    <h1 style="font-size: 48px; margin-bottom: 16px">
-      Connect Brands<br />with Influencers
-    </h1>
-
-    <p style="color: #555; max-width: 420px; line-height: 1.6">
-      The marketplace where authentic partnerships bloom.
-      Join thousands of brands and influencers creating impactful campaigns.
-    </p>
+<div class="auth-wrap">
+  <div class="auth-left">
+    <div class="auth-brand">
+      <div class="auth-brand-name">Influencer<span>Hub</span></div>
+      <div class="auth-brand-tag">Influencer Portal</div>
+    </div>
+    <div class="auth-hero">
+      <h1>Connect Brands<br/>with <em>Influencers</em></h1>
+      <p>The marketplace where authentic partnerships bloom.
+        Join thousands of brands and influencers creating impactful campaigns.</p>
+    </div>
+    <div class="auth-stats">
+      <div class="stat"><span class="stat-val">12K+</span><span class="stat-lbl">Influencers</span></div>
+      <div class="stat"><span class="stat-val">3.4K</span><span class="stat-lbl">Brands</span></div>
+      <div class="stat"><span class="stat-val">98%</span><span class="stat-lbl">Match rate</span></div>
+    </div>
   </div>
-
-  <!-- RIGHT SECTION -->
-  <div
-    style="
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-    "
-  >
+  <div class="auth-right">
     <router-outlet></router-outlet>
   </div>
-
 </div>

@@ -1,19 +1,19 @@
 /* ── Page Header ── */
-h1 {
+.page-header h1 {
   font-size: 28px;
   font-weight: 700;
   color: #111827;
   margin-bottom: 4px;
 }
 
-h1 + p {
+.page-header p {
   color: #6b7280;
   font-size: 14px;
   margin-bottom: 28px;
 }
 
 /* ── Cards ── */
-.card {
+.profile-card {
   background: white;
   border-radius: 12px;
   border: 1px solid #e5e7eb;
@@ -22,7 +22,7 @@ h1 + p {
   max-width: 680px;
 }
 
-.card h3 {
+.profile-card h2 {
   font-size: 16px;
   font-weight: 600;
   color: #111827;
@@ -32,23 +32,44 @@ h1 + p {
 }
 
 /* ── Profile Image Section ── */
-.profile-img-wrapper {
+.profile-image-section {
   display: flex;
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
 }
 
-.profile-img {
-  width: 100px;
-  height: 100px;
+/* THE KEY FIX: constrain the image to a circle avatar */
+.profile-image {
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center top;
   border: 3px solid #e5e7eb;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: block;
 }
 
-.upload-controls {
+/* Placeholder when no image */
+.profile-image.placeholder {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  border: 3px solid #e5e7eb;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ── Upload Box ── */
+.upload-box {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -59,8 +80,8 @@ h1 + p {
   padding: 10px 14px;
 }
 
-.upload-controls input[type="file"] {
-   font-size: 13px;
+.upload-box input[type="file"] {
+  font-size: 13px;
   color: #374151;
   flex: 1;
 }
@@ -80,8 +101,7 @@ h1 + p {
 }
 
 .form-group textarea,
-.form-group input[type="text"],
-.form-group input:not([type="file"]) {
+.form-group input[type="text"] {
   padding: 10px 14px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
@@ -106,14 +126,14 @@ h1 + p {
   background: white;
 }
 
-/* ── Save Button row ── */
-.form-actions {
+/* ── Actions Row ── */
+.actions {
   display: flex;
   justify-content: flex-end;
   margin-top: 4px;
 }
 
-/* ── Buttons (keeping your existing green theme) ── */
+/* ── Buttons ── */
 button {
   background: #1f7a63;
   color: white;
@@ -129,6 +149,8 @@ button {
 button:hover {
   background: #165a49;
 }
+
+/* ── Error Message ── */
 .error-message {
   display: flex;
   align-items: stretch;
@@ -153,6 +175,7 @@ button:hover {
   margin-top: 1px;
   color: #991b1b;
   font-size: 15px;
+  font-weight: 700;
   line-height: 1;
 }
 
