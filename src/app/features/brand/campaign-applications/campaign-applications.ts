@@ -52,7 +52,9 @@ export class CampaignApplications {
 
   accept(app: any) {
     this.brandApi.updateApplicationStatus(app.id, 'ACCEPTED').subscribe(() => {
+      
       app.status = 'ACCEPTED';
+      this.cdr.detectChanges();
     });
   }
 

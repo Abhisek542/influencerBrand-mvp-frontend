@@ -160,8 +160,15 @@ export class BrowseCampaigns {
           alert(res.message);
 
           if (res.message === "Application has been applied") {
-
             this.closeApplyModal();
+
+            const campaign = this.campaigns.find(c => c.id === this.selectedCampaignId);
+           if (campaign) {
+            campaign.applied = true;
+            this.cdr.detectChanges(); // trigger UI update
+            }
+             
+            
 
             this.applicationForm = {
               influencerName: '',
