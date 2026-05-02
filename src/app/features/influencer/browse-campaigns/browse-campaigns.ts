@@ -167,7 +167,7 @@ export class BrowseCampaigns {
             campaign.applied = true;
             this.cdr.detectChanges(); // trigger UI update
             }
-             
+              
             
 
             this.applicationForm = {
