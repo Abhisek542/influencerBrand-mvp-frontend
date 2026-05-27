@@ -5,7 +5,6 @@
 
 <!-- Search + Filter -->
 <div class="toolbar">
-
   <input
     type="text"
     placeholder="Search campaigns..."
@@ -23,15 +22,20 @@
     <option value="Tech">Tech</option>
     <option value="Fitness">Fitness</option>
     <option value="Fashion">Fashion</option>
+    <option value="Beauty">Beauty</option>
+    <option value="Food">Food</option>
+    <option value="Travel">Travel</option>
+    <option value="Gaming">Gaming</option>
+    <option value="Lifestyle">Lifestyle</option>
   </select>
-
 </div>
 
-<!-- Loading -->
-<div *ngIf="loading">
-  <p>Loading campaigns...</p>
+<!-- Success message (replaces alert) -->
+<div class="success-message" *ngIf="successMessage">
+  {{ successMessage }}
 </div>
 
+<!-- Error -->
 <div class="error-message" *ngIf="!loading && errorMessage">
   <div class="error-icon">!</div>
   <div class="error-content">
@@ -39,9 +43,15 @@
     <p class="error-text">{{ errorMessage }}</p>
   </div>
 </div>
+
+<!-- Loading -->
+<div *ngIf="loading" class="loading-wrapper">
+  <div class="spinner"></div>
+  <span>Loading campaigns...</span>
+</div>
+
 <!-- Campaign Grid -->
 <div class="campaign-grid" *ngIf="!loading && campaigns.length > 0">
-
   <app-campaign-card
     *ngFor="let c of campaigns"
     [campaignId]="c.id"
@@ -54,16 +64,11 @@
     [showApplyButton]="true"
     (applyClicked)="openApplyModal($event)">
   </app-campaign-card>
-
 </div>
-
 
 <!-- Pagination -->
 <div class="pagination" *ngIf="totalPages > 1">
-
-  <button (click)="prevPage()" [disabled]="page === 0">
-    ← Prev
-  </button>
+  <button (click)="prevPage()" [disabled]="page === 0">← Prev</button>
 
   <button
     *ngFor="let p of pages"
@@ -73,59 +78,8 @@
     {{ p + 1 }}
   </button>
 
-  <button (click)="nextPage()" [disabled]="page === totalPages - 1">
-    Next →
-  </button>
-
+  <button (click)="nextPage()" [disabled]="page === totalPages - 1">Next →</button>
 </div>
-
-
-<!-- APPLY MODAL -->
-<div class="modal-overlay" *ngIf="showApplyModal">
-
-  <div class="modal">
-
-    <h2>Apply to Campaign</h2>
-
-    <input
-      type="text"
-      placeholder="Influencer Name"
-      [(ngModel)]="applicationForm.influencerName"
-    />
-
-    <input
-      type="text"
-      placeholder="Platform"
-      [(ngModel)]="applicationForm.platform"
-    />
-
-    <input
-      type="text"
-      placeholder="Niche"
-      [(ngModel)]="applicationForm.niche"
-    />
-
-    <textarea
-      placeholder="Message"
-      [(ngModel)]="applicationForm.message">
-    </textarea>
-
-    <div class="modal-actions">
-
-      <button (click)="closeApplyModal()">
-        Cancel
-      </button>
-
-      <button (click)="submitApplication()">
-        Submit Application
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
 
 <!-- Empty State -->
 <app-empty-state
@@ -134,3 +88,82 @@
   description="Check back later for new campaigns">
 </app-empty-state>
 
+
+<!-- APPLY MODAL -->
+<div
+  class="modal-overlay"
+  *ngIf="showApplyModal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="apply-modal-title"
+>
+  <div class="modal">
+
+    <div class="modal-header">
+      <h2 id="apply-modal-title">Apply to Campaign</h2>
+      <button class="modal-close" (click)="closeApplyModal()" aria-label="Close dialog">✕</button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="modal-field">
+        <label for="apply-name">Your Name *</label>
+        <input
+          id="apply-name"
+          type="text"
+          placeholder="e.g. Priya Sharma"
+          [(ngModel)]="applicationForm.influencerName"
+        />
+      </div>
+
+      <div class="modal-field">
+        <label for="apply-platform">Platform *</label>
+        <select id="apply-platform" [(ngModel)]="applicationForm.platform">
+          <option value="">Select platform...</option>
+          <option value="Instagram">Instagram</option>
+          <option value="YouTube">YouTube</option>
+          <option value="TikTok">TikTok</option>
+          <option value="Twitter">Twitter / X</option>
+          <option value="LinkedIn">LinkedIn</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="modal-field">
+        <label for="apply-niche">Niche *</label>
+        <select id="apply-niche" [(ngModel)]="applicationForm.niche">
+          <option value="">Select niche...</option>
+          <option value="Tech">Tech</option>
+          <option value="Fitness">Fitness</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Beauty">Beauty</option>
+          <option value="Food">Food</option>
+          <option value="Travel">Travel</option>
+          <option value="Gaming">Gaming</option>
+          <option value="Lifestyle">Lifestyle</option>
+        </select>
+      </div>
+
+      <div class="modal-field">
+        <label for="apply-message">Message *</label>
+        <textarea
+          id="apply-message"
+          placeholder="Tell the brand why you're a great fit..."
+          [(ngModel)]="applicationForm.message">
+        </textarea>
+      </div>
+
+    </div>
+
+    <div class="modal-actions">
+      <button class="secondary" (click)="closeApplyModal()">Cancel</button>
+      <button
+        (click)="submitApplication()"
+        [disabled]="!isApplicationFormValid()"
+      >
+        Submit Application
+      </button>
+    </div>
+
+  </div>
+</div>

@@ -4,8 +4,9 @@
 </div>
 
 <!-- Loading -->
-<div *ngIf="loading">
-  <p>Loading profile...</p>
+<div *ngIf="loading" class="loading-wrapper">
+  <div class="spinner"></div>
+  <span>Loading profile...</span>
 </div>
 
 <!-- Load Error -->
@@ -27,7 +28,7 @@
     <div class="profile-image-section">
       <img
         *ngIf="profile?.profilePicture"
-        [src]="'http://localhost:8080/uploads/' + profile.profilePicture"
+        [src]="serverUrl + '/uploads/' + profile.profilePicture"
         alt="Profile Image"
         class="profile-image"
       />
@@ -39,9 +40,14 @@
       </div>
 
       <div class="upload-box">
-        <input type="file" (change)="onFileSelected($event)" />
+        <input type="file" accept="image/jpeg,image/png,image/webp" (change)="onFileSelected($event)" />
         <button type="button" (click)="uploadProfileImage()">Upload</button>
       </div>
+    </div>
+
+    <!-- Upload Success -->
+    <div class="success-message" *ngIf="uploadSuccess">
+      {{ uploadSuccess }}
     </div>
 
     <!-- Upload Error -->
@@ -57,6 +63,11 @@
   <!-- Profile Details Section -->
   <div class="profile-card">
     <h2>Profile Details</h2>
+
+    <!-- Save Success -->
+    <div class="success-message" *ngIf="saveSuccess">
+      {{ saveSuccess }}
+    </div>
 
     <!-- Save Error -->
     <div class="error-message" *ngIf="saveError">
@@ -79,7 +90,7 @@
 
     <div class="form-group">
       <label>Social Links</label>
-      <input type="text" [(ngModel)]="profile.socialLinks" />
+      <input type="text" [(ngModel)]="profile.socialLinks" placeholder="https://instagram.com/yourhandle" />
     </div>
 
     <div class="actions">

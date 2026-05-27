@@ -127,8 +127,18 @@ html, body { height: 100%; overflow: hidden; }
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .auth-wrap { flex-direction: column; }
-  .auth-left { padding: 48px 32px; flex: none; }
-  .auth-right { flex: none; min-height: 60vh; }
+  .auth-left { padding: 40px 24px; flex: none; }
+  .auth-right {
+    flex: none;
+    min-height: 60vh;
+    padding: 0 20px; /* prevent the form from touching screen edges */
+  }
   .auth-right router-outlet + *,
   .auth-right > *:not(router-outlet) { min-height: auto; }
+}
+
+@media (max-width: 480px) {
+  .auth-left { padding: 32px 20px; }
+  .auth-stats { gap: 24px; }
+  .auth-hero h1 { font-size: 28px; }
 }

@@ -9,8 +9,13 @@
   </a>
 </div>
 
-<p *ngIf="loading">Loading campaigns...</p>
+<!-- Loading -->
+<div *ngIf="loading" class="loading-wrapper">
+  <div class="spinner"></div>
+  <span>Loading campaigns...</span>
+</div>
 
+<!-- Error -->
 <div class="error-message" *ngIf="!loading && errorMessage">
   <div class="error-icon">!</div>
   <div class="error-content">
@@ -28,7 +33,7 @@
       [niche]="campaign.niche"
       [budget]="campaign.budget"
       [status]="campaign.status"
-      [showAppications]="true"
+      [showApplications]="true"
       [campaignId]="campaign.id">
     </app-campaign-card>
   </ng-container>
@@ -40,24 +45,18 @@
     </app-empty-state>
   </ng-template>
 
-  <!-- Pagination -->
-<div class="pagination" >
+  <!-- Pagination — only shown when there is more than one page -->
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="prevPage()" [disabled]="page === 0">← Prev</button>
 
-  <button (click)="prevPage()" [disabled]="page === 0">
-    ← Prev
-  </button>
+    <button
+      *ngFor="let p of pages"
+      (click)="goToPage(p)"
+      [class.active]="page === p"
+    >
+      {{ p + 1 }}
+    </button>
 
-  <button
-    *ngFor="let p of pages"
-    (click)="goToPage(p)"
-    [class.active]="page === p"
-  >
-    {{ p + 1 }}
-  </button>
-
-  <button (click)="nextPage()" [disabled]="page === totalPages - 1">
-    Next →
-  </button>
-
-</div>
+    <button (click)="nextPage()" [disabled]="page === totalPages - 1">Next →</button>
+  </div>
 </div>

@@ -1,9 +1,13 @@
 <div class="page">
   <h1>Create Campaign</h1>
-  <p class="subtitle">
-    Launch a new influencer marketing campaign
-  </p>
+  <p class="subtitle">Launch a new influencer marketing campaign</p>
 
+  <!-- Success message -->
+  <div class="success-message" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+
+  <!-- Error message -->
   <div class="error-message" *ngIf="errorMessage">
     <div class="error-stripe"></div>
     <div class="error-icon">!</div>
@@ -18,8 +22,9 @@
     (ngSubmit)="createCampaign()"
     #campaignForm="ngForm"
   >
-    <label>Campaign Title *</label>
+    <label for="title">Campaign Title *</label>
     <input
+      id="title"
       type="text"
       name="title"
       [(ngModel)]="campaign.title"
@@ -27,16 +32,18 @@
       required
     />
 
-    <label>Description *</label>
+    <label for="description">Description *</label>
     <textarea
+      id="description"
       name="description"
       [(ngModel)]="campaign.description"
       placeholder="Describe your campaign goals, deliverables, and expectations..."
       required
     ></textarea>
 
-    <label>Brand Name *</label>
+    <label for="brandName">Brand Name *</label>
     <input
+      id="brandName"
       type="text"
       name="brandName"
       [(ngModel)]="campaign.brandName"
@@ -46,30 +53,42 @@
 
     <div class="row">
       <div>
-        <label>Budget *</label>
+        <label for="budget">Budget (₹) *</label>
         <input
-          type="text"
+          id="budget"
+          type="number"
           name="budget"
           [(ngModel)]="campaign.budget"
           placeholder="5000"
+          min="0"
           required
         />
       </div>
 
       <div>
-        <label>Niche *</label>
-        <input
-          type="text"
+        <label for="niche">Niche *</label>
+        <select
+          id="niche"
           name="niche"
           [(ngModel)]="campaign.niche"
-          placeholder="e.g. Tech, Fitness, Fashion"
           required
-        />
+        >
+          <option value="">Select a niche...</option>
+          <option value="Tech">Tech</option>
+          <option value="Fitness">Fitness</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Beauty">Beauty</option>
+          <option value="Food">Food</option>
+          <option value="Travel">Travel</option>
+          <option value="Gaming">Gaming</option>
+          <option value="Lifestyle">Lifestyle</option>
+        </select>
       </div>
     </div>
 
-    <label>Deadline *</label>
+    <label for="deadline">Deadline *</label>
     <input
+      id="deadline"
       type="date"
       name="deadline"
       [(ngModel)]="campaign.deadline"
@@ -85,7 +104,7 @@
         Create Campaign
       </button>
 
-      <button type="button" class="secondary">
+      <button type="button" class="secondary" (click)="cancel()">
         Cancel
       </button>
     </div>

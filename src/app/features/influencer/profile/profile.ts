@@ -4,6 +4,7 @@ import { InfluencerService } from '../../../core/services/influencer.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ErrorHandlerService } from '../../../core/services/error-handler.service';
+import { API_SERVER_URL } from '../../../core/constants/api.constants';
 
 @Component({
   selector: 'app-influencer-profile',
@@ -26,6 +27,11 @@ export class Profile {
   loadError = '';
   saveError = '';
   uploadError = '';
+  saveSuccess = '';
+  uploadSuccess = '';
+
+  /** Base server URL used in the template to build image src */
+  readonly serverUrl = API_SERVER_URL;
 
   constructor(
     private influencerService: InfluencerService,
@@ -60,14 +66,16 @@ export class Profile {
 
   saveProfile() {
     this.saveError = '';
+    this.saveSuccess = '';
 
     this.influencerService.updateProfile(this.profile).subscribe({
       next: (res) => {
-        alert(res.message);
+        this.saveSuccess = res.message || 'Profile saved successfully!';
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error saving profile:', err);
         this.saveError = this.errorHandler.getErrorMessage(err);
+        this.cdr.detectChanges();
       }
     });
   }
@@ -87,12 +95,13 @@ export class Profile {
 
     this.influencerService.uploadProfileImage(this.selectedFile).subscribe({
       next: (res) => {
-        alert(res.message);
+        this.uploadSuccess = res.message || 'Image uploaded successfully!';
         this.loadProfile();
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error uploading profile image:', err);
         this.uploadError = this.errorHandler.getErrorMessage(err);
+        this.cdr.detectChanges();
       }
     });
   }

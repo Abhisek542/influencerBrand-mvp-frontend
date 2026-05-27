@@ -4,8 +4,9 @@
 </div>
 
 <!-- Loading State -->
-<div *ngIf="loading">
-  <p>Loading campaigns...</p>
+<div *ngIf="loading" class="loading-wrapper">
+  <div class="spinner"></div>
+  <span>Loading campaigns...</span>
 </div>
 
 <!-- Error State -->

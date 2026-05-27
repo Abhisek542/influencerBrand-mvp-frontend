@@ -1,3 +1,9 @@
+/* ── Backdrop (only active on mobile) ─────────────────────── */
+.sidebar-backdrop {
+  display: none;
+}
+
+/* ── Sidebar ───────────────────────────────────────────────── */
 .sidebar {
   width: 240px;
   height: 100vh;
@@ -6,9 +12,35 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 
-/* Brand */
+/* ── Top row: logo + close btn ─────────────────────────────── */
+.sidebar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* Close button — hidden on desktop, shown on mobile */
+.close-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 2px 8px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: background 0.15s;
+}
+
+.close-btn:hover {
+  background: #f3f4f6;
+}
+
+/* ── Logo ──────────────────────────────────────────────────── */
 .logo h2 {
   margin: 0;
   font-size: 22px;
@@ -24,7 +56,7 @@
   margin-top: 4px;
 }
 
-/* Menu */
+/* ── Menu ──────────────────────────────────────────────────── */
 .menu {
   margin-top: 32px;
   flex: 1;
@@ -40,6 +72,7 @@
   color: #374151;
   margin-bottom: 8px;
   transition: 0.2s;
+  min-height: 44px; /* touch-friendly tap target */
 }
 
 .menu a:hover {
@@ -56,7 +89,7 @@
   font-size: 18px;
 }
 
-/* User */
+/* ── User section ──────────────────────────────────────────── */
 .user {
   border-top: 1px solid #eee;
   padding-top: 16px;
@@ -75,8 +108,56 @@
   margin-top: 12px;
   width: 70%;
   padding: 8px;
-  border: 1px solid #37881c7e;
-  background: rgb(30, 123, 4);
+  border: 1px solid #065f46;
+  background: #065f46;
   border-radius: 8px;
   cursor: pointer;
+  min-height: 40px;
+  color: white;
+  transition: background 0.15s;
+}
+
+.logout:hover {
+  background: #047857;
+}
+
+/* ── Mobile ────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Sidebar slides in as a fixed overlay */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.28s ease;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .sidebar--open {
+    transform: translateX(0);
+  }
+
+  /* Semi-transparent backdrop */
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    z-index: 999;
+    pointer-events: none;
+    transition: background 0.28s ease;
+  }
+
+  .sidebar-backdrop.visible {
+    background: rgba(0, 0, 0, 0.45);
+    pointer-events: all;
+  }
+
+  /* Show the close (✕) button */
+  .close-btn {
+    display: block;
+  }
 }

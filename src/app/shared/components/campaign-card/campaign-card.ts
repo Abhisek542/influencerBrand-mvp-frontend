@@ -17,7 +17,7 @@ export class CampaignCard {
 
     @Input() status?: string;
 
-    @Input() showAppications = false;
+    @Input() showApplications = false;
     @Input() campaignId?:number;
     @Input() showApplyButton = false;
     @Input() applied = false; // Indicates if the influencer has already applied to this campaign

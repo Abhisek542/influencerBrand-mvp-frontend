@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BrandApiService } from '../../../core/services/brand-api.services';
 import { ErrorHandlerService } from '../../../core/services/error-handler.service';
 import { CommonModule } from '@angular/common';
@@ -22,24 +23,27 @@ export class CreateCampaign {
   };
 
   errorMessage = '';
+  successMessage = '';
 
   constructor(
     private brandApi: BrandApiService,
     private errorHandler: ErrorHandlerService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
+
+  cancel(): void {
+    this.router.navigate(['/brand/campaigns']);
+  }
 
   createCampaign() {
     this.errorMessage = '';
-
-    console.log('Sending campaign:', this.campaign);
+    this.successMessage = '';
 
     this.brandApi.createCampaign(this.campaign).subscribe({
       next: (res) => {
-        console.log('Campaign created:', res);
-
-        alert('Campaign created successfully ✅');
-
+        this.successMessage = 'Campaign created successfully!';
+        this.errorMessage = '';
         this.campaign = {
           title: '',
           description: '',
@@ -48,14 +52,11 @@ export class CreateCampaign {
           niche: '',
           deadline: '',
         };
-
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Create Campaign Error:', err);
-        console.error('Backend says:', err.error);
-
         this.errorMessage = this.errorHandler.getErrorMessage(err);
+        this.successMessage = '';
         this.cdr.detectChanges();
       }
     });

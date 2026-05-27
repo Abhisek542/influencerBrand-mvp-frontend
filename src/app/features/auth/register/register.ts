@@ -24,6 +24,11 @@ export class Register {
   loading = false;
   errorMessage = '';
   showSuccessModal = false;
+  showPassword = false;
+
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
 
   constructor(
     private authApi: AuthApiService,
@@ -36,14 +41,12 @@ export class Register {
   submit() {
     this.loading = true;
     this.errorMessage = '';
-    console.log('Submit called');
     const payload: RegisterRequest = {
       name: this.username,
       email: this.email,
       password: this.password,
       role: this.role as 'BRAND' | 'INFLUENCER'
     };
-     console.log('Payload:', payload)
     this.authApi.register(payload).subscribe({
 
       next: (res: RegisterResponse) => {

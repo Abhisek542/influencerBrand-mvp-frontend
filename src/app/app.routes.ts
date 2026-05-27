@@ -8,14 +8,14 @@ import { authGuard } from './core/guards/auth.guard';
 export const routes: Routes = [
     {
       path: 'influencer',
-      canActivate:[roleGuard,authGuard],
+      canActivate:[authGuard,roleGuard],
       data: { roles: ['INFLUENCER'] },
       loadChildren: () =>
         import('./features/influencer/influencer.routes').then((m) => m.INFLUENCER_ROUTES),
     },
     {
       path: 'brand',
-      canActivate:[roleGuard,authGuard],
+      canActivate:[authGuard,roleGuard],
       data: { roles: ['BRAND'] },
       loadChildren: () =>
         import('./features/brand/brand.routes').then((m) => m.BRAND_ROUTES),

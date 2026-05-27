@@ -3,6 +3,13 @@
   padding: 40px;
 }
 
+@media (max-width: 768px) {
+  .page {
+    padding: 0;
+    max-width: 100%;
+  }
+}
+
 .subtitle {
   color: #6b7280;
   margin-bottom: 24px;

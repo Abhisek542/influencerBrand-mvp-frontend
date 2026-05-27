@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { BrandApiService } from '../../../core/services/brand-api.services';
 
 @Component({
   selector: 'app-campaign-applications',
-  imports: [CommonModule,EmptyState],
+  imports: [CommonModule, EmptyState, RouterLink],
   templateUrl: './campaign-applications.html',
   styleUrl: './campaign-applications.css',
 })
@@ -81,7 +81,7 @@ export class CampaignApplications {
     },
     error: (err) => {
       console.error('Delete failed:', err);
-      alert('Could not delete application. Please try again.');
+      // show inline error on the card in a future iteration
     }
   });
 }

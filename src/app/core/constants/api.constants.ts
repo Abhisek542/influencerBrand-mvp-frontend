@@ -1,8 +1,8 @@
 
-import { MyCampaigns } from "../../features/brand/my-campaigns/my-campaigns";
+ // export const API_SERVER_URL = 'http://localhost:8080';
+ export const API_SERVER_URL = "https://influencerhub-backend-hd8t.onrender.com";
 
- //export const API_BASE_URL = 'http://localhost:8080/api';
- export const API_BASE_URL = "https://influencerhub-backend-hd8t.onrender.com/api";
+ export const API_BASE_URL = `${API_SERVER_URL}/api`;
 
  export const API_ENDPOINTS = {
  

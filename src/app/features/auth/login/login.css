@@ -14,7 +14,7 @@
 
 /* ── Form wrapper ── */
 .login-box {
-  width: 360px;
+  width: min(360px, 90vw);
   padding: 8px 0;
 }
 
@@ -224,4 +224,57 @@ input::placeholder {
 
 .login-footer a:hover {
   border-bottom-color: #0a6640;
+}
+
+/* ── Password show/hide toggle ── */
+.input-with-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-toggle input {
+  width: 100%;
+  padding: 11px 42px 11px 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #0a1628;
+  background: #f8fafc;
+  border: 0.5px solid #e2e8f0;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  box-sizing: border-box;
+}
+
+.input-with-toggle input:focus {
+  border-color: #0a6640;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(99, 221, 155, 0.15);
+}
+
+.input-with-toggle input.ng-invalid.ng-touched {
+  border-color: #ef4444;
+  background: #fff9f9;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 16px;
+  color: #9ca3af;
+  line-height: 1;
+  min-height: unset;
+  transition: color 0.15s;
+}
+
+.toggle-password:hover {
+  background: none;
+  color: #374151;
+  transform: none;
 }

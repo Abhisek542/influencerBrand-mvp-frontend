@@ -1,8 +1,15 @@
-<aside class="sidebar">
+<!-- Backdrop: dims the page behind the sidebar on mobile -->
+<div class="sidebar-backdrop" [class.visible]="isOpen" (click)="close()"></div>
 
-  <div class="logo">
-    <h2>Influencer<span>Hub</span></h2>
-    <p>{{ portal }}</p>
+<aside class="sidebar" [class.sidebar--open]="isOpen">
+
+  <div class="sidebar-top">
+    <div class="logo">
+      <h2>Influencer<span>Hub</span></h2>
+      <p>{{ portal }}</p>
+    </div>
+    <!-- Close button – only visible on mobile -->
+    <button class="close-btn" (click)="close()" aria-label="Close menu">✕</button>
   </div>
 
   <nav class="menu">
@@ -11,6 +18,7 @@
       [routerLink]="item.route"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
+      (click)="close()"
     >
       <span class="icon">{{ item.icon }}</span>
       <span>{{ item.label }}</span>
@@ -22,7 +30,6 @@
       <strong>{{ username }}</strong>
       <small>{{ email }}</small>
     </div>
-
     <button class="logout" (click)="logout()">Logout</button>
   </div>
 

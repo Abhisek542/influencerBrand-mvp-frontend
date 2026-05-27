@@ -2,8 +2,9 @@
 <p class="subtitle">Track the status of your campaign applications</p>
 
 <!-- Loading -->
-<div *ngIf="loading">
-  <p>Loading applications...</p>
+<div *ngIf="loading" class="loading-wrapper">
+  <div class="spinner"></div>
+  <span>Loading applications...</span>
 </div>
 
 <!-- Applications -->

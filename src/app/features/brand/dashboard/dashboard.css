@@ -4,6 +4,12 @@
   margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 0; /* layout's .main already provides 16px on mobile */
+  }
+}
+
 .dashboard-header {
   margin-bottom: 24px;
 }

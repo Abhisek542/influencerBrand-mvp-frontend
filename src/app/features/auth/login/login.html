@@ -26,13 +26,15 @@
 
     <!-- Email -->
     <div class="form-group">
-      <label>Email address</label>
+      <label for="login-email">Email address</label>
       <input
+        id="login-email"
         type="email"
         name="email"
         [(ngModel)]="email"
         required
         email
+        autocomplete="email"
         #emailRef="ngModel"
         placeholder="you@example.com"
       />
@@ -42,16 +44,28 @@
     </div>
 
     <!-- Password -->
-    <div class="form-group" style="margin-bottom: 24px">
-      <label>Password</label>
-      <input
-        type="password"
-        name="password"
-        [(ngModel)]="password"
-        required
-        #passwordRef="ngModel"
-        placeholder="••••••••"
-      />
+    <div class="form-group">
+      <label for="login-password">Password</label>
+      <div class="input-with-toggle">
+        <input
+          id="login-password"
+          [type]="showPassword ? 'text' : 'password'"
+          name="password"
+          [(ngModel)]="password"
+          required
+          autocomplete="current-password"
+          #passwordRef="ngModel"
+          placeholder="••••••••"
+        />
+        <button
+          type="button"
+          class="toggle-password"
+          (click)="togglePassword()"
+          [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+        >
+          {{ showPassword ? '🙈' : '👁' }}
+        </button>
+      </div>
       <span class="field-error" *ngIf="passwordRef.touched && passwordRef.invalid">
         Password is required
       </span>

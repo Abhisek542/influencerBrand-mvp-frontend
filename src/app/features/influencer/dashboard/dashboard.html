@@ -16,22 +16,26 @@
 <div class="stats-grid" *ngIf="!dashboardError">
   <app-stat-card
     label="Total Applications"
-    [value]="dashboardStats?.totalApplications || 0">
+    [value]="dashboardStats?.totalApplications || 0"
+    icon="📋">
   </app-stat-card>
 
   <app-stat-card
     label="Pending"
-    [value]="dashboardStats?.pendingApplications || 0">
+    [value]="dashboardStats?.pendingApplications || 0"
+    icon="⏳">
   </app-stat-card>
 
   <app-stat-card
     label="Accepted"
-    [value]="dashboardStats?.acceptedApplications || 0">
+    [value]="dashboardStats?.acceptedApplications || 0"
+    icon="✅">
   </app-stat-card>
 
   <app-stat-card
     label="Rejected"
-    [value]="dashboardStats?.rejectedApplications || 0">
+    [value]="dashboardStats?.rejectedApplications || 0"
+    icon="❌">
   </app-stat-card>
 </div>
 
@@ -39,8 +43,9 @@
   <h2>Accepted Campaigns</h2>
 
   <!-- Loading State -->
-  <div *ngIf="loading">
-    <p>Loading campaigns...</p>
+  <div *ngIf="loading" class="loading-wrapper">
+    <div class="spinner"></div>
+    <span>Loading campaigns...</span>
   </div>
 
   <!-- Error State -->

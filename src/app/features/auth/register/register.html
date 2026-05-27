@@ -24,6 +24,7 @@
     <!-- Register Form -->
     <form (ngSubmit)="submit()" #form="ngForm" class="register-form" novalidate>
 
+      <!-- Username -->
       <div class="field-group">
         <label class="field-label" for="username">Username</label>
         <div class="field-input-wrap">
@@ -39,11 +40,20 @@
             [(ngModel)]="username"
             name="username"
             required
+            minlength="3"
             autocomplete="username"
+            #usernameRef="ngModel"
           />
         </div>
+        <span class="field-error" *ngIf="usernameRef.touched && usernameRef.errors?.['required']">
+          Username is required
+        </span>
+        <span class="field-error" *ngIf="usernameRef.touched && usernameRef.errors?.['minlength']">
+          Username must be at least 3 characters
+        </span>
       </div>
 
+      <!-- Email -->
       <div class="field-group">
         <label class="field-label" for="email">Email</label>
         <div class="field-input-wrap">
@@ -59,11 +69,20 @@
             [(ngModel)]="email"
             name="email"
             required
+            email
             autocomplete="email"
+            #emailRef="ngModel"
           />
         </div>
+        <span class="field-error" *ngIf="emailRef.touched && emailRef.errors?.['required']">
+          Email is required
+        </span>
+        <span class="field-error" *ngIf="emailRef.touched && emailRef.errors?.['email']">
+          Enter a valid email address
+        </span>
       </div>
 
+      <!-- Password -->
       <div class="field-group">
         <label class="field-label" for="password">Password</label>
         <div class="field-input-wrap">
@@ -73,17 +92,34 @@
           </svg>
           <input
             id="password"
-            type="password"
-            class="field-input"
+            [type]="showPassword ? 'text' : 'password'"
+            class="field-input field-input--password"
             placeholder="Min. 8 characters"
             [(ngModel)]="password"
             name="password"
             required
+            minlength="8"
             autocomplete="new-password"
+            #passwordRef="ngModel"
           />
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="togglePassword()"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+          >
+            {{ showPassword ? '🙈' : '👁' }}
+          </button>
         </div>
+        <span class="field-error" *ngIf="passwordRef.touched && passwordRef.errors?.['required']">
+          Password is required
+        </span>
+        <span class="field-error" *ngIf="passwordRef.touched && passwordRef.errors?.['minlength']">
+          Password must be at least 8 characters
+        </span>
       </div>
 
+      <!-- Role -->
       <div class="field-group">
         <label class="field-label">I am a...</label>
         <div class="role-toggle">
@@ -100,6 +136,9 @@
             <span class="role-option__desc">Apply to campaigns</span>
           </label>
         </div>
+        <span class="field-error" *ngIf="form.submitted && !role">
+          Please select a role
+        </span>
       </div>
 
       <button type="submit" class="submit-btn" [disabled]="form.invalid || loading || !role">
@@ -120,7 +159,6 @@
   </div>
 </div>
 
-<!-- ✅ Modal outside form-panel — overlays the full page safely -->
 <app-success-modal
   [visible]="showSuccessModal"
   title="Registration Successful!"

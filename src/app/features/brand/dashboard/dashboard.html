@@ -5,18 +5,18 @@
     <p>Manage your campaigns and track applications</p>
   </header>
 
-  <!-- Global Loading -->
+  <!-- Loading -->
   <div *ngIf="loading" class="loading-wrapper">
-    <p class="loading-text">Loading dashboard...</p>
+    <div class="spinner"></div>
+    <span>Loading dashboard...</span>
   </div>
 
-  <!-- Global Error -->
+  <!-- Error -->
   <div class="error-message" *ngIf="!loading && errorMessage">
     <div class="error-icon">!</div>
     <div class="error-content">
       <p class="error-title">Unable to load dashboard</p>
       <p class="error-text">{{ errorMessage }}</p>
-      
     </div>
   </div>
 
@@ -45,7 +45,7 @@
 
       <app-stat-card
         label="Total Budget"
-        [value]="(dashboard.totalBudget | currency) ?? '$0.00'"
+        [value]="(dashboard.totalBudget | currency:'INR':'symbol-narrow':'1.0-0') ?? '₹0'"
         icon="💰">
       </app-stat-card>
     </div>
@@ -63,7 +63,7 @@
             [niche]="campaign.niche"
             [budget]="campaign.budget"
             [status]="campaign.status"
-            [showAppications]="true"
+            [showApplications]="true"
             [campaignId]="campaign.id">
           </app-campaign-card>
         </ng-container>
@@ -74,8 +74,6 @@
             description="Create your first campaign to start finding influencers">
           </app-empty-state>
         </ng-template>
-
-        
       </div>
 
     </section>

@@ -1,9 +1,14 @@
-<h1>Campaign Applications</h1>
-<p class="subtitle">
-  Review influencer applications for this campaign
-</p>
+<div class="page-header">
+  <a routerLink="/brand/campaigns" class="back-link">← Back to Campaigns</a>
+  <h1>Campaign Applications</h1>
+  <p class="subtitle">Review influencer applications for this campaign</p>
+</div>
 
-<p *ngIf="loading">Loading applications...</p>
+<!-- Loading -->
+<div *ngIf="loading" class="loading-wrapper">
+  <div class="spinner"></div>
+  <span>Loading applications...</span>
+</div>
 
 <div class="applications-wrapper" *ngIf="!loading">
 
@@ -22,7 +27,7 @@
             rejected: app.status === 'REJECTED'
           }"
         >
-          {{ app.status }}
+          {{ app.status | titlecase }}
         </span>
       </div>
 
@@ -31,22 +36,22 @@
 
       <div class="actions">
 
-  <!-- Accept / Reject only if pending -->
-  <ng-container *ngIf="app.status === 'PENDING'">
-    <button class="accept" (click)="accept(app)">Accept</button>
-    <button class="reject" (click)="reject(app)">Reject</button>
-  </ng-container>
+        <!-- Accept / Reject only if pending -->
+        <ng-container *ngIf="app.status === 'PENDING'">
+          <button class="accept" (click)="accept(app)">Accept</button>
+          <button class="reject" (click)="reject(app)">Reject</button>
+        </ng-container>
 
-  <!-- Show Delete only if rejected -->
-  <button
-    *ngIf="app.status === 'REJECTED'"
-    class="danger"
-    (click)="delete(app)"
-  >
-    Delete
-  </button>
+        <!-- Delete only if rejected -->
+        <button
+          *ngIf="app.status === 'REJECTED'"
+          class="danger"
+          (click)="delete(app)"
+        >
+          Delete
+        </button>
 
-</div>
+      </div>
 
     </div>
 

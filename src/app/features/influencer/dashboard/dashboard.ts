@@ -60,7 +60,7 @@ export class Dashboard {
           title: c.title,
           description: c.description,
           niche: c.niche,
-          budget: `₹${c.budget}`,
+          budget: c.budget,
           deadline: c.deadline,
           brandName: c.brandName,
           applied: true

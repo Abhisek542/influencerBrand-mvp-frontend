@@ -19,6 +19,11 @@ export class Login {
   loading = false;
   error = '';
   justRegistered = false;
+  showPassword = false;
+
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
 
   constructor(
     private router: Router,

@@ -23,7 +23,9 @@
 .top-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .top-row h3 {
@@ -129,4 +131,17 @@
 /* Disabled button */
 .apply-btn:disabled {
   cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions button,
+  .apply-btn,
+  .secondary {
+    width: 100%;
+    min-height: 44px; /* touch-friendly */
+  }
 }

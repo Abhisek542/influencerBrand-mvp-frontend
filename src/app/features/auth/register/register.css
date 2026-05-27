@@ -436,6 +436,46 @@
   }
 }
 
+/* ── Per-field validation errors ───────────────────────────── */
+.field-error {
+  font-size: 0.78rem;
+  color: var(--error-text);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.field-input.ng-invalid.ng-touched {
+  border-color: var(--error-text);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* ── Password toggle ────────────────────────────────────────── */
+.field-input--password {
+  padding-right: 2.8rem;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 15px;
+  color: var(--form-text-muted);
+  line-height: 1;
+  min-height: unset;
+  transition: color var(--transition);
+}
+
+.toggle-password:hover {
+  background: none;
+  color: var(--form-text);
+  transform: none;
+}
+
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 820px) {
   .register-page {

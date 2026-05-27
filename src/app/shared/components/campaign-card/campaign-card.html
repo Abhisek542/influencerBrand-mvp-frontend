@@ -6,40 +6,40 @@
       <p class="brand">{{ brand }}</p>
     </div>
 
-    <span *ngIf="status || showAppications" class="status-pill">
+    <span *ngIf="status || showApplications" class="status-pill">
       {{ status || 'active' }}
     </span>
   </div>
 
   <p class="meta">Niche: {{ niche }}</p>
-  <p class="meta">Budget: {{ budget }}</p>
+  <p class="meta">Budget: {{ budget | currency:'INR':'symbol-narrow':'1.0-0' }}</p>
 
- <div class="actions">
+  <div class="actions">
 
-  <!-- Brand Side -->
-  <button
-    *ngIf="showAppications"
-    class="secondary"
-    [routerLink]="['/brand/applications', campaignId]"
-  >
-    View Applications
-  </button>
+    <!-- Brand Side -->
+    <button
+      *ngIf="showApplications"
+      class="secondary"
+      [routerLink]="['/brand/applications', campaignId]"
+    >
+      View Applications
+    </button>
 
-  <!-- Influencer Side -->
-  <button
-    *ngIf="showApplyButton"
-    class="apply-btn"
-    [ngClass]="{ applied: applied }"
-    [disabled]="applied"
-    (click)="applyClicked.emit(campaignId)"
-  >
-   {{ applied ? 'Applied' : 'Apply' }}
-  </button>
+    <!-- Influencer Side -->
+    <button
+      *ngIf="showApplyButton"
+      class="apply-btn"
+      [ngClass]="{ applied: applied }"
+      [disabled]="applied"
+      (click)="applyClicked.emit(campaignId)"
+    >
+      {{ applied ? 'Applied ✓' : 'Apply' }}
+    </button>
 
-  <button  *ngIf="showDeleteButton" class="danger">
-    🗑
-  </button>
+    <button *ngIf="showDeleteButton" class="danger">
+      🗑
+    </button>
+
+  </div>
 
 </div>
-
- </div>

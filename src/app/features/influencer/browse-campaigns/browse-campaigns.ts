@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component} from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener } from '@angular/core';
 import { CampaignCard } from '../../../shared/components/campaign-card/campaign-card';
 import { InfluencerService } from '../../../core/services/influencer.service';
 import { Campaign } from '../../../core/models/campaign.model';
@@ -38,6 +38,7 @@ export class BrowseCampaigns {
   };
 
   errorMessage = '';
+  successMessage = '';
 
   constructor(
     private influencerService: InfluencerService,
@@ -134,17 +135,30 @@ export class BrowseCampaigns {
 
   }
 
+  isApplicationFormValid(): boolean {
+    return !!(
+      this.applicationForm.influencerName.trim() &&
+      this.applicationForm.platform &&
+      this.applicationForm.niche &&
+      this.applicationForm.message.trim()
+    );
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (this.showApplyModal) {
+      this.closeApplyModal();
+    }
+  }
+
   openApplyModal(campaignId: number) {
-
     this.selectedCampaignId = campaignId;
+    this.successMessage = '';
     this.showApplyModal = true;
-
   }
 
   closeApplyModal() {
-
     this.showApplyModal = false;
-
   }
 
   submitApplication() {
@@ -157,9 +171,8 @@ export class BrowseCampaigns {
 
         next: (res) => {
 
-          alert(res.message);
-
           if (res.message === "Application has been applied") {
+            this.successMessage = 'Your application was submitted successfully!';
             this.closeApplyModal();
 
             const campaign = this.campaigns.find(c => c.id === this.selectedCampaignId);

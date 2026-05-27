@@ -1,13 +1,24 @@
+<!-- Mobile top bar (hamburger + title) -->
+<header class="mobile-topbar">
+  <button class="hamburger" (click)="toggleSidebar()" aria-label="Open menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <span class="mobile-title">InfluencerHub</span>
+</header>
+
 <div class="layout">
-<app-sidebar
-  [menu]="menu"
-  portal="Influencer Portal"
-  [username]="username"
-  [email]="email"
+  <app-sidebar
+    [menu]="menu"
+    portal="Influencer Portal"
+    [username]="username"
+    [email]="email"
+    [isOpen]="sidebarOpen"
+    (closed)="closeSidebar()"
+  ></app-sidebar>
 
-></app-sidebar>
-
-<main class="main">
+  <main class="main">
     <router-outlet></router-outlet>
-</main>
+  </main>
 </div>
