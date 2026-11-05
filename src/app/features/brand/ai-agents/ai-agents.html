@@ -42,14 +42,14 @@
     }
 
     <label for="campaign">Campaign</label>
-    <select id="campaign" [(ngModel)]="campaignId" [disabled]="shortlist.running()">
+    <select id="campaign" [(ngModel)]="campaignId" [disabled]="shortlist.running() || !!shortlist.pending()">
       @for (c of campaigns(); track c.id) {
         <option [ngValue]="c.id">{{ c.title }}</option>
       }
     </select>
 
     <div class="actions">
-      <button (click)="startReview()" [disabled]="!campaignId || shortlist.running()">Review applicants with AI</button>
+      <button (click)="startReview()" [disabled]="!campaignId || shortlist.running() || !!shortlist.pending()">Review applicants with AI</button>
     </div>
   </section>
 
@@ -61,92 +61,149 @@
     <div data-agent-pause></div>
     <div class="notice">{{ review.advisory }}</div>
 
-    @for (e of review.evaluations; track e.application_id) {
-      <article class="card">
-        <div class="card-header">
-          <div>
-            <h3>{{ e.applicant_name }}</h3>
-            <span class="muted">{{ e.niche || 'No niche' }} · {{ e.platform || 'No platform' }}</span>
-          </div>
-          <div>
-            @if (e.score !== null) {
-              <span class="score">{{ e.score }}</span><span class="muted"> / 100 </span>
-            }
-            <span class="badge" [class]="'badge ' + labelClass(e.label)">{{ labelText(e.label) }}</span>
-          </div>
-        </div>
-
-        @for (flag of e.flags; track flag) {
-          <div class="warning">{{ flag }}</div>
-        }
-
-        <p class="section-title">Application</p>
-        <p class="application-text">{{ e.message || 'No message provided.' }}</p>
-
-        @if (e.evidence_quotes.length) {
-          <p class="section-title">Evidence the AI relied on</p>
-          @for (quote of e.evidence_quotes; track quote) {
-            <blockquote class="quote">“{{ quote }}”</blockquote>
-          }
-        }
-        @if (e.strengths.length) {
-          <p class="section-title">Strengths</p>
-          <ul class="compact">
-            @for (item of e.strengths; track item) { <li>{{ item }}</li> }
-          </ul>
-        }
-        @if (e.concerns.length) {
-          <p class="section-title">Concerns</p>
-          <ul class="compact">
-            @for (item of e.concerns; track item) { <li>{{ item }}</li> }
-          </ul>
-        }
-        @if (e.missing_information.length) {
-          <p class="muted">Missing: {{ e.missing_information.join(', ') }}</p>
-        }
-
-        @if (e.outreach_draft) {
-          <label [for]="'draft-' + e.application_id">Suggested message (never sent automatically)</label>
-          <textarea [id]="'draft-' + e.application_id" [(ngModel)]="drafts[e.application_id]"></textarea>
-          <div class="actions">
-            <button class="secondary" (click)="copyDraft(e.application_id)">
-              {{ copied() === e.application_id ? 'Copied' : 'Copy message' }}
-            </button>
-          </div>
-        }
-
-        <label [for]="'decision-' + e.application_id">
-          Your decision <span class="muted">(AI suggests: {{ actionText(e.proposed_action) }})</span>
-        </label>
-        <select [id]="'decision-' + e.application_id" [(ngModel)]="decisions[e.application_id]">
-          <option value="ACCEPT">Accept</option>
-          <option value="REJECT">Reject</option>
-          <option value="SKIP">No change</option>
-        </select>
-      </article>
-    }
-
-    <section class="panel gate">
-      <p class="gate-label">Needs your approval</p>
+    <section class="panel results">
+      <h2>{{ proposalSummary(review.evaluations) }}</h2>
       <p class="section-title">What this review could not consider</p>
-      <ul class="compact">
+      <ul class="compact limits">
         @for (limit of review.limitations; track limit) { <li>{{ limit }}</li> }
       </ul>
+
+      <div class="review-list">
+        <div class="review-columns" aria-hidden="true">
+          <span></span>
+          <span>Applicant</span>
+          <span>Score</span>
+          <span>AI suggests</span>
+          <span>Your decision</span>
+        </div>
+        <ul class="applicants">
+          @for (e of review.evaluations; track e.application_id; let i = $index) {
+            <li class="applicant">
+              <div class="applicant-row">
+                <span class="rank">{{ e.score !== null ? i + 1 : '' }}</span>
+                <div class="who">
+                  <h3>{{ e.applicant_name }}</h3>
+                  <span class="muted">{{ e.niche || 'No niche' }} · {{ e.platform || 'No platform' }}</span>
+                </div>
+                <div class="score-cell">
+                  @if (e.score !== null) {
+                    <span><span class="row-score">{{ e.score }}</span><span class="muted"> / 100</span></span>
+                  }
+                  <span [class]="'badge ' + labelClass(e.label)">{{ labelText(e.label) }}</span>
+                </div>
+                <div class="suggest-cell">
+                  <span class="cell-label">AI suggests</span>
+                  {{ actionText(e.proposed_action) }}
+                </div>
+                <div class="decision-cell">
+                  <label class="cell-label" [for]="'decision-' + e.application_id">
+                    Your decision<span class="sr-only"> for {{ e.applicant_name }}</span>
+                  </label>
+                  <select [id]="'decision-' + e.application_id" [(ngModel)]="decisions[e.application_id]">
+                    <option value="ACCEPT">Accept</option>
+                    <option value="REJECT">Reject</option>
+                    <option value="SKIP">No change</option>
+                  </select>
+                </div>
+              </div>
+
+              @for (flag of e.flags; track flag) {
+                <div class="warning">{{ flag }}</div>
+              }
+
+              <details class="applicant-details">
+                <summary>Evidence and score breakdown</summary>
+
+                <p class="section-title">How the score was worked out</p>
+                <ul class="criteria">
+                  @for (c of e.criteria; track c.name) {
+                    <li>
+                      <span>
+                        {{ criterionName(c.name) }}
+                        <span class="muted">{{ criterionMethod(c.method) }}, weight {{ c.weight }}</span>
+                      </span>
+                      <strong>{{ c.score !== null ? c.score + ' / 100' : 'Not enough data' }}</strong>
+                    </li>
+                  }
+                </ul>
+                <p class="muted">
+                  {{ e.score !== null ? 'The score is the weighted average of these.' : 'A score needs both of these, so this applicant was not scored.' }}
+                </p>
+
+                <p class="section-title">Application</p>
+                <p class="application-text">{{ e.message || 'No message provided.' }}</p>
+
+                @if (e.evidence_quotes.length) {
+                  <p class="section-title">Evidence the AI relied on</p>
+                  @for (quote of e.evidence_quotes; track quote) {
+                    <blockquote class="quote">“{{ quote }}”</blockquote>
+                  }
+                }
+                @if (e.strengths.length) {
+                  <p class="section-title">Strengths</p>
+                  <ul class="compact">
+                    @for (item of e.strengths; track item) { <li>{{ item }}</li> }
+                  </ul>
+                }
+                @if (e.concerns.length) {
+                  <p class="section-title">Concerns</p>
+                  <ul class="compact">
+                    @for (item of e.concerns; track item) { <li>{{ item }}</li> }
+                  </ul>
+                }
+                @if (e.missing_information.length) {
+                  <p class="muted">Missing: {{ e.missing_information.join(', ') }}</p>
+                }
+
+                @if (e.outreach_draft) {
+                  <label [for]="'draft-' + e.application_id">Suggested message (never sent automatically)</label>
+                  <textarea [id]="'draft-' + e.application_id" [(ngModel)]="drafts[e.application_id]"></textarea>
+                  <div class="actions">
+                    <button class="secondary" (click)="copyDraft(e.application_id)">
+                      {{ copied() === e.application_id ? 'Copied' : 'Copy message' }}
+                    </button>
+                  </div>
+                }
+              </details>
+            </li>
+          }
+        </ul>
+      </div>
+    </section>
+
+    @let summary = decisionSummary(review.evaluations);
+    <section class="panel gate">
+      <p class="gate-label">Needs your approval</p>
+      @if (summary.changes.length) {
+        <h2>These changes will be made</h2>
+        <ul class="changes">
+          @for (change of summary.changes; track change.name) {
+            <li><strong>{{ change.verb }}</strong> {{ change.name }}</li>
+          }
+        </ul>
+        @if (summary.unchanged.length) {
+          <p class="muted">Stay pending: {{ summary.unchanged.join(', ') }}.</p>
+        }
+      } @else {
+        <h2>No changes selected</h2>
+        <p class="muted">Choose Accept or Reject for an applicant above, or discard this review.</p>
+      }
       <div class="actions">
         <button (click)="applyDecisions()" [disabled]="changeCount() === 0 || shortlist.running()">
-          Approve and update {{ changeCount() }} application(s)
+          {{ approveText() }}
         </button>
+        <button class="secondary" (click)="discardReview()" [disabled]="shortlist.running()">Discard review</button>
       </div>
     </section>
   }
 
   @if (shortlist.result(); as result) {
     <div class="success" role="status">
-      <strong>{{ result.summary }}</strong>
+      <strong>{{ discarded() ? 'Review discarded. No applications were changed.' : result.summary }}</strong>
       @if (result.outcomes?.length) {
         <ul class="compact">
           @for (o of result.outcomes; track o.application_id) {
-            <li>{{ o.applicant_name }}: {{ o.outcome }}</li>
+            <li>{{ o.applicant_name }}: {{ outcomeText(o.outcome) }}</li>
           }
         </ul>
       }
