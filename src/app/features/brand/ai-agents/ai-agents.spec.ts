@@ -47,11 +47,15 @@ describe('BrandAiAgents shortlist review', () => {
   });
 
   function pause(...evaluations: any[]) {
-    component.decisions = {};
-    for (const e of evaluations) {
-      component.decisions[e.application_id] = e.proposed_action === 'HOLD' ? 'SKIP' : e.proposed_action;
-    }
-    component.shortlist.pending.set({ evaluations, limitations: ['No follower data'], advisory: 'AI-generated' });
+    const payload = { evaluations, limitations: ['No follower data'], advisory: 'AI-generated' };
+    component.prepareDecisions(payload);
+    component.shortlist.pending.set(payload);
+    fixture.detectChanges();
+  }
+
+  function decide(applicationId: number, decision: 'ACCEPT' | 'REJECT' | 'SKIP') {
+    component.decisions[applicationId] = decision;
+    fixture.componentRef.changeDetectorRef.markForCheck();
     fixture.detectChanges();
   }
 
@@ -67,17 +71,26 @@ describe('BrandAiAgents shortlist review', () => {
     expect(limits.compareDocumentPosition(el('.applicants')) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
+  it('starts every decision undecided, whatever the AI suggests', () => {
+    pause(evaluation(1, 'Aarav', 'ACCEPT', 89), evaluation(2, 'Rohan', 'REJECT', 10), evaluation(3, 'Sana', 'HOLD', null));
+
+    expect(Object.values(component.decisions)).toEqual(['SKIP', 'SKIP', 'SKIP']);
+    expect(el('.gate h2').textContent).toContain('No changes selected');
+    expect(approve().disabled).toBe(true);
+    expect(el('.applicant .suggest-cell').textContent).toContain('Accept');
+  });
+
   it('names exactly what approval will do, following the current choices', () => {
     pause(evaluation(1, 'Aarav', 'ACCEPT', 89), evaluation(2, 'Rohan', 'REJECT', 10), evaluation(3, 'Sana', 'HOLD', null));
+    decide(1, 'ACCEPT');
+    decide(2, 'REJECT');
 
     expect(el('.changes').textContent).toContain('Accept Aarav');
     expect(el('.changes').textContent).toContain('Reject Rohan');
     expect(el('.gate').textContent).toContain('Stay pending: Sana');
     expect(approve().textContent).toContain('Approve 2 changes');
 
-    component.decisions[2] = 'SKIP';
-    fixture.componentRef.changeDetectorRef.markForCheck();
-    fixture.detectChanges();
+    decide(2, 'SKIP');
     expect(el('.changes').textContent).not.toContain('Rohan');
     expect(approve().textContent).toContain('Approve 1 change');
   });

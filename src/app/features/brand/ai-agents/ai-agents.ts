@@ -32,15 +32,7 @@ export class BrandAiAgents implements OnInit, OnDestroy {
   drafts: Record<number, string> = {};
   readonly copied = signal<number | null>(null);
   readonly discarded = signal(false);
-  readonly shortlist = this.agents.createRun((payload) => {
-    this.decisions = {};
-    this.drafts = {};
-    for (const evaluation of payload.evaluations ?? []) {
-      this.decisions[evaluation.application_id] =
-        evaluation.proposed_action === 'HOLD' ? 'SKIP' : evaluation.proposed_action;
-      this.drafts[evaluation.application_id] = evaluation.outreach_draft ?? '';
-    }
-  });
+  readonly shortlist = this.agents.createRun((payload) => this.prepareDecisions(payload));
 
   // Campaign Copilot
   brief = '';
@@ -91,6 +83,16 @@ export class BrandAiAgents implements OnInit, OnDestroy {
   }
 
   // ---- Shortlist Agent
+
+  /** Every decision starts undecided, so the brand chooses rather than approving the AI's picks by default. */
+  prepareDecisions(payload: any): void {
+    this.decisions = {};
+    this.drafts = {};
+    for (const evaluation of payload.evaluations ?? []) {
+      this.decisions[evaluation.application_id] = 'SKIP';
+      this.drafts[evaluation.application_id] = evaluation.outreach_draft ?? '';
+    }
+  }
 
   openShortlist(): void {
     this.tab.set('shortlist');
