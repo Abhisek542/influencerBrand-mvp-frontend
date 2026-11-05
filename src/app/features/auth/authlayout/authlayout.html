@@ -1,19 +1,19 @@
 <div class="auth-wrap">
   <div class="auth-left">
     <div class="auth-brand">
-      <div class="auth-brand-name">Influencer<span>Hub</span></div>
-      <div class="auth-brand-tag">Influencer Portal</div>
+      <a class="auth-brand-name" routerLink="/">Influencer<span>Hub</span></a>
+      <div class="auth-brand-tag">Agentic collaboration</div>
     </div>
     <div class="auth-hero">
-      <h1>Connect Brands<br/>with <em>Influencers</em></h1>
-      <p>The marketplace where authentic partnerships bloom.
-        Join thousands of brands and influencers creating impactful campaigns.</p>
+      <app-mascot [size]="112" label="Pip, the InfluencerHub mascot" />
+      <h1>Your AI crew is<br/><em>ready when you are</em></h1>
+      <p>Agents write campaigns, review applicants and draft pitches, then wait for your approval.</p>
     </div>
-    <div class="auth-stats">
-      <div class="stat"><span class="stat-val">12K+</span><span class="stat-lbl">Influencers</span></div>
-      <div class="stat"><span class="stat-val">3.4K</span><span class="stat-lbl">Brands</span></div>
-      <div class="stat"><span class="stat-val">98%</span><span class="stat-lbl">Match rate</span></div>
-    </div>
+    <ul class="auth-crew">
+      <li>Campaign Copilot</li>
+      <li>Applicant Shortlist</li>
+      <li>Opportunity Scout</li>
+    </ul>
   </div>
   <div class="auth-right">
     <router-outlet></router-outlet>

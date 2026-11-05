@@ -3,6 +3,7 @@ import { StatCard } from '../../../shared/components/stat-card/stat-card';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { CommonModule } from '@angular/common';
 import { CampaignCard } from '../../../shared/components/campaign-card/campaign-card';
+import { CrewStrip } from '../../../shared/components/crew-strip/crew-strip';
 import { InfluencerDashboard } from '../../../core/models/dashboard.model';
 import { Campaign } from '../../../core/models/campaign.model';
 import { InfluencerService } from '../../../core/services/influencer.service';
@@ -10,7 +11,7 @@ import { ErrorHandlerService } from '../../../core/services/error-handler.servic
 
 @Component({
   selector: 'app-dashboard',
-  imports: [StatCard,EmptyState,CommonModule,CampaignCard],
+  imports: [StatCard,EmptyState,CommonModule,CampaignCard,CrewStrip],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

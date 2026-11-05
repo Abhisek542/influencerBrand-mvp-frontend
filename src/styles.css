@@ -1,17 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --ink: #0a1628;
+  --ink-2: #12233b;
+  --ink-3: #1d3350;
+  --mint: #63dd9b;
+  --mint-soft: #e7f9ef;
+  --green: #065f46;
+  --sky: #7cc4ff;
+  --amber: #f5b95f;
+  --amber-soft: #fff6e5;
+  --coral: #ff8a7a;
+  --line: #e3e8ee;
+  --muted: #64748b;
+  --surface: #ffffff;
+  --canvas: #f5f7f9;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Outfit', system-ui, -apple-system, sans-serif;
+}
+
 * {
   box-sizing: border-box;
 }
 
+:focus-visible {
+  outline: 2px solid #0f9d6b;
+  outline-offset: 2px;
+}
+
 body {
   margin: 0;
-  font-family: Inter, system-ui, -apple-system, sans-serif;
-  background: #f9fafb;
-  color: #222;
+  font-family: var(--font-body);
+  background: var(--canvas);
+  color: var(--ink);
 }
 
 h1 {
   margin-bottom: 8px;
+  font-family: var(--font-display);
+  font-weight: 400;
 }
 
 p {

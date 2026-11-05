@@ -1,17 +1,21 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AgentService } from '../../../core/services/agent.service';
 import { AgentTrace } from '../../../shared/components/agent-trace/agent-trace';
+import { Mascot } from '../../../shared/components/mascot/mascot';
+import { crewAgent } from '../../../shared/components/mascot/crew';
 
 @Component({
   selector: 'app-influencer-ai-scout',
-  imports: [FormsModule, RouterLink, AgentTrace],
+  imports: [FormsModule, RouterLink, AgentTrace, Mascot],
   templateUrl: './ai-scout.html',
   styleUrl: '../../../shared/components/agent-trace/agent-pages.css',
 })
-export class InfluencerAiScout implements OnDestroy {
+export class InfluencerAiScout implements OnInit, OnDestroy {
   private agents = inject(AgentService);
+
+  readonly agent = crewAgent('scout');
 
   application = { message: '', influencerName: '', niche: '', platform: '' };
 
@@ -21,6 +25,12 @@ export class InfluencerAiScout implements OnDestroy {
       this.application = { message, influencerName, niche, platform };
     }
   });
+
+  ngOnInit(): void {
+    if (history.state?.autostart) {
+      this.find();
+    }
+  }
 
   ngOnDestroy(): void {
     this.scout.reset();

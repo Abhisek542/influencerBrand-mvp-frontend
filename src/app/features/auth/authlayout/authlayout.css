@@ -47,6 +47,8 @@ html, body { height: 100%; overflow: hidden; }
 
 .auth-brand { position: relative; }
 .auth-brand-name {
+  display: block;
+  text-decoration: none;
   font-family: 'Fraunces', serif;
   font-size: 22px;
   font-weight: 300;
@@ -64,6 +66,7 @@ html, body { height: 100%; overflow: hidden; }
 }
 
 .auth-hero { position: relative; }
+.auth-hero app-mascot { margin-bottom: 18px; }
 .auth-hero h1 {
   font-family: 'Fraunces', serif;
   font-size: clamp(32px, 3vw, 44px);
@@ -79,29 +82,26 @@ html, body { height: 100%; overflow: hidden; }
 .auth-hero p {
   font-family: 'Outfit', sans-serif;
   font-size: 15px;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.7);
   line-height: 1.75;
   font-weight: 300;
   max-width: 340px;
 }
 
-.auth-stats {
+.auth-crew {
+  list-style: none;
   display: flex;
-  gap: 36px;
+  flex-wrap: wrap;
+  gap: 8px;
   position: relative;
 }
-.stat { display: flex; flex-direction: column; gap: 3px; }
-.stat-val {
-  font-family: 'Fraunces', serif;
-  font-size: 26px;
-  font-weight: 400;
-  color: #fff;
-}
-.stat-lbl {
+.auth-crew li {
+  padding: 5px 12px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
   font-family: 'Outfit', sans-serif;
-  font-size: 11px;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 0.5px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
 }
 
 /* ── Right Panel ── */
@@ -139,6 +139,5 @@ html, body { height: 100%; overflow: hidden; }
 
 @media (max-width: 480px) {
   .auth-left { padding: 32px 20px; }
-  .auth-stats { gap: 24px; }
   .auth-hero h1 { font-size: 28px; }
 }

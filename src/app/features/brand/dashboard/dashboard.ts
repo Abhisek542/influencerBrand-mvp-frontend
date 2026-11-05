@@ -6,11 +6,12 @@ import { BrandDashboard } from '../../../core/models/dashboard.model';
 import { BrandApiService } from '../../../core/services/brand-api.services';
 import { ErrorHandlerService } from '../../../core/services/error-handler.service';
 import { CampaignCard } from '../../../shared/components/campaign-card/campaign-card';
+import { CrewStrip } from '../../../shared/components/crew-strip/crew-strip';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [StatCard, EmptyState, CommonModule, CampaignCard],
+  imports: [StatCard, EmptyState, CommonModule, CampaignCard, CrewStrip],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

@@ -1,15 +1,17 @@
 import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { AgentService } from '../../../core/services/agent.service';
+import { AgentRun, AgentService } from '../../../core/services/agent.service';
 import { BrandApiService } from '../../../core/services/brand-api.services';
 import { AgentTrace } from '../../../shared/components/agent-trace/agent-trace';
+import { Mascot } from '../../../shared/components/mascot/mascot';
+import { crewAgent } from '../../../shared/components/mascot/crew';
 
 type Decision = 'ACCEPT' | 'REJECT' | 'SKIP';
 
 @Component({
   selector: 'app-brand-ai-agents',
-  imports: [FormsModule, RouterLink, AgentTrace],
+  imports: [FormsModule, RouterLink, AgentTrace, Mascot],
   templateUrl: './ai-agents.html',
   styleUrl: '../../../shared/components/agent-trace/agent-pages.css',
 })
@@ -21,6 +23,8 @@ export class BrandAiAgents implements OnInit, OnDestroy {
   readonly tab = signal<'shortlist' | 'copilot'>('shortlist');
   readonly campaigns = signal<any[]>([]);
   readonly campaignsError = signal('');
+  readonly shortlistAgent = crewAgent('shortlist');
+  readonly copilotAgent = crewAgent('copilot');
 
   // Shortlist Agent
   campaignId: number | null = null;
@@ -51,6 +55,22 @@ export class BrandAiAgents implements OnInit, OnDestroy {
   ngOnInit(): void {
     const requested = Number(this.route.snapshot.queryParamMap.get('campaign'));
     this.loadCampaigns(requested || null);
+
+    // A brief typed on the dashboard starts the Copilot straight away. It can't change anything without approval.
+    const brief = history.state?.brief;
+    if (typeof brief === 'string' && brief.trim()) {
+      this.tab.set('copilot');
+      this.brief = brief;
+      this.startCopilot();
+    }
+  }
+
+  stateText(run: AgentRun): string {
+    if (run.error()) return 'Stopped';
+    if (run.result()) return 'Finished';
+    if (run.running()) return 'Working';
+    if (run.pending()) return 'Needs you';
+    return 'Ready';
   }
 
   ngOnDestroy(): void {

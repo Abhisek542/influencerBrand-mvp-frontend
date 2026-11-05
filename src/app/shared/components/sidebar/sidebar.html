@@ -4,23 +4,37 @@
 <aside class="sidebar" [class.sidebar--open]="isOpen">
 
   <div class="sidebar-top">
-    <div class="logo">
+    <a class="logo" routerLink="/">
       <h2>Influencer<span>Hub</span></h2>
       <p>{{ portal }}</p>
-    </div>
+    </a>
     <!-- Close button – only visible on mobile -->
     <button class="close-btn" (click)="close()" aria-label="Close menu">✕</button>
   </div>
 
   <nav class="menu">
+    <p class="group">AI crew</p>
     <a
-      *ngFor="let item of menu"
+      *ngFor="let item of agentItems"
+      class="agent-link"
       [routerLink]="item.route"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
       (click)="close()"
     >
-      <span class="icon">{{ item.icon }}</span>
+      <app-mascot [size]="26" />
+      <span>{{ item.label }}</span>
+    </a>
+
+    <p class="group">Workspace</p>
+    <a
+      *ngFor="let item of workspaceItems"
+      [routerLink]="item.route"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="close()"
+    >
+      <span class="icon" aria-hidden="true">{{ item.icon }}</span>
       <span>{{ item.label }}</span>
     </a>
   </nav>

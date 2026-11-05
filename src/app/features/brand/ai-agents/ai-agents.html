@@ -1,19 +1,38 @@
 <div class="page-header">
-  <h1>AI Agents</h1>
-  <p class="subtitle">Agents do the legwork and show their evidence. Nothing changes until you approve it.</p>
+  <app-mascot [size]="72" />
+  <div>
+    <h1>Your AI crew</h1>
+    <p class="subtitle">Agents do the legwork and show their evidence. Nothing changes until you approve it.</p>
+  </div>
 </div>
 
-<div class="tabs" role="tablist">
-  <button role="tab" [class.active]="tab() === 'shortlist'" [attr.aria-selected]="tab() === 'shortlist'" (click)="openShortlist()">
-    Applicant Shortlist
+<div class="crew-tabs" role="tablist" aria-label="Choose an agent">
+  <button class="crew-tab" role="tab" [class.active]="tab() === 'shortlist'" [attr.aria-selected]="tab() === 'shortlist'" (click)="openShortlist()">
+    <app-mascot [tone]="shortlistAgent.tone" [size]="48" />
+    <span>
+      <strong>{{ shortlistAgent.name }}</strong>
+      <span class="state" [class.busy]="shortlist.running()" [class.needs-you]="!shortlist.running() && shortlist.pending()">{{ stateText(shortlist) }}</span>
+      <span class="skills">
+        @for (skill of shortlistAgent.skills; track skill) { <span>{{ skill }}</span> }
+      </span>
+    </span>
   </button>
-  <button role="tab" [class.active]="tab() === 'copilot'" [attr.aria-selected]="tab() === 'copilot'" (click)="tab.set('copilot')">
-    Campaign Copilot
+  <button class="crew-tab" role="tab" [class.active]="tab() === 'copilot'" [attr.aria-selected]="tab() === 'copilot'" (click)="tab.set('copilot')">
+    <app-mascot [tone]="copilotAgent.tone" [size]="48" />
+    <span>
+      <strong>{{ copilotAgent.name }}</strong>
+      <span class="state" [class.busy]="copilot.running()" [class.needs-you]="!copilot.running() && copilot.pending()">{{ stateText(copilot) }}</span>
+      <span class="skills">
+        @for (skill of copilotAgent.skills; track skill) { <span>{{ skill }}</span> }
+      </span>
+    </span>
   </button>
 </div>
 
 <!-- Applicant Shortlist Agent -->
 @if (tab() === 'shortlist') {
+  <div class="workspace">
+  <div class="work">
   <section class="panel">
     <h2>Review applicants</h2>
     <p class="muted">Ranks pending applicants using their applications, and proposes who to accept or reject.</p>
@@ -33,8 +52,6 @@
       <button (click)="startReview()" [disabled]="!campaignId || shortlist.running()">Review applicants with AI</button>
     </div>
   </section>
-
-  <app-agent-trace [steps]="shortlist.steps()" [running]="shortlist.running()" />
 
   @if (shortlist.error()) {
     <div class="error" role="alert">{{ shortlist.error() }}</div>
@@ -109,7 +126,8 @@
       </article>
     }
 
-    <section class="panel">
+    <section class="panel gate">
+      <p class="gate-label">Needs your approval</p>
       <p class="section-title">What this review could not consider</p>
       <ul class="compact">
         @for (limit of review.limitations; track limit) { <li>{{ limit }}</li> }
@@ -137,10 +155,17 @@
       }
     </div>
   }
+  </div>
+  <aside class="activity">
+    <app-agent-trace [run]="shortlist" [agent]="shortlistAgent.name" [tone]="shortlistAgent.tone" />
+  </aside>
+  </div>
 }
 
 <!-- Campaign Copilot -->
 @if (tab() === 'copilot') {
+  <div class="workspace">
+  <div class="work">
   <section class="panel">
     <h2>Describe your campaign</h2>
     <p class="muted">Write it however you like. The Copilot asks about anything missing and shows you the result first.</p>
@@ -156,8 +181,6 @@
     </div>
   </section>
 
-  <app-agent-trace [steps]="copilot.steps()" [running]="copilot.running()" />
-
   @if (copilot.error()) {
     <div class="error" role="alert">{{ copilot.error() }}</div>
   }
@@ -165,7 +188,8 @@
   @if (copilot.pending(); as pause) {
     <div data-agent-pause></div>
     @if (pause.kind === 'question') {
-      <section class="card">
+      <section class="card gate">
+        <p class="gate-label">Needs an answer from you</p>
         <h3>The Copilot needs a little more</h3>
         <ul class="compact">
           @for (q of pause.questions; track q) { <li>{{ q }}</li> }
@@ -179,7 +203,8 @@
     }
 
     @if (pause.kind === 'approve_campaign') {
-      <section class="card">
+      <section class="card gate">
+        <p class="gate-label">Needs your approval</p>
         <h3>Review your campaign</h3>
         <p class="muted">Edit anything you like. It's only created when you approve it.</p>
         <label for="c-title">Title</label>
@@ -221,4 +246,9 @@
       </div>
     </div>
   }
+  </div>
+  <aside class="activity">
+    <app-agent-trace [run]="copilot" [agent]="copilotAgent.name" [tone]="copilotAgent.tone" />
+  </aside>
+  </div>
 }
