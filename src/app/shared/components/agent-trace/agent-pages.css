@@ -287,6 +287,204 @@ ul.compact {
   font-weight: 600;
 }
 
+/* Shortlist results: one comparable row per applicant, with details on demand */
+.results h2,
+.gate h2 {
+  margin: 0 0 6px;
+}
+.limits {
+  color: var(--muted);
+  font-size: 13px;
+}
+.review-list {
+  container-type: inline-size;
+  margin-top: 16px;
+}
+.review-columns,
+.applicant-row {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) 150px 92px 132px;
+  gap: 12px;
+}
+.review-columns {
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.applicants {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.applicant {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.applicant:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.applicant-row {
+  align-items: start;
+}
+.rank {
+  padding-top: 1px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.who h3 {
+  margin: 0 0 2px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.score-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.row-score {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.suggest-cell {
+  font-size: 14px;
+}
+.decision-cell select {
+  padding: 7px 10px;
+}
+label.cell-label,
+.cell-label,
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.applicant .warning {
+  margin: 10px 0 0 34px;
+}
+.applicant-details {
+  margin: 8px 0 0 34px;
+}
+.applicant-details summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 0;
+  list-style: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+}
+.applicant-details summary::-webkit-details-marker {
+  display: none;
+}
+.applicant-details summary::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+}
+.applicant-details[open] summary::before {
+  transform: translateY(-2px) rotate(45deg);
+}
+.applicant-details summary:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.applicant-details .application-text {
+  max-width: 70ch;
+}
+.criteria {
+  list-style: none;
+  margin: 0 0 6px;
+  padding: 0;
+  font-size: 14px;
+}
+.criteria li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+}
+.criteria .muted {
+  display: block;
+}
+.criteria strong {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.changes {
+  list-style: none;
+  margin: 8px 0;
+  padding: 0;
+  font-size: 15px;
+}
+.changes li {
+  padding: 3px 0;
+}
+.changes strong {
+  display: inline-block;
+  min-width: 56px;
+  font-weight: 600;
+}
+.actions button.secondary:not(:disabled):hover {
+  background: var(--line);
+}
+
+@container (max-width: 620px) {
+  .review-columns {
+    display: none;
+  }
+  .applicant-row {
+    grid-template-columns: 22px minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'rank who who'
+      '. score suggest'
+      '. decision decision';
+  }
+  .rank { grid-area: rank; }
+  .who { grid-area: who; }
+  .score-cell { grid-area: score; }
+  .suggest-cell { grid-area: suggest; }
+  .decision-cell { grid-area: decision; }
+  label.cell-label,
+  .cell-label {
+    position: static;
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 0 0 2px;
+    overflow: visible;
+    clip-path: none;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .applicant .warning,
+  .applicant-details {
+    margin-left: 0;
+  }
+}
+
 @media (max-width: 1000px) {
   .workspace {
     grid-template-columns: minmax(0, 1fr);

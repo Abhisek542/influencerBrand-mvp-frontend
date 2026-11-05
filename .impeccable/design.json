@@ -1,0 +1,473 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-05T17:52:53.967180+00:00",
+  "title": "Design System: InfluencerHub",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Deep Ink",
+        "canonical": "#0a1628",
+        "tonalRamp": [
+          "#060b15",
+          "#1b2535",
+          "#354358",
+          "#536278",
+          "#74839b",
+          "#98a6bb",
+          "#c0cada",
+          "#e9eff8"
+        ]
+      },
+      "ink-2": {
+        "role": "primary",
+        "displayName": "Ink Raised",
+        "canonical": "#12233b",
+        "tonalRamp": [
+          "#040b17",
+          "#17263a",
+          "#30435d",
+          "#4f627e",
+          "#6f84a1",
+          "#94a7c1",
+          "#bdcade",
+          "#e7effb"
+        ]
+      },
+      "ink-3": {
+        "role": "primary",
+        "displayName": "Ink Highest",
+        "canonical": "#1d3350",
+        "tonalRamp": [
+          "#030b19",
+          "#14263d",
+          "#2c4361",
+          "#4b6383",
+          "#6b84a6",
+          "#90a7c5",
+          "#bacbe1",
+          "#e5effd"
+        ]
+      },
+      "mint": {
+        "role": "primary",
+        "displayName": "Signal Mint",
+        "canonical": "#63dd9b",
+        "tonalRamp": [
+          "#001005",
+          "#002e18",
+          "#01502e",
+          "#007445",
+          "#049b5e",
+          "#57bc85",
+          "#98dbb2",
+          "#d3fae1"
+        ]
+      },
+      "mint-soft": {
+        "role": "primary",
+        "displayName": "Mint Wash",
+        "canonical": "#e7f9ef",
+        "tonalRamp": [
+          "#060d09",
+          "#1d2822",
+          "#37463e",
+          "#56665d",
+          "#77877e",
+          "#9ba9a1",
+          "#c2ccc6",
+          "#eaf0ed"
+        ]
+      },
+      "green": {
+        "role": "primary",
+        "displayName": "Forest Green",
+        "canonical": "#065f46",
+        "tonalRamp": [
+          "#001008",
+          "#002d1f",
+          "#034f39",
+          "#237157",
+          "#499377",
+          "#76b49b",
+          "#a9d5c2",
+          "#dcf6ea"
+        ]
+      },
+      "sky": {
+        "role": "tertiary",
+        "displayName": "Sky",
+        "canonical": "#7cc4ff",
+        "tonalRamp": [
+          "#000c1c",
+          "#002743",
+          "#004570",
+          "#19669b",
+          "#4188c0",
+          "#6facdd",
+          "#a4cff3",
+          "#e2f1fe"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "Gate Amber",
+        "canonical": "#f5b95f",
+        "tonalRamp": [
+          "#140800",
+          "#342000",
+          "#5a3b00",
+          "#835701",
+          "#ae7502",
+          "#cd9b50",
+          "#e7c390",
+          "#ffebd2"
+        ]
+      },
+      "amber-soft": {
+        "role": "secondary",
+        "displayName": "Amber Wash",
+        "canonical": "#fff6e5",
+        "tonalRamp": [
+          "#0e0b05",
+          "#2a241a",
+          "#484133",
+          "#686052",
+          "#898172",
+          "#aba497",
+          "#cec8bf",
+          "#f1eee8"
+        ]
+      },
+      "amber-ink": {
+        "role": "secondary",
+        "displayName": "Amber Ink",
+        "canonical": "#8a5a10",
+        "tonalRamp": [
+          "#150800",
+          "#361f00",
+          "#5c3900",
+          "#855607",
+          "#a97735",
+          "#c89c65",
+          "#e4c39d",
+          "#ffebd4"
+        ]
+      },
+      "coral": {
+        "role": "tertiary",
+        "displayName": "Coral",
+        "canonical": "#ff8a7a",
+        "tonalRamp": [
+          "#210000",
+          "#4e0000",
+          "#7d0e09",
+          "#a3372d",
+          "#ca5b4d",
+          "#e98577",
+          "#feb4a8",
+          "#fee9e5"
+        ]
+      },
+      "danger": {
+        "role": "tertiary",
+        "displayName": "Danger Red",
+        "canonical": "#991b1b",
+        "tonalRamp": [
+          "#210000",
+          "#4d0003",
+          "#810009",
+          "#aa2e2a",
+          "#d1534b",
+          "#f08075",
+          "#ffb3a9",
+          "#fee9e6"
+        ]
+      },
+      "danger-soft": {
+        "role": "tertiary",
+        "displayName": "Danger Wash",
+        "canonical": "#fff5f5",
+        "tonalRamp": [
+          "#0e0a0a",
+          "#292323",
+          "#484040",
+          "#675f5f",
+          "#898080",
+          "#aba3a3",
+          "#cdc7c7",
+          "#f1eded"
+        ]
+      },
+      "focus-ring": {
+        "role": "tertiary",
+        "displayName": "Focus Ring",
+        "canonical": "#0f9d6b",
+        "tonalRamp": [
+          "#001006",
+          "#002e1c",
+          "#014f34",
+          "#00744d",
+          "#059a68",
+          "#59bb8e",
+          "#99dab9",
+          "#d3f9e4"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e3e8ee",
+        "tonalRamp": [
+          "#090b0e",
+          "#222529",
+          "#3e4247",
+          "#5d6267",
+          "#7e8388",
+          "#a1a5aa",
+          "#c6c9cd",
+          "#edeff1"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Slate Muted",
+        "canonical": "#64748b",
+        "tonalRamp": [
+          "#050b15",
+          "#1a2635",
+          "#344358",
+          "#536279",
+          "#73849b",
+          "#97a6bb",
+          "#bfcada",
+          "#e8eff9"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas",
+        "canonical": "#f5f7f9",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#242526",
+          "#414244",
+          "#606163",
+          "#818284",
+          "#a3a5a7",
+          "#c8c9ca",
+          "#eeeeef"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The logo and large landing headings."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page titles in the app."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Panel and card headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Evidence, descriptions and form text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase sidebar group labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "gate-ring",
+        "value": "0 0 0 3px var(--amber-soft)",
+        "purpose": "An agent is waiting for a decision."
+      },
+      {
+        "name": "active-outline",
+        "value": "inset 0 0 0 1px var(--ink)",
+        "purpose": "The selected crew tab."
+      },
+      {
+        "name": "input-focus",
+        "value": "0 0 0 3px rgba(99, 221, 155, 0.15)",
+        "purpose": "A focused field."
+      },
+      {
+        "name": "modal",
+        "value": "0 20px 60px rgba(0, 0, 0, 0.2)",
+        "purpose": "A dialog above the page."
+      },
+      {
+        "name": "mobile-drawer",
+        "value": "4px 0 24px rgba(0, 0, 0, 0.12)",
+        "purpose": "The open sidebar overlay."
+      }
+    ],
+    "motion": [
+      {
+        "name": "hover-fast",
+        "value": "background 0.15s",
+        "purpose": "Hover on navigation rows and small controls."
+      },
+      {
+        "name": "state-standard",
+        "value": "border-color 0.2s, box-shadow 0.2s",
+        "purpose": "Field and card state changes."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "480px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "960px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The default action on light surfaces.",
+      "html": "<button class=\"ds-btn-primary\">Save changes</button>",
+      "css": ".ds-btn-primary{background:#065f46;color:#fff;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font:inherit}.ds-btn-primary:focus-visible{outline:2px solid #0f9d6b;outline-offset:2px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A lower-emphasis action beside a primary button.",
+      "html": "<button class=\"ds-btn-secondary\">Cancel</button>",
+      "css": ".ds-btn-secondary{background:#e5e7eb;color:#374151;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font:inherit}.ds-btn-secondary:focus-visible{outline:2px solid #0f9d6b;outline-offset:2px}"
+    },
+    {
+      "name": "Mint Button",
+      "kind": "button",
+      "refersTo": "button-mint",
+      "description": "The primary action on ink surfaces.",
+      "html": "<button class=\"ds-btn-mint\">Put the crew to work</button>",
+      "css": ".ds-btn-mint{background:#63dd9b;color:#0a1628;border:1px solid transparent;padding:9px 16px;border-radius:10px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}.ds-btn-mint:hover{background:#7ee6ae}.ds-btn-mint:focus-visible{outline:2px solid #0f9d6b;outline-offset:2px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "A secondary action on ink surfaces.",
+      "html": "<div class=\"ds-on-ink\"><button class=\"ds-btn-ghost\">Sign in</button></div>",
+      "css": ".ds-on-ink{background:#0a1628;padding:16px;display:inline-block}.ds-btn-ghost{background:transparent;color:#fff;border:1px solid #3a5170;padding:9px 16px;border-radius:10px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}.ds-btn-ghost:hover{border-color:#fff}.ds-btn-ghost:focus-visible{outline:2px solid #0f9d6b;outline-offset:2px}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "A standard form field.",
+      "html": "<input class=\"ds-input\" placeholder=\"Campaign title\">",
+      "css": ".ds-input{width:100%;padding:12px 14px;border:1px solid #e5e7eb;border-radius:10px;font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s}.ds-input:focus{border-color:#86efac;box-shadow:0 0 0 3px rgba(16,185,129,.12)}"
+    },
+    {
+      "name": "Sidebar Nav",
+      "kind": "nav",
+      "refersTo": "sidebar",
+      "description": "The app navigation on ink.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-group\">Workspace</div><a class=\"ds-link\" href=\"#\">Dashboard</a><a class=\"ds-link\" href=\"#\">AI Agents</a></nav>",
+      "css": ".ds-nav{width:240px;background:#0a1628;padding:20px;display:flex;flex-direction:column}.ds-group{padding:0 14px;margin-bottom:8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7b8ca1}.ds-link{padding:8px 14px;border-radius:10px;color:#cdd8e4;text-decoration:none;margin-bottom:4px;transition:background .15s}.ds-link:hover{background:#12233b}.ds-link:focus-visible{outline:2px solid #0f9d6b;outline-offset:2px}"
+    },
+    {
+      "name": "Skill Chip",
+      "kind": "chip",
+      "refersTo": "skill-chip",
+      "description": "Lists an agent's skills.",
+      "html": "<span class=\"ds-chip\">Reads applications</span>",
+      "css": ".ds-chip{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef2f6;font-size:11.5px;color:#334155}"
+    },
+    {
+      "name": "Panel Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The standard container for agent work.",
+      "html": "<div class=\"ds-card\"><h3>Applicant review</h3><p>Evidence and limits appear here.</p></div>",
+      "css": ".ds-card{background:#fff;border:1px solid #e3e8ee;border-radius:14px;padding:20px}.ds-card h3{margin:0 0 6px;font-size:17px;font-weight:600}.ds-card p{margin:0;color:#64748b;font-size:14px}"
+    },
+    {
+      "name": "Approval Gate",
+      "kind": "custom",
+      "description": "Marks where an agent has stopped and a person decides.",
+      "html": "<div class=\"ds-gate\"><strong>Your decision</strong><p>Accept this applicant?</p></div>",
+      "css": ".ds-gate{background:#fff;border:1px solid #f5b95f;box-shadow:0 0 0 3px #fff6e5;border-radius:14px;padding:20px}.ds-gate strong{color:#8a5a10;font-size:13px}.ds-gate p{margin:6px 0 0;font-size:15px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Control Room",
+    "overview": "InfluencerHub is a calm place to oversee work being done on your behalf. Deep ink surfaces frame the workspace, light cards hold the work, and colour is kept for status: what is running, what is waiting for you, and what has gone wrong.\n\nThe person is the operator, not the audience. Agent steps appear live beside the work, and every decision point stands out from the surfaces around it. The soft serif in headings keeps the room from feeling industrial, and Pip and the named crew give the system a friendly face without loosening its discipline.\n\nDensity is moderate. Screens are built for reading evidence and making a decision, not for scanning large tables of numbers.",
+    "keyCharacteristics": [
+      "Ink navy frames with light working surfaces",
+      "Colour reserved for status and primary action",
+      "Flat surfaces separated by hairline borders",
+      "Rings and shadows that signal state",
+      "A soft serif for headings over a clean geometric sans"
+    ],
+    "rules": [
+      {
+        "name": "The Token First Rule",
+        "body": "Use the `:root` variables in `src/styles.css`. Older screens hard-code greys and greens such as #1f7a63, #111827 and #e5e7eb. Treat those as legacy and move them to tokens when a screen is next changed.",
+        "section": "colors"
+      },
+      {
+        "name": "The Amber Means You Rule",
+        "body": "Amber marks a place where the agent has stopped and a person decides. Don't use it for general warnings or decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Serif Stays Up Top Rule",
+        "body": "Fraunces is for the logo and page-level headings. Panels, cards, controls and data use Outfit.",
+        "section": "typography"
+      },
+      {
+        "name": "The State Earns Depth Rule",
+        "body": "A surface only gains a ring or shadow when something about its state has changed. The resting shadow and hover lift on campaign cards predate this rule and are legacy.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use the `:root` tokens in `src/styles.css` for new work and when changing older screens.",
+      "Do keep amber for approval gates and \"needs you\" states.",
+      "Do use `green` or `amber-ink` for coloured text on light surfaces, because `mint` and `amber` lack the contrast.",
+      "Do keep agent activity visible next to the work on agent pages.",
+      "Do separate surfaces at rest with a 1px `line` border."
+    ],
+    "donts": [
+      "Don't add resting shadows or hover lift to new cards.",
+      "Don't add new hard-coded greys or greens when a token covers the role.",
+      "Don't use Fraunces inside cards, controls or data.",
+      "Don't use amber for general warnings or decoration."
+    ]
+  }
+}
