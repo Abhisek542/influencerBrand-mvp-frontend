@@ -1,0 +1,104 @@
+<div class="page-header">
+  <app-mascot [tone]="agent.tone" [mood]="scout.running() ? 'working' : scout.pending() ? 'waiting' : 'idle'" [size]="72" />
+  <div>
+    <h1>{{ agent.name }}</h1>
+    <p class="subtitle">{{ agent.summary }} Nothing is sent until you approve it.</p>
+  </div>
+</div>
+
+<div class="workspace">
+<div class="work">
+<section class="panel">
+  <h2>Find campaigns for me</h2>
+  <p class="muted">Uses your profile bio and the open campaigns you haven't applied to.</p>
+  <ul class="skills" aria-label="Skills">
+    @for (skill of agent.skills; track skill) { <li>{{ skill }}</li> }
+  </ul>
+  <div class="actions">
+    <button (click)="find()" [disabled]="scout.running() || !!scout.pending()">Find campaigns for me</button>
+  </div>
+</section>
+
+@if (scout.error()) {
+  <div class="error" role="alert">{{ scout.error() }}</div>
+}
+
+@if (scout.pending(); as pause) {
+  <div data-agent-pause></div>
+  @if (pause.kind === 'choose_campaign') {
+    @for (m of pause.matches; track m.campaign.id) {
+      <article class="card">
+        <div class="card-header">
+          <div>
+            <h3>{{ m.campaign.title }}</h3>
+            <span class="muted">
+              {{ m.campaign.brandName }} · {{ m.campaign.niche }} · Budget {{ m.campaign.budget }} · Closes {{ m.campaign.deadline }}
+            </span>
+          </div>
+          <div><span class="score">{{ m.fit }}</span><span class="muted"> / 5 fit</span></div>
+        </div>
+        <p class="application-text">{{ m.reason }}</p>
+        @if (m.profile_quote) {
+          <p class="section-title">From your profile</p>
+          <blockquote class="quote">“{{ m.profile_quote }}”</blockquote>
+        }
+        <div class="actions">
+          <button (click)="choose(m.campaign.id)" [disabled]="scout.running()">Draft a pitch</button>
+        </div>
+      </article>
+    }
+    <div class="actions">
+      <button class="secondary" (click)="choose(null)" [disabled]="scout.running()">None of these</button>
+    </div>
+  }
+
+  @if (pause.kind === 'approve_application') {
+    <section class="card gate">
+      <p class="gate-label">Needs your approval</p>
+      <h3>Your application to {{ pause.campaign.title }}</h3>
+      @for (warning of pause.draft.warnings; track warning) {
+        <div class="warning">{{ warning }}</div>
+      }
+      <div class="notice">{{ pause.notice }}</div>
+      <label for="a-message">Message</label>
+      <textarea id="a-message" [(ngModel)]="application.message"></textarea>
+      <div class="form-grid">
+        <div>
+          <label for="a-name">Your name</label>
+          <input id="a-name" [(ngModel)]="application.influencerName" />
+        </div>
+        <div>
+          <label for="a-niche">Niche</label>
+          <input id="a-niche" [(ngModel)]="application.niche" />
+        </div>
+        <div>
+          <label for="a-platform">Platform</label>
+          <input id="a-platform" [(ngModel)]="application.platform" />
+        </div>
+      </div>
+      <div class="actions">
+        <button (click)="approve()" [disabled]="!canSubmit() || scout.running()">Approve and apply</button>
+        <button class="secondary" (click)="discard()" [disabled]="scout.running()">Discard</button>
+      </div>
+    </section>
+  }
+}
+
+@if (scout.result(); as result) {
+  <div class="success" role="status">
+    <strong>{{ result.summary }}</strong>
+    <div class="actions">
+      @if (result.status === 'NEEDS_PROFILE') {
+        <a routerLink="/influencer/profile">Update my profile</a>
+      } @else {
+        <a routerLink="/influencer/my-applications">View my applications</a>
+      }
+    </div>
+  </div>
+}
+</div>
+
+<aside class="activity">
+  <app-agent-trace [run]="scout" [agent]="agent.name" [tone]="agent.tone" />
+</aside>
+</div>

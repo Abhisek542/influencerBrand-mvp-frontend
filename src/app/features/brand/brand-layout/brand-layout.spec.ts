@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
 
 import { BrandLayout } from './brand-layout';
 
@@ -8,7 +11,8 @@ describe('BrandLayout', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BrandLayout]
+      imports: [BrandLayout],
+      providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
     })
     .compileComponents();
 

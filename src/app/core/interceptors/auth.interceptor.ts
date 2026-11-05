@@ -37,7 +37,12 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
 
-        if (error.status === 401) {
+        // The backend's JSON error body marks a mistyped current password. An expired or invalid
+        // token gets a plain-text 401 from the JWT filter, and that still ends the session.
+        const isWrongCurrentPassword =
+          req.url.includes('/api/user/change-password') && error.error?.status === 401;
+
+        if (error.status === 401 && !isAuthRequest && !isWrongCurrentPassword) {
           this.authState.clearAuthState();
           this.router.navigate(['/auth/login']);
         }

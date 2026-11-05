@@ -2,6 +2,7 @@
   <a routerLink="/brand/campaigns" class="back-link">← Back to Campaigns</a>
   <h1>Campaign Applications</h1>
   <p class="subtitle">Review influencer applications for this campaign</p>
+  <a [routerLink]="['/brand/ai-agents']" [queryParams]="{ campaign: campaignId }" class="back-link">🤖 Review with AI</a>
 </div>
 
 <!-- Loading -->
@@ -10,7 +11,11 @@
   <span>Loading applications...</span>
 </div>
 
-<div class="applications-wrapper" *ngIf="!loading">
+<div class="action-error" *ngIf="!loading && loadError" role="alert">{{ loadError }}</div>
+
+<div class="applications-wrapper" *ngIf="!loading && !loadError">
+
+  <div class="action-error" *ngIf="actionError" role="alert">{{ actionError }}</div>
 
   <ng-container *ngIf="filteredApplications.length > 0; else noApplications">
 

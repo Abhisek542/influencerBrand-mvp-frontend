@@ -14,6 +14,8 @@ export class BrandLayout {
     { label: 'Dashboard', route: 'dashboard', icon: '📊' },
     { label: 'Create Campaign', route: 'campaigns/create', icon: '➕' },
     { label: 'My Campaigns', route: 'campaigns', icon: '📁' },
+    { label: 'AI Agents', route: 'ai-agents', icon: '', agent: true },
+    { label: 'Profile', route: 'profile', icon: '👤' },
   ];
 
   constructor(private authState: AuthStateService) {}

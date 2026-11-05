@@ -7,6 +7,7 @@ import { MyCampaigns } from './my-campaigns/my-campaigns';
 import { CampaignApplications } from './campaign-applications/campaign-applications';
 import { Profile } from './profile/profile';
 import { BrandLayout } from './brand-layout/brand-layout';
+import { BrandAiAgents } from './ai-agents/ai-agents';
 
 export const BRAND_ROUTES: Routes = [
   {
@@ -28,6 +29,10 @@ export const BRAND_ROUTES: Routes = [
       {
         path: 'applications/:id',
         component: CampaignApplications,
+      },
+      {
+        path: 'ai-agents',
+        component: BrandAiAgents,
       },
       {
         path: 'profile',

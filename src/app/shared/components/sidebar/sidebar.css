@@ -7,9 +7,10 @@
 .sidebar {
   width: 240px;
   height: 100vh;
-  background: #ffffff;
-  border-right: 1px solid #eee;
+  background: var(--ink);
+  color: #fff;
   padding: 20px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -29,7 +30,7 @@
   border: none;
   font-size: 20px;
   cursor: pointer;
-  color: #6b7280;
+  color: #cdd8e4;
   padding: 2px 8px;
   border-radius: 6px;
   line-height: 1;
@@ -37,28 +38,44 @@
 }
 
 .close-btn:hover {
-  background: #f3f4f6;
+  background: var(--ink-2);
 }
 
 /* ── Logo ──────────────────────────────────────────────────── */
+.logo {
+  color: inherit;
+  text-decoration: none;
+}
+
 .logo h2 {
   margin: 0;
+  font-family: var(--font-display);
   font-size: 22px;
+  font-weight: 300;
 }
 
 .logo span {
-  color: #0f766e;
+  color: var(--mint);
 }
 
 .logo p {
   font-size: 13px;
-  color: #6b7280;
-  margin-top: 4px;
+  color: #93a4b8;
+  margin: 4px 0 0;
+}
+
+.group {
+  margin: 20px 0 8px;
+  padding: 0 14px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7b8ca1;
 }
 
 /* ── Menu ──────────────────────────────────────────────────── */
 .menu {
-  margin-top: 32px;
+  margin-top: 8px;
   flex: 1;
 }
 
@@ -66,22 +83,27 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 14px;
+  padding: 8px 14px;
   border-radius: 10px;
   text-decoration: none;
-  color: #374151;
-  margin-bottom: 8px;
+  color: #cdd8e4;
+  margin-bottom: 4px;
   transition: 0.2s;
   min-height: 44px; /* touch-friendly tap target */
 }
 
 .menu a:hover {
-  background: #f3f4f6;
+  background: var(--ink-2);
+}
+
+.menu a.agent-link {
+  border: 1px solid var(--ink-3);
+  padding-left: 10px;
 }
 
 .menu a.active {
-  background: #e7f5ef;
-  color: #065f46;
+  background: var(--mint);
+  color: var(--ink);
   font-weight: 600;
 }
 
@@ -91,7 +113,7 @@
 
 /* ── User section ──────────────────────────────────────────── */
 .user {
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--ink-3);
   padding-top: 16px;
 }
 
@@ -100,7 +122,8 @@
 }
 
 .user small {
-  color: #6b7280;
+  color: #93a4b8;
+  overflow-wrap: anywhere;
   font-size: 13px;
 }
 
@@ -108,8 +131,8 @@
   margin-top: 12px;
   width: 70%;
   padding: 8px;
-  border: 1px solid #065f46;
-  background: #065f46;
+  border: 1px solid #3a5170;
+  background: transparent;
   border-radius: 8px;
   cursor: pointer;
   min-height: 40px;
@@ -118,7 +141,7 @@
 }
 
 .logout:hover {
-  background: #047857;
+  background: var(--ink-2);
 }
 
 /* ── Mobile ────────────────────────────────────────────────── */

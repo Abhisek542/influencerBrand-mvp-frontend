@@ -1,6 +1,7 @@
 
- // export const API_SERVER_URL = 'http://localhost:8080';
- export const API_SERVER_URL = "https://influencerhub-backend-hd8t.onrender.com";
+import { environment } from '../../../environments/environment';
+
+ export const API_SERVER_URL = environment.apiServerUrl;
 
  export const API_BASE_URL = `${API_SERVER_URL}/api`;
 
@@ -10,6 +11,11 @@
 
         LOGIN: `${API_BASE_URL}/auth/login`,
         REGISTER: `${API_BASE_URL}/auth/register`,
+    },
+
+    USER:{
+
+        CHANGE_PASSWORD: `${API_BASE_URL}/user/change-password`,
     },
 
     PROFILE:{

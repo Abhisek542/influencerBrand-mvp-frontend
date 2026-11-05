@@ -1,0 +1,254 @@
+<div class="page-header">
+  <app-mascot [size]="72" />
+  <div>
+    <h1>Your AI crew</h1>
+    <p class="subtitle">Agents do the legwork and show their evidence. Nothing changes until you approve it.</p>
+  </div>
+</div>
+
+<div class="crew-tabs" role="tablist" aria-label="Choose an agent">
+  <button class="crew-tab" role="tab" [class.active]="tab() === 'shortlist'" [attr.aria-selected]="tab() === 'shortlist'" (click)="openShortlist()">
+    <app-mascot [tone]="shortlistAgent.tone" [size]="48" />
+    <span>
+      <strong>{{ shortlistAgent.name }}</strong>
+      <span class="state" [class.busy]="shortlist.running()" [class.needs-you]="!shortlist.running() && shortlist.pending()">{{ stateText(shortlist) }}</span>
+      <span class="skills">
+        @for (skill of shortlistAgent.skills; track skill) { <span>{{ skill }}</span> }
+      </span>
+    </span>
+  </button>
+  <button class="crew-tab" role="tab" [class.active]="tab() === 'copilot'" [attr.aria-selected]="tab() === 'copilot'" (click)="tab.set('copilot')">
+    <app-mascot [tone]="copilotAgent.tone" [size]="48" />
+    <span>
+      <strong>{{ copilotAgent.name }}</strong>
+      <span class="state" [class.busy]="copilot.running()" [class.needs-you]="!copilot.running() && copilot.pending()">{{ stateText(copilot) }}</span>
+      <span class="skills">
+        @for (skill of copilotAgent.skills; track skill) { <span>{{ skill }}</span> }
+      </span>
+    </span>
+  </button>
+</div>
+
+<!-- Applicant Shortlist Agent -->
+@if (tab() === 'shortlist') {
+  <div class="workspace">
+  <div class="work">
+  <section class="panel">
+    <h2>Review applicants</h2>
+    <p class="muted">Ranks pending applicants using their applications, and proposes who to accept or reject.</p>
+
+    @if (campaignsError()) {
+      <div class="error" role="alert">{{ campaignsError() }}</div>
+    }
+
+    <label for="campaign">Campaign</label>
+    <select id="campaign" [(ngModel)]="campaignId" [disabled]="shortlist.running()">
+      @for (c of campaigns(); track c.id) {
+        <option [ngValue]="c.id">{{ c.title }}</option>
+      }
+    </select>
+
+    <div class="actions">
+      <button (click)="startReview()" [disabled]="!campaignId || shortlist.running()">Review applicants with AI</button>
+    </div>
+  </section>
+
+  @if (shortlist.error()) {
+    <div class="error" role="alert">{{ shortlist.error() }}</div>
+  }
+
+  @if (shortlist.pending(); as review) {
+    <div data-agent-pause></div>
+    <div class="notice">{{ review.advisory }}</div>
+
+    @for (e of review.evaluations; track e.application_id) {
+      <article class="card">
+        <div class="card-header">
+          <div>
+            <h3>{{ e.applicant_name }}</h3>
+            <span class="muted">{{ e.niche || 'No niche' }} · {{ e.platform || 'No platform' }}</span>
+          </div>
+          <div>
+            @if (e.score !== null) {
+              <span class="score">{{ e.score }}</span><span class="muted"> / 100 </span>
+            }
+            <span class="badge" [class]="'badge ' + labelClass(e.label)">{{ labelText(e.label) }}</span>
+          </div>
+        </div>
+
+        @for (flag of e.flags; track flag) {
+          <div class="warning">{{ flag }}</div>
+        }
+
+        <p class="section-title">Application</p>
+        <p class="application-text">{{ e.message || 'No message provided.' }}</p>
+
+        @if (e.evidence_quotes.length) {
+          <p class="section-title">Evidence the AI relied on</p>
+          @for (quote of e.evidence_quotes; track quote) {
+            <blockquote class="quote">“{{ quote }}”</blockquote>
+          }
+        }
+        @if (e.strengths.length) {
+          <p class="section-title">Strengths</p>
+          <ul class="compact">
+            @for (item of e.strengths; track item) { <li>{{ item }}</li> }
+          </ul>
+        }
+        @if (e.concerns.length) {
+          <p class="section-title">Concerns</p>
+          <ul class="compact">
+            @for (item of e.concerns; track item) { <li>{{ item }}</li> }
+          </ul>
+        }
+        @if (e.missing_information.length) {
+          <p class="muted">Missing: {{ e.missing_information.join(', ') }}</p>
+        }
+
+        @if (e.outreach_draft) {
+          <label [for]="'draft-' + e.application_id">Suggested message (never sent automatically)</label>
+          <textarea [id]="'draft-' + e.application_id" [(ngModel)]="drafts[e.application_id]"></textarea>
+          <div class="actions">
+            <button class="secondary" (click)="copyDraft(e.application_id)">
+              {{ copied() === e.application_id ? 'Copied' : 'Copy message' }}
+            </button>
+          </div>
+        }
+
+        <label [for]="'decision-' + e.application_id">
+          Your decision <span class="muted">(AI suggests: {{ actionText(e.proposed_action) }})</span>
+        </label>
+        <select [id]="'decision-' + e.application_id" [(ngModel)]="decisions[e.application_id]">
+          <option value="ACCEPT">Accept</option>
+          <option value="REJECT">Reject</option>
+          <option value="SKIP">No change</option>
+        </select>
+      </article>
+    }
+
+    <section class="panel gate">
+      <p class="gate-label">Needs your approval</p>
+      <p class="section-title">What this review could not consider</p>
+      <ul class="compact">
+        @for (limit of review.limitations; track limit) { <li>{{ limit }}</li> }
+      </ul>
+      <div class="actions">
+        <button (click)="applyDecisions()" [disabled]="changeCount() === 0 || shortlist.running()">
+          Approve and update {{ changeCount() }} application(s)
+        </button>
+      </div>
+    </section>
+  }
+
+  @if (shortlist.result(); as result) {
+    <div class="success" role="status">
+      <strong>{{ result.summary }}</strong>
+      @if (result.outcomes?.length) {
+        <ul class="compact">
+          @for (o of result.outcomes; track o.application_id) {
+            <li>{{ o.applicant_name }}: {{ o.outcome }}</li>
+          }
+        </ul>
+      }
+      @if (campaignId) {
+        <a [routerLink]="['/brand/applications', campaignId]">View applications</a>
+      }
+    </div>
+  }
+  </div>
+  <aside class="activity">
+    <app-agent-trace [run]="shortlist" [agent]="shortlistAgent.name" [tone]="shortlistAgent.tone" />
+  </aside>
+  </div>
+}
+
+<!-- Campaign Copilot -->
+@if (tab() === 'copilot') {
+  <div class="workspace">
+  <div class="work">
+  <section class="panel">
+    <h2>Describe your campaign</h2>
+    <p class="muted">Write it however you like. The Copilot asks about anything missing and shows you the result first.</p>
+    <label for="brief">Your brief</label>
+    <textarea
+      id="brief"
+      [(ngModel)]="brief"
+      [disabled]="copilot.running() || !!copilot.pending()"
+      placeholder="Example: GlowFuel is launching a vegan protein bar and needs fitness creators for short videos. Budget 50k, applications close on 15 December."
+    ></textarea>
+    <div class="actions">
+      <button (click)="startCopilot()" [disabled]="!brief.trim() || copilot.running() || !!copilot.pending()">Start</button>
+    </div>
+  </section>
+
+  @if (copilot.error()) {
+    <div class="error" role="alert">{{ copilot.error() }}</div>
+  }
+
+  @if (copilot.pending(); as pause) {
+    <div data-agent-pause></div>
+    @if (pause.kind === 'question') {
+      <section class="card gate">
+        <p class="gate-label">Needs an answer from you</p>
+        <h3>The Copilot needs a little more</h3>
+        <ul class="compact">
+          @for (q of pause.questions; track q) { <li>{{ q }}</li> }
+        </ul>
+        <label for="answer">Your answer</label>
+        <textarea id="answer" [(ngModel)]="questionAnswer"></textarea>
+        <div class="actions">
+          <button (click)="sendAnswer()" [disabled]="!questionAnswer.trim() || copilot.running()">Send</button>
+        </div>
+      </section>
+    }
+
+    @if (pause.kind === 'approve_campaign') {
+      <section class="card gate">
+        <p class="gate-label">Needs your approval</p>
+        <h3>Review your campaign</h3>
+        <p class="muted">Edit anything you like. It's only created when you approve it.</p>
+        <label for="c-title">Title</label>
+        <input id="c-title" [(ngModel)]="campaign.title" />
+        <label for="c-desc">Description</label>
+        <textarea id="c-desc" [(ngModel)]="campaign.description"></textarea>
+        <div class="form-grid">
+          <div>
+            <label for="c-brand">Brand name</label>
+            <input id="c-brand" [(ngModel)]="campaign.brandName" />
+          </div>
+          <div>
+            <label for="c-niche">Niche</label>
+            <input id="c-niche" [(ngModel)]="campaign.niche" />
+          </div>
+          <div>
+            <label for="c-budget">Budget</label>
+            <input id="c-budget" inputmode="decimal" [(ngModel)]="campaign.budget" />
+          </div>
+          <div>
+            <label for="c-deadline">Deadline</label>
+            <input id="c-deadline" type="date" [(ngModel)]="campaign.deadline" />
+          </div>
+        </div>
+        <div class="actions">
+          <button (click)="approveCampaign()" [disabled]="copilot.running()">Approve and create</button>
+          <button class="secondary" (click)="discardCampaign()" [disabled]="copilot.running()">Discard</button>
+        </div>
+      </section>
+    }
+  }
+
+  @if (copilot.result(); as result) {
+    <div class="success" role="status">
+      <strong>{{ result.summary }}</strong>
+      <div class="actions">
+        <a routerLink="/brand/campaigns">View my campaigns</a>
+        <button class="secondary" (click)="startAnother()">Start another</button>
+      </div>
+    </div>
+  }
+  </div>
+  <aside class="activity">
+    <app-agent-trace [run]="copilot" [agent]="copilotAgent.name" [tone]="copilotAgent.tone" />
+  </aside>
+  </div>
+}

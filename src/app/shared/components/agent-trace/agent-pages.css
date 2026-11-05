@@ -1,0 +1,310 @@
+/* Shared by the AI agent pages. */
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.page-header h1 {
+  margin: 0 0 2px;
+  font-size: 30px;
+}
+.subtitle {
+  color: var(--muted);
+  font-size: 15px;
+  margin: 0;
+}
+
+/* Choosing an agent */
+.crew-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.crew-tab {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding: 14px;
+  text-align: left;
+  font: inherit;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.crew-tab:hover {
+  border-color: #b4c0cd;
+}
+.crew-tab.active {
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+.crew-tab strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+}
+.crew-tab .state {
+  display: block;
+  margin-top: 1px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.crew-tab .state.busy {
+  color: var(--green);
+  font-weight: 600;
+}
+.crew-tab .state.needs-you {
+  color: #8a5a10;
+  font-weight: 600;
+}
+.skills {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 8px 0 0;
+  padding: 0;
+}
+.skills li,
+.skills span {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #eef2f6;
+  font-size: 11.5px;
+  color: #334155;
+}
+
+/* The work on the left, live activity on the right */
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 20px;
+  align-items: start;
+}
+.activity {
+  position: sticky;
+  top: 0;
+}
+
+.panel,
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.panel h2,
+.card h3 {
+  margin: 0 0 6px;
+  font-weight: 600;
+}
+.panel h2 {
+  font-size: 18px;
+}
+.card h3 {
+  font-size: 17px;
+}
+
+/* A place where the agent has stopped and the person decides */
+.gate {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px var(--amber-soft);
+}
+.gate-label {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--amber-soft);
+  color: #8a5a10;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 12px 0 4px;
+  color: #334155;
+}
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  background: var(--surface);
+  color: var(--ink);
+}
+textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.actions button {
+  margin: 0;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--ink);
+  color: #fff;
+}
+.actions button.secondary {
+  background: #e7ecf1;
+  color: #334155;
+}
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0 14px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #f3f4f6;
+  color: #374151;
+  white-space: nowrap;
+}
+.badge.strong {
+  background: #dcfce7;
+  color: #166534;
+}
+.badge.potential {
+  background: #fef3c7;
+  color: #92400e;
+}
+.badge.weak {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.score {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.quote {
+  margin: 6px 0;
+  padding: 6px 12px;
+  border-left: 3px solid var(--green);
+  background: var(--canvas);
+  font-size: 14px;
+}
+.application-text {
+  margin: 10px 0;
+  font-size: 14px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.section-title {
+  margin: 14px 0 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+ul.compact {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+}
+
+.notice {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin: 0 0 16px;
+  background: #eff6ff;
+  color: #1e40af;
+}
+.warning {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin: 10px 0;
+  background: #fef3c7;
+  color: #92400e;
+}
+.error {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin: 0 0 16px;
+  background: #fee2e2;
+  color: #991b1b;
+}
+.success {
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  margin: 0 0 16px;
+  background: var(--mint-soft);
+  color: var(--green);
+}
+.success a {
+  color: inherit;
+  font-weight: 600;
+}
+
+@media (max-width: 1000px) {
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* Keep the activity in view above the work on small screens */
+  .activity {
+    position: static;
+    order: -1;
+  }
+}
+@media (max-width: 620px) {
+  .crew-tabs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .crew-tab .skills {
+    display: none;
+  }
+  .page-header h1 {
+    font-size: 25px;
+  }
+}

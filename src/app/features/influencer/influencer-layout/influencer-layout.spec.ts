@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
 
 import { InfluencerLayout } from './influencer-layout';
 
@@ -8,7 +11,8 @@ describe('InfluencerLayout', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InfluencerLayout]
+      imports: [InfluencerLayout],
+      providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
     })
     .compileComponents();
 

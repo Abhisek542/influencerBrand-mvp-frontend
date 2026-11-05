@@ -1,0 +1,132 @@
+<div class="hero-band">
+  <nav class="nav" aria-label="Main">
+    <a class="logo" routerLink="/">Influencer<span>Hub</span></a>
+    <div class="nav-links">
+      <a href="#crew" class="hide-sm">The crew</a>
+      <a href="#how" class="hide-sm">How it works</a>
+      @if (workspace(); as link) {
+        <a class="btn btn-mint" [routerLink]="link">Open my workspace</a>
+      } @else {
+        <a routerLink="/auth/login">Sign in</a>
+        <a class="btn btn-mint" routerLink="/auth/register">Get started</a>
+      }
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Agentic brand and creator collaboration</p>
+      <h1>Hand the legwork to your <em>AI crew.</em> Keep the final say.</h1>
+      <p class="lede">
+        Say hello to Pip and the agents behind InfluencerHub. They write campaigns, review applicants and draft
+        pitches, then show you their evidence and wait for your approval.
+      </p>
+      <div class="cta">
+        @if (workspace(); as link) {
+          <a class="btn btn-mint btn-lg" [routerLink]="link">Open my workspace</a>
+        } @else {
+          <a class="btn btn-mint btn-lg" routerLink="/auth/register">Put the crew to work</a>
+          <a class="btn btn-ghost btn-lg" routerLink="/auth/login">Sign in</a>
+        }
+      </div>
+    </div>
+
+    <section class="run" aria-label="Example agent run">
+      <div class="run-top">
+        <span class="tag">Example run</span>
+        <button type="button" class="replay" (click)="playExample()">Replay</button>
+      </div>
+      <div class="run-head">
+        <app-mascot [mood]="mood()" [size]="84" label="Pip, the InfluencerHub mascot" />
+        <div>
+          <p class="run-agent">Applicant Shortlist</p>
+          <p class="run-status" aria-live="polite">{{ status() }}</p>
+        </div>
+      </div>
+
+      <ol class="run-log">
+        @for (step of steps(); track step; let last = $last) {
+          <li [class.current]="last && stage() === 'working'">{{ step }}</li>
+        }
+      </ol>
+
+      @if (stage() !== 'working') {
+        <div class="gate">
+          <p class="gate-label">Your decision</p>
+          <div class="gate-row">
+            <strong>Asha</strong>
+            <span class="score">82<small> / 100</small></span>
+          </div>
+          <blockquote>“I make short workout videos for home fitness audiences.”</blockquote>
+          @if (stage() === 'waiting') {
+            <div class="gate-actions">
+              <button type="button" class="btn btn-mint" (click)="decide(true)">Approve</button>
+              <button type="button" class="btn btn-ghost" (click)="decide(false)">Not this one</button>
+            </div>
+            <p class="gate-note">This is only an example, so these buttons change nothing.</p>
+          }
+        </div>
+      }
+    </section>
+  </header>
+</div>
+
+<main>
+  <section id="crew" class="section">
+    <p class="kicker">The crew</p>
+    <h2>Three agents, each with its own skills</h2>
+    <div class="crew-grid">
+      @for (agent of crew; track agent.id) {
+        <article class="agent">
+          <div class="agent-head">
+            <app-mascot [tone]="agent.tone" [size]="64" />
+            <span class="for">For {{ agent.forWho.toLowerCase() }}</span>
+          </div>
+          <h3>{{ agent.name }}</h3>
+          <p>{{ agent.summary }}</p>
+          <ul class="skills" aria-label="Skills">
+            @for (skill of agent.skills; track skill) {
+              <li>{{ skill }}</li>
+            }
+          </ul>
+          <p class="asks">Asks you before {{ agent.asksBefore }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section id="how" class="section how">
+    <p class="kicker">How a run works</p>
+    <h2>You can see every step, and you make the call</h2>
+    <ol class="flow">
+      <li><strong>You set the goal</strong><span>Write a brief, pick a campaign or ask for matches.</span></li>
+      <li><strong>The agent works in the open</strong><span>Each step appears live as it reads and assesses.</span></li>
+      <li><strong>It shows its evidence</strong><span>Quotes come from the source text, and limits are stated.</span></li>
+      <li class="you"><strong>It stops and asks you</strong><span>Edit the proposal, approve it or turn it down.</span></li>
+      <li><strong>It acts and reports back</strong><span>Only what you approved is carried out.</span></li>
+    </ol>
+  </section>
+
+  <section class="section guard">
+    <div class="guard-copy">
+      <p class="kicker">Built-in limits</p>
+      <h2>Helpful agents, firm limits</h2>
+    </div>
+    <ul class="guard-list">
+      <li><strong>No approval, no change.</strong> Agents can only propose until you approve.</li>
+      <li><strong>Your permissions still apply.</strong> Agents act as you, and can't reach what you can't.</li>
+      <li><strong>A local model.</strong> Qwen runs on your own machine, with no cloud model behind it.</li>
+      <li><strong>Applicant text stays data.</strong> Attempts to instruct the AI are flagged, not obeyed.</li>
+    </ul>
+  </section>
+</main>
+
+<section class="closer">
+  <app-mascot mood="done" [size]="88" />
+  <h2>Your crew is ready when you are</h2>
+  @if (workspace(); as link) {
+    <a class="btn btn-mint btn-lg" [routerLink]="link">Open my workspace</a>
+  } @else {
+    <a class="btn btn-mint btn-lg" routerLink="/auth/register">Put the crew to work</a>
+  }
+</section>

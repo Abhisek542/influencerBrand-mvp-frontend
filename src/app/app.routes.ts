@@ -4,6 +4,7 @@ import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
 import { roleGuard } from './core/guards/role.guard';
 import { authGuard } from './core/guards/auth.guard';
+import { Landing } from './features/landing/landing';
 
 export const routes: Routes = [
     {
@@ -34,7 +35,7 @@ export const routes: Routes = [
 
     {
       path: '',
-      redirectTo: 'influencer',
+      component: Landing,
       pathMatch: 'full',
     },
 

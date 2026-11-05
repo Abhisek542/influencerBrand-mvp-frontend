@@ -13,6 +13,7 @@ export class InfluencerLayout {
   menu = [
     { label: 'Dashboard', route: 'dashboard', icon: '📊' },
     { label: 'Browse Campaigns', route: 'browse-campaigns', icon: '🧭' },
+    { label: 'AI Scout', route: 'ai-scout', icon: '', agent: true },
     { label: 'My Applications', route: 'my-applications', icon: '📄' },
     { label: 'Accepted', route: 'accepted-campaigns', icon: '✅' },
     { label: 'Profile', route: 'profile', icon: '👤' },
