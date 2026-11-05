@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { BrandApiService } from '../../../core/services/brand-api.services';
+import { ErrorHandlerService } from '../../../core/services/error-handler.service';
 
 @Component({
   selector: 'app-campaign-applications',
@@ -18,11 +19,14 @@ export class CampaignApplications {
   filteredApplications: any[] = [];
 
   loading = true;
+  loadError = '';
+  actionError = '';
 
   constructor(
     private route: ActivatedRoute,
     private brandApi: BrandApiService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private errorHandler: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +36,7 @@ export class CampaignApplications {
 
   loadApplications(): void {
     this.loading = true;
+    this.loadError = '';
 
     this.brandApi.getApplicationsForCampaign(this.campaignId).subscribe({
       next: (res) => {
@@ -45,28 +50,43 @@ export class CampaignApplications {
       },
       error: (err) => {
         console.error(err);
+        this.loadError = this.errorHandler.getErrorMessage(err);
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
 
   accept(app: any) {
-    this.brandApi.updateApplicationStatus(app.id, 'ACCEPTED').subscribe(() => {
-      
-      app.status = 'ACCEPTED';
-      this.cdr.detectChanges();
-    });
+    this.updateStatus(app, 'ACCEPTED');
   }
 
   reject(app: any) {
-    this.brandApi.updateApplicationStatus(app.id, 'REJECTED').subscribe(() => {
-      app.status = 'REJECTED';
+    this.updateStatus(app, 'REJECTED');
+  }
+
+  // The badge only changes after a successful response, so a refused request never looks like a success.
+  private updateStatus(app: any, status: 'ACCEPTED' | 'REJECTED') {
+    this.actionError = '';
+
+    this.brandApi.updateApplicationStatus(app.id, status).subscribe({
+      next: () => {
+        app.status = status;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.actionError = this.errorHandler.getErrorMessage(err);
+        this.cdr.detectChanges();
+      }
     });
   }
+
  delete(app: any) {
   if (!confirm('Are you sure you want to delete this application?')) {
     return;
   }
+
+  this.actionError = '';
 
   this.brandApi.deleteCampaignApplication(app.id).subscribe({
     next: () => {
@@ -76,12 +96,13 @@ export class CampaignApplications {
 
       // 2. Tell Angular to check for changes
       this.cdr.detectChanges();
-      
+
       console.log('Application removed from UI');
     },
     error: (err) => {
       console.error('Delete failed:', err);
-      // show inline error on the card in a future iteration
+      this.actionError = this.errorHandler.getErrorMessage(err);
+      this.cdr.detectChanges();
     }
   });
 }

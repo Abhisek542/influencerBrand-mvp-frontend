@@ -10,10 +10,14 @@ export class ErrorHandlerService {
 
     if (error.error) {
       if (typeof error.error === 'string' && error.error.trim()) {
-        return error.error;
-      }
-
-      if (error.error.message) {
+        const parsed = this.parseJson(error.error);
+        if (!parsed) {
+          return error.error;
+        }
+        if (parsed.message) {
+          return parsed.message;
+        }
+      } else if (error.error.message) {
         return error.error.message;
       }
     }
@@ -33,6 +37,16 @@ export class ErrorHandlerService {
         return 'Something went wrong on the server.';
       default:
         return 'Something went wrong. Please try again.';
+    }
+  }
+
+  // Requests made with responseType 'text' receive the backend's JSON error body as a string.
+  private parseJson(text: string): { message?: string } | null {
+    try {
+      const parsed = JSON.parse(text);
+      return parsed && typeof parsed === 'object' ? parsed : null;
+    } catch {
+      return null;
     }
   }
 }

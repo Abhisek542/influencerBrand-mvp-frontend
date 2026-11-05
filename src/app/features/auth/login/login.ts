@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthApiService } from '../../../core/services/auth-api.service';
@@ -29,7 +29,8 @@ export class Login {
     private router: Router,
     private authApi: AuthApiService,
     private authState: AuthStateService,
-    private route: ActivatedRoute  // ✅ added
+    private route: ActivatedRoute,  // ✅ added
+    private cdr: ChangeDetectorRef
   ) {
     this.justRegistered = this.route.snapshot.queryParamMap.get('registered') === 'true'; // ✅ added
   }
@@ -56,6 +57,7 @@ export class Login {
       error: (err) => {
         this.error = 'Invalid email or password';
         this.loading = false;
+        this.cdr.detectChanges();
       },
 
     });

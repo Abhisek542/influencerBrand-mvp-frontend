@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ErrorHandlerService } from '../../../core/services/error-handler.service';
 import { API_SERVER_URL } from '../../../core/constants/api.constants';
+import { ChangePassword } from '../../../shared/components/change-password/change-password';
 
 @Component({
   selector: 'app-influencer-profile',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,ChangePassword],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
@@ -87,6 +88,7 @@ export class Profile {
 
   uploadProfileImage() {
     this.uploadError = '';
+    this.uploadSuccess = '';
 
     if (!this.selectedFile) {
       this.uploadError = 'Please select an image first.';

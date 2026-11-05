@@ -35,7 +35,8 @@ export class Register {
     private authState: AuthStateService,
     private errorHandler: ErrorHandlerService,
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private cdr: ChangeDetectorRef
   ) {}
 
   submit() {
@@ -72,6 +73,7 @@ export class Register {
             this.errorMessage = 'Something went wrong. Please try again.';
             console.error('ErrorHandler crashed:', e);
           }
+          this.cdr.detectChanges();
         
       }
 

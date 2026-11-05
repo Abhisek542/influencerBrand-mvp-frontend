@@ -13,6 +13,11 @@ import { environment } from '../../../environments/environment';
         REGISTER: `${API_BASE_URL}/auth/register`,
     },
 
+    USER:{
+
+        CHANGE_PASSWORD: `${API_BASE_URL}/user/change-password`,
+    },
+
     PROFILE:{
 
         GET: `${API_BASE_URL}/users/me`,

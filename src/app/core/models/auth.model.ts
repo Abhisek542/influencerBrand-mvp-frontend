@@ -18,3 +18,8 @@ export interface RegisterResponse{
     message: string;
     success: boolean;
 }
+
+export interface ChangePasswordRequest {
+  currentPassword: string;
+  newPassword: string;
+}

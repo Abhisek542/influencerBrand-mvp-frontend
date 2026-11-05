@@ -139,3 +139,14 @@
 .actions .danger:hover {
   background: #fee2e2;
 }
+
+/* ── Load and action errors ──────────────────────────────── */
+.action-error {
+  background: #fff5f5;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  color: #991b1b;
+  font-size: 13px;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+}

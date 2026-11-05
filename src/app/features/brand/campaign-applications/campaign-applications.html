@@ -10,7 +10,11 @@
   <span>Loading applications...</span>
 </div>
 
-<div class="applications-wrapper" *ngIf="!loading">
+<div class="action-error" *ngIf="!loading && loadError" role="alert">{{ loadError }}</div>
+
+<div class="applications-wrapper" *ngIf="!loading && !loadError">
+
+  <div class="action-error" *ngIf="actionError" role="alert">{{ actionError }}</div>
 
   <ng-container *ngIf="filteredApplications.length > 0; else noApplications">
 
